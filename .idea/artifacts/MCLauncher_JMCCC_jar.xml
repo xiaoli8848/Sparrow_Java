@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MCLauncher_JMCCC:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MCLauncher_JMCCC_jar</output-path>
+    <root id="archive" name="MCLauncher_JMCCC.jar">
+      <element id="module-output" name="MCLauncher_JMCCC" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-yggdrasil-authenticator/2.4/jmccc-yggdrasil-authenticator-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20140107/json-20140107.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc/2.4/jmccc-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/tukaani/xz/1.5/xz-1.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-mcdownloader/2.4/jmccc-mcdownloader-2.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

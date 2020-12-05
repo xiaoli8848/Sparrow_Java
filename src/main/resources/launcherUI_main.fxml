@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.launcherUI_Controller">
+    <children>
+        <Pane fx:id="infoPane" layoutX="732.0" layoutY="14.0" prefHeight="735.0" prefWidth="254.0" style="-fx-background-color:rgb(230,230,230)">
+            <children>
+                <ComboBox fx:id="gameVersionChooser" layoutX="14.0" layoutY="14.0" prefHeight="31.0" prefWidth="169.0" />
+                <Label fx:id="gameVersion" alignment="CENTER" layoutX="84.0" layoutY="67.0" prefHeight="24.0" prefWidth="162.0" text="未知" textAlignment="CENTER">
+                    <font>
+                        <Font name="DengXian Regular" size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="gameVersionLabel" alignment="CENTER" layoutX="14.0" layoutY="67.0" prefHeight="24.0" prefWidth="70.0" text="版本：" textAlignment="CENTER">
+                    <font>
+                        <Font name="DengXian Regular" size="20.0" />
+                    </font>
+                </Label>
+                <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="9.0" layoutY="142.0" prefHeight="24.0" prefWidth="80.0" text="玩家名：" textAlignment="CENTER">
+                    <font>
+                        <Font name="DengXian Regular" size="20.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="playerName" layoutX="93.0" layoutY="133.0" prefHeight="42.0" prefWidth="145.0">
+                    <font>
+                        <Font size="19.0" />
+                    </font>
+                </TextField>
+                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="@../../../target/classes/button.css" text="启动" textAlignment="CENTER">
+                    <font>
+                        <Font name="DengXian Regular" size="19.0" />
+                    </font>
+                </Button>
+                <Label fx:id="gamePathLabel" alignment="CENTER" layoutX="14.0" layoutY="103.0" prefHeight="24.0" prefWidth="70.0" text="路径：" textAlignment="CENTER">
+                    <font>
+                        <Font name="DengXian Regular" size="20.0" />
+                    </font>
+                </Label>
+                <Hyperlink fx:id="gamePath" layoutX="108.0" layoutY="93.0" prefHeight="32.0" prefWidth="115.0" text="Hyperlink" />
+            </children>
+        </Pane>
+        <WebView fx:id="browser" layoutX="14.0" layoutY="14.0" prefHeight="345.0" prefWidth="705.0" />
+    </children>
+</AnchorPane>
