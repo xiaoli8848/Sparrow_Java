@@ -1,4 +1,4 @@
-package com.MQ.UI;
+package com.MQ.UI.JavaFX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.MQ.launcher;
-import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.IOException;
 
@@ -23,8 +22,8 @@ public class launcherUI extends Application {
     public void start(Stage primaryStage) throws IOException{
         this.primaryStage = primaryStage;
         primaryStage.setTitle("MQ");
-        //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_main.fxml"));
-        FXMLLoader a = new FXMLLoader(launcher.class.getClassLoader().getResource("launcherUI_main.fxml"));
+        //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
+        FXMLLoader a = new FXMLLoader(launcher.class.getClassLoader().getResource("launcherUI_javafx.fxml"));
         Parent root = a.load();
         controller = a.getController();
         controller.Init();

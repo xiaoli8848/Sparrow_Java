@@ -1,4 +1,4 @@
-package com.MQ.UI;
+package com.MQ.UI.JavaFX;
 
 import com.MQ.GameClass.Minecraft;
 import javafx.collections.FXCollections;
