@@ -5,12 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class launcherUI_Controller {
@@ -29,6 +32,8 @@ public class launcherUI_Controller {
     private TextField playerName;
     @FXML
     private WebView browser;
+    @FXML
+    private Button rootDirChooseButton;
     private Minecraft[] mc;
 
     public void Init() {
@@ -66,9 +71,21 @@ public class launcherUI_Controller {
         return gameVersionChooser.getValue();
     }
 
+    public String getRootDir() {
+        return rootDir;
+    }
+
     @FXML
     void launchGame(ActionEvent event) {
         launcherUI.launchGamer();
+    }
+
+    @FXML
+    void chooseRootDir(ActionEvent event) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Open Resource File");
+        this.rootDir = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
+        Init();
     }
 }
 

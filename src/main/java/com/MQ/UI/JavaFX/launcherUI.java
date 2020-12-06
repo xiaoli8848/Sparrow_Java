@@ -12,7 +12,7 @@ import java.io.IOException;
 public class launcherUI extends Application {
     public static final String adURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
     public static launcherUI_Controller controller;
-    private static Stage primaryStage;
+    public static Stage primaryStage;
 
     public static void main(String[] args) {
         launch(args);
