@@ -69,12 +69,12 @@ public class launcher {
         try {
             option = new LaunchOption(
                     (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
-                    new OfflineAuthenticator(playerName), // 使用离线验证，用户名test_user
+                    new OfflineAuthenticator(playerName), // 使用离线验证
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
             option.setWindowSize(WindowSize.window(windowWidth, windowsHeight));
-            if (serverURL != null) {
+            if (serverURL != null && serverURL != "") {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
             }
@@ -127,68 +127,6 @@ public class launcher {
             onlineAuth = YggdrasilAuthenticator.password(username,password);
             option = new LaunchOption(
                     (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
-                    onlineAuth, // 使用在线验证
-                    new MinecraftDirectory(rootDir));
-            option.setMaxMemory(maxMemory);
-            option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowsHeight));
-            if (serverURL != null) {
-                URL svURL = new URL(serverURL);
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (org.to2mbn.jmccc.auth.AuthenticationException e){
-            e.printStackTrace();
-        }
-
-        // 启动游戏
-        try {
-            launcher.launch(option, new GameProcessListener() {
-
-                @Override
-                public void onLog(String log) {
-                    System.out.println(log); // 输出日志到控制台
-                }
-
-                @Override
-                public void onErrorLog(String log) {
-                    System.err.println(log); // 输出日志到控制台（同上）
-                }
-
-                @Override
-                public void onExit(int code) {
-                    System.err.println("游戏进程退出，状态码：" + code); // 游戏结束时输出状态码
-                }
-            });
-        } catch (LaunchException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void launch_online(String rootDir,
-                                      String gameVersion,
-                                      String username,
-                                      String password,
-                                      boolean debugPrint,
-                                      boolean nativesFC,
-                                      int minMemory,
-                                      int maxMemory,
-                                      int windowWidth,
-                                      int windowsHeight,
-                                      String serverURL
-    ) {
-        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
-                .setDebugPrintCommandline(debugPrint)
-                .setNativeFastCheck(nativesFC)
-                .build();
-
-        LaunchOption option = null;
-        try {
-            onlineAuth = YggdrasilAuthenticator.password(username,password);
-            option = new LaunchOption(
-                    //(String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
-                    gameVersion,
                     onlineAuth, // 使用在线验证
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);

@@ -35,14 +35,14 @@ public class launcherUI_Controller {
     @FXML
     private WebView browser;
 
-    private WebEngine browser_eng;
-
+    public String rootDir = "D:/Minecraft1.12.2/.minecraft";
     private Minecraft[] mc;
 
     public void Init() {
-        browser_eng = browser.getEngine();
-        mc = Minecraft.getMinecrafts(new MinecraftDirectory("D:/Minecraft1.12.2/.minecraft"));
-        ObservableList<String> options = null;
+        WebEngine browser_eng = browser.getEngine();
+        //TODO 替换rootDir
+        mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
+        ObservableList<String> options;
         if (mc[1].version != null && mc[1].version != "") {
             options =
                     FXCollections.observableArrayList(
@@ -58,7 +58,7 @@ public class launcherUI_Controller {
         gameVersionChooser.setItems(options);
         gameVersionChooser.setValue(mc[0].version);
         gameVersion.setText(mc[0].version);
-        browser_eng.load("http://xiaoli8848.usa3v.vip/JMCCC/");
+        browser_eng.load(launcherUI.adURL);
     }
 
     public String getPlayerName() {

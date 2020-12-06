@@ -6,12 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.MQ.launcher;
+import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.IOException;
 
 public class launcherUI extends Application {
     private static Stage primaryStage;
     public static launcherUI_Controller controller;
+    public static final String adURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
 
     public static void main(String[] args) {
         launch(args);
@@ -32,6 +34,7 @@ public class launcherUI extends Application {
     }
 
     public static void launchGamer(){
-        launcher.launch_offline(controller.getSelctMC().path,controller.getPlayerName(),true,true,0,0,500,500,"");
+        //TODO 替换rootDir和playerName
+        launcher.launch_offline("D:/Minecraft1.12.2/.minecraft","XiaoLi8848",true,true,0,0,500,500,"");
     }
 }
