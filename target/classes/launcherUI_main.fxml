@@ -34,7 +34,7 @@
                         <Font size="19.0" />
                     </font>
                 </TextField>
-                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="@../../target/classes/button.css" text="启动" textAlignment="CENTER">
+                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="@../../target/classes/button.css" text="启动" textAlignment="CENTER">
                     <font>
                         <Font name="DengXian Regular" size="19.0" />
                     </font>
