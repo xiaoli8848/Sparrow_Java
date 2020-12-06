@@ -22,6 +22,7 @@ import java.net.URL;
 
 public class launcher {
     static YggdrasilAuthenticator onlineAuth;
+
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {
             case 0: //离线登录
@@ -124,7 +125,7 @@ public class launcher {
 
         LaunchOption option = null;
         try {
-            onlineAuth = YggdrasilAuthenticator.password(username,password);
+            onlineAuth = YggdrasilAuthenticator.password(username, password);
             option = new LaunchOption(
                     (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
                     onlineAuth, // 使用在线验证
@@ -138,7 +139,7 @@ public class launcher {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (org.to2mbn.jmccc.auth.AuthenticationException e){
+        } catch (org.to2mbn.jmccc.auth.AuthenticationException e) {
             e.printStackTrace();
         }
 
@@ -166,7 +167,7 @@ public class launcher {
         }
     }
 
-    public static void download(String version, String path){
+    public static void download(String version, String path) {
         // 创建MinecraftDownloader
         MinecraftDownloader downloader = MinecraftDownloaderBuilder.create().build();
 
@@ -235,8 +236,8 @@ public class launcher {
         });
     }
 
-    public static void launch_offline(String gamePath, String userName, boolean debug, boolean fastCheck, int minMem, int maxMem, int windowWidth, int windowHeight, URL server){
-        String[] args = {"0",userName,String.valueOf(debug),String.valueOf(fastCheck),String.valueOf(minMem),String.valueOf(maxMem),String.valueOf(windowWidth),String.valueOf(windowHeight),server.toString()};
+    public static void launch_offline(String gamePath, String userName, boolean debug, boolean fastCheck, int minMem, int maxMem, int windowWidth, int windowHeight, URL server) {
+        String[] args = {"0", userName, String.valueOf(debug), String.valueOf(fastCheck), String.valueOf(minMem), String.valueOf(maxMem), String.valueOf(windowWidth), String.valueOf(windowHeight), server.toString()};
         main(args);
     }
 }

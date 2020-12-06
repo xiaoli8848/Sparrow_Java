@@ -14,28 +14,21 @@ import javafx.scene.web.WebView;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class launcherUI_Controller {
+    public String rootDir = "D:/Minecraft1.12.2/.minecraft";
     @FXML
     private Label gameVersionLabel;
-
     @FXML
     private ComboBox<String> gameVersionChooser;
-
     @FXML
     private Label gameVersion;
-
     @FXML
     private Pane infoPane;
-
     @FXML
     private Label playerNameLabel;
-
     @FXML
     private TextField playerName;
-
     @FXML
     private WebView browser;
-
-    public String rootDir = "D:/Minecraft1.12.2/.minecraft";
     private Minecraft[] mc;
 
     public void Init() {
