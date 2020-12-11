@@ -16,6 +16,9 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
+import java.io.File;
+import java.util.Locale;
+
 public class launcherUI_Controller {
     public String rootDir = "D:/Minecraft1.12.2/.minecraft";
     @FXML
@@ -83,8 +86,11 @@ public class launcherUI_Controller {
     @FXML
     void chooseRootDir(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Open Resource File");
-        this.rootDir = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
+        directoryChooser.setTitle(launcherUI.resourceBundle.getString("dialog.chooseRootDir"));
+        String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
+        if(chooserTemp != null){
+            this.rootDir = chooserTemp;
+        }
         Init();
     }
 }

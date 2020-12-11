@@ -8,11 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class launcherUI extends Application {
     public static final String adURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
+    public static Locale defaultLocale = Locale.getDefault();
+    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx",defaultLocale, launcher.class.getClassLoader());
 
     public static void main(String[] args) {
         launch(args);
@@ -28,7 +32,7 @@ public class launcherUI extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("MQ");
         //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
-        FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("launcherUI_javafx.fxml"));
+        FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
         Parent root = a.load();
         controller = a.getController();
         controller.Init();

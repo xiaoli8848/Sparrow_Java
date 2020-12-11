@@ -34,7 +34,7 @@
                         <Font size="19.0" />
                     </font>
                 </TextField>
-                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onMouseClicked="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="button.css" text="启动" textAlignment="CENTER">
+                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="button.css" text="启动" textAlignment="CENTER">
                     <font>
                         <Font name="DengXian Regular" size="19.0" />
                     </font>
@@ -50,9 +50,9 @@
                   <Font name="DengXian Regular" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="rootDirChooseButton" layoutX="113.0" layoutY="13.0" mnemonicParsing="false" onAction="#chooseRootDir" prefHeight="24.0" prefWidth="103.0" text="选择...">
+            <Button fx:id="rootDirChooseButton" layoutX="113.0" layoutY="9.0" mnemonicParsing="false" onMouseClicked="#chooseRootDir" prefHeight="40.0" prefWidth="100.0" text="选择">
                <font>
-                  <Font size="20.0" />
+                  <Font name="DengXian Regular" size="19.0" />
                </font>
             </Button>
             </children>
