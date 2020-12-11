@@ -34,7 +34,7 @@
                         <Font size="19.0" />
                     </font>
                 </TextField>
-                <Button layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="button.css" text="启动" textAlignment="CENTER">
+                <Button fx:id="launchButton" layoutX="143.0" layoutY="666.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="button.css" text="启动" textAlignment="CENTER">
                     <font>
                         <Font name="DengXian Regular" size="19.0" />
                     </font>
@@ -44,7 +44,7 @@
                         <Font name="DengXian Regular" size="20.0" />
                     </font>
                 </Label>
-                <Hyperlink fx:id="gamePath" layoutX="108.0" layoutY="159.0" prefHeight="32.0" prefWidth="115.0" text="Hyperlink" />
+                <Hyperlink fx:id="gamePathLink" layoutX="108.0" layoutY="159.0" prefHeight="32.0" prefWidth="115.0" text="Hyperlink" />
             <Label fx:id="rootDirLabel" layoutX="14.0" layoutY="14.0" text="根路径：">
                <font>
                   <Font name="DengXian Regular" size="20.0" />

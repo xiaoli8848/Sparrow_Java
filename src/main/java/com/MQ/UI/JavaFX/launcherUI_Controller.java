@@ -1,14 +1,12 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.GameClass.Minecraft;
+import com.MQ.launcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -18,27 +16,48 @@ import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class launcherUI_Controller {
     public String rootDir = "D:/Minecraft1.12.2/.minecraft";
     @FXML
     private Label gameVersionLabel;
+
     @FXML
-    private ComboBox<String> gameVersionChooser;
+    private Button launchButton;
+
     @FXML
-    private Label gameVersion;
+    private Label gamePathLabel;
+
     @FXML
-    private Pane infoPane;
-    @FXML
-    private Label playerNameLabel;
-    @FXML
-    private TextField playerName;
-    @FXML
-    private WebView browser;
+    private Hyperlink gamePathLink;
+
     @FXML
     private Button rootDirChooseButton;
-    private Minecraft[] mc;
 
+    @FXML
+    private TextField playerName;
+
+    @FXML
+    private WebView browser;
+
+    @FXML
+    private ComboBox<String> gameVersionChooser;
+
+    @FXML
+    private Label gameVersion;
+
+    @FXML
+    private Label rootDirLabel;
+
+    @FXML
+    private Label playerNameLabel;
+
+    @FXML
+    private Pane infoPane;
+
+    private Minecraft[] mc;
+    public static Profile profile = new Profile();
     public void Init() {
         WebEngine browser_eng = browser.getEngine();
         //TODO 替换rootDir
@@ -60,6 +79,7 @@ public class launcherUI_Controller {
         gameVersionChooser.setValue(mc[0].version);
         gameVersion.setText(mc[0].version);
         browser_eng.load(launcherUI.adURL);
+        launchLanguage(launcherUI.defaultLocale);
     }
 
     public String getPlayerName() {
@@ -83,10 +103,21 @@ public class launcherUI_Controller {
         launcherUI.launchGamer();
     }
 
+    public void launchLanguage(Locale locale){
+        launcherUI.defaultLocale = locale;
+        launcherUI.resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx",launcherUI.defaultLocale, launcher.class.getClassLoader());
+        this.gameVersionLabel.setText(launcherUI.getResString(profile.UI_MAIN_VERSION_LABEL));
+        this.playerNameLabel.setText(launcherUI.getResString(profile.UI_MAIN_PLAYER_NAME_LABEL));
+        this.rootDirChooseButton.setText(launcherUI.getResString(profile.UI_MAIN_CHOOSE));
+        this.launchButton.setText(launcherUI.getResString(profile.UI_MAIN_LAUNCH));
+        this.rootDirLabel.setText(launcherUI.getResString(profile.UI_MAIN_ROOT_DIR_LABEL));
+        this.gamePathLabel.setText(launcherUI.getResString(profile.UI_MAIN_PATH_LABEL));
+    }
+
     @FXML
     void chooseRootDir(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle(launcherUI.resourceBundle.getString("dialog.chooseRootDir"));
+        directoryChooser.setTitle(launcherUI.getResString(profile.UI_DIALOG_CHOOSE_ROOT_DIR));
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
         if(chooserTemp != null){
             this.rootDir = chooserTemp;
