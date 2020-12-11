@@ -16,7 +16,8 @@ public class launcherUI extends Application {
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
     public static Locale defaultLocale = Locale.getDefault();
-    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx",defaultLocale, launcher.class.getClassLoader());
+    public static ResourceBundle resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx", defaultLocale, launcher.class.getClassLoader());
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,6 +25,10 @@ public class launcherUI extends Application {
     public static void launchGamer() {
         //TODO 替换rootDir和playerName
         launcher.launch_offline("D:/Minecraft1.12.2/.minecraft", "XiaoLi8848", true, true, 0, 0, 500, 500, "");
+    }
+
+    public static String getResString(String name) {
+        return resourceBundle.getString(name);
     }
 
     @Override
@@ -38,9 +43,5 @@ public class launcherUI extends Application {
         Scene scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    public static String getResString(String name){
-        return resourceBundle.getString(name);
     }
 }
