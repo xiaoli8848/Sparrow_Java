@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  */
 public class launcherUI_Controller {
     public static Profile profile = new Profile();
-    public String rootDir = "D:/Minecraft1.12.2/.minecraft";
+    public String rootDir;
     @FXML
     private Label gameVersionLabel;
     @FXML
@@ -53,25 +53,29 @@ public class launcherUI_Controller {
     public void Init() {
         WebEngine browser_eng = browser.getEngine();
         //TODO 替换rootDir
-        mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-        ObservableList<String> options;
-        if (mc[1].version != null && mc[1].version != "") {
-            options =
-                    FXCollections.observableArrayList(
-                            mc[0].version,
-                            mc[1].version
-                    );
-        } else {
-            options =
-                    FXCollections.observableArrayList(
-                            mc[0].version
-                    );
+        try {
+            mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
+            ObservableList<String> options;
+            if (mc[1].version != null && mc[1].version != "") {
+                options =
+                        FXCollections.observableArrayList(
+                                mc[0].version,
+                                mc[1].version
+                        );
+            } else {
+                options =
+                        FXCollections.observableArrayList(
+                                mc[0].version
+                        );
+            }
+            gameVersionChooser.setItems(options);
+            gameVersionChooser.setValue(mc[0].version);
+            gameVersion.setText(mc[0].version);
+            browser_eng.load(launcherUI.coverURL);
+            launchLanguage(launcherUI.defaultLocale);
+        }catch (java.lang.NullPointerException e){
+            mc = new Minecraft[0];
         }
-        gameVersionChooser.setItems(options);
-        gameVersionChooser.setValue(mc[0].version);
-        gameVersion.setText(mc[0].version);
-        browser_eng.load(launcherUI.coverURL);
-        launchLanguage(launcherUI.defaultLocale);
     }
 
     /**
@@ -114,7 +118,8 @@ public class launcherUI_Controller {
      */
     @FXML
     void launchGame(ActionEvent event) {
-        launcherUI.launchGamer();
+        if(rootDir != null && rootDir != "")
+            launcherUI.launchGamer();
     }
 
     /**
