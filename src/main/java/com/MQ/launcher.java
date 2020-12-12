@@ -21,7 +21,86 @@ import java.io.IOException;
 import java.net.URL;
 
 public class launcher {
-    static YggdrasilAuthenticator onlineAuth;
+    public static GameProcessListener gameProcessListener = new GameProcessListener() {
+
+        @Override
+        public void onLog(String log) {
+            System.out.println(log); // 输出日志到控制台
+        }
+
+        @Override
+        public void onErrorLog(String log) {
+            System.err.println(log); // 输出日志到控制台（同上）
+        }
+
+        @Override
+        public void onExit(int code) {
+            System.err.println("游戏进程退出，状态码：" + code); // 游戏结束时输出状态码
+        }
+    };
+    public static CallbackAdapter<Version> combinedDownloadCallback = new CallbackAdapter<Version>() {
+
+        @Override
+        public void done(Version result) {
+            // 当完成时调用
+            // 参数代表实际下载到的Minecraft版本
+            System.out.printf("下载完成，下载到的Minecraft版本：%s%n", result);
+        }
+
+        @Override
+        public void failed(Throwable e) {
+            // 当失败时调用
+            // 参数代表是由于哪个异常而失败的
+            System.out.printf("下载失败%n");
+            e.printStackTrace();
+        }
+
+        @Override
+        public void cancelled() {
+            // 当被取消时调用
+            System.out.printf("下载取消%n");
+        }
+
+        @Override
+        public <R> DownloadCallback<R> taskStart(DownloadTask<R> task) {
+            // 当有一个下载任务被派生出来时调用
+            // 在这里返回一个DownloadCallback就可以监听该下载任务的状态
+            System.out.printf("开始下载：%s%n", task.getURI());
+            return new CallbackAdapter<R>() {
+
+                @Override
+                public void done(R result) {
+                    // 当这个DownloadTask完成时调用
+                    System.out.printf("子任务完成：%s%n", task.getURI());
+                }
+
+                @Override
+                public void failed(Throwable e) {
+                    // 当这个DownloadTask失败时调用
+                    System.out.printf("子任务失败：%s。原因：%s%n", task.getURI(), e);
+                }
+
+                @Override
+                public void cancelled() {
+                    // 当这个DownloadTask被取消时调用
+                    System.out.printf("子任务取消：%s%n", task.getURI());
+                }
+
+                @Override
+                public void retry(Throwable e, int current, int max) {
+                    // 当这个DownloadTask因出错而重试时调用
+                    // 重试不代表着失败
+                    // 也就是说，一个DownloadTask可以重试若干次，
+                    // 每次决定要进行一次重试时就会调用这个方法
+                    // 当最后一次重试失败，这个任务也将失败了，failed()才会被调用
+                    // 所以调用顺序就是这样：
+                    // retry()->retry()->...->failed()
+                    System.out.printf("子任务重试[%d/%d]：%s。原因：%s%n", current, max, task.getURI(), e);
+                }
+            };
+        }
+    };
+    private static YggdrasilAuthenticator onlineAuth;
 
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {
@@ -51,6 +130,18 @@ public class launcher {
         }
     }
 
+    /**
+     * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
+     * @param playerName   玩家名
+     * @param debugPrint   是否将调试信息输出
+     * @param nativesFC    是否执行natives文件夹完整性的快速检查
+     * @param minMemory    游戏可以使用的最小内存
+     * @param maxMemory    游戏可以使用的最大内存
+     * @param windowWidth  游戏窗口宽度
+     * @param windowHeight 游戏窗口高度
+     * @param serverURL    指定游戏启动后要进入的服务器的URL地址。可为空，则游戏启动后不进入任何服务器。
+     * @author XiaoLi8848, 1662423349@qq.com
+     */
     public static void launch_offline(String rootDir,
                                       String playerName,
                                       boolean debugPrint,
@@ -58,7 +149,7 @@ public class launcher {
                                       int minMemory,
                                       int maxMemory,
                                       int windowWidth,
-                                      int windowsHeight,
+                                      int windowHeight,
                                       String serverURL
     ) {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
@@ -74,7 +165,7 @@ public class launcher {
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowsHeight));
+            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
             if (serverURL != null && serverURL != "") {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
@@ -85,28 +176,25 @@ public class launcher {
 
         // 启动游戏
         try {
-            launcher.launch(option, new GameProcessListener() {
-
-                @Override
-                public void onLog(String log) {
-                    System.out.println(log); // 输出日志到控制台
-                }
-
-                @Override
-                public void onErrorLog(String log) {
-                    System.err.println(log); // 输出日志到控制台（同上）
-                }
-
-                @Override
-                public void onExit(int code) {
-                    System.err.println("游戏进程退出，状态码：" + code); // 游戏结束时输出状态码
-                }
-            });
+            launcher.launch(option, gameProcessListener);
         } catch (LaunchException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
+     * @param username     账号
+     * @param password     密码
+     * @param debugPrint   是否将调试信息输出
+     * @param nativesFC    是否执行natives文件夹完整性的快速检查
+     * @param minMemory    游戏可以使用的最小内存
+     * @param maxMemory    游戏可以使用的最大内存
+     * @param windowWidth  游戏窗口宽度
+     * @param windowHeight 游戏窗口高度
+     * @param serverURL    指定游戏启动后要进入的服务器的URL地址。可为空，则游戏启动后不进入任何服务器。
+     * @author XiaoLi8848, 1662423349@qq.com
+     */
     public static void launch_online(String rootDir,
                                      String username,
                                      String password,
@@ -115,7 +203,7 @@ public class launcher {
                                      int minMemory,
                                      int maxMemory,
                                      int windowWidth,
-                                     int windowsHeight,
+                                     int windowHeight,
                                      String serverURL
     ) {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
@@ -132,7 +220,7 @@ public class launcher {
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowsHeight));
+            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
             if (serverURL != null) {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
@@ -145,99 +233,23 @@ public class launcher {
 
         // 启动游戏
         try {
-            launcher.launch(option, new GameProcessListener() {
-
-                @Override
-                public void onLog(String log) {
-                    System.out.println(log); // 输出日志到控制台
-                }
-
-                @Override
-                public void onErrorLog(String log) {
-                    System.err.println(log); // 输出日志到控制台（同上）
-                }
-
-                @Override
-                public void onExit(int code) {
-                    System.err.println("游戏进程退出，状态码：" + code); // 游戏结束时输出状态码
-                }
-            });
+            launcher.launch(option, gameProcessListener);
         } catch (LaunchException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * @param version 要下载的游戏版本的版本号
+     * @param path    要下载到的路径
+     *                下载特定版本的Minecraft到指定路径。
+     * @author XiaoLi8848, 1662423349@qq.com
+     */
     public static void download(String version, String path) {
         // 创建MinecraftDownloader
         MinecraftDownloader downloader = MinecraftDownloaderBuilder.create().build();
 
         // 下载Minecraft
-        downloader.downloadIncrementally(new MinecraftDirectory(path), version, new CallbackAdapter<Version>() {
-
-            @Override
-            public void done(Version result) {
-                // 当完成时调用
-                // 参数代表实际下载到的Minecraft版本
-                System.out.printf("下载完成，下载到的Minecraft版本：%s%n", result);
-            }
-
-            @Override
-            public void failed(Throwable e) {
-                // 当失败时调用
-                // 参数代表是由于哪个异常而失败的
-                System.out.printf("下载失败%n");
-                e.printStackTrace();
-            }
-
-            @Override
-            public void cancelled() {
-                // 当被取消时调用
-                System.out.printf("下载取消%n");
-            }
-
-            @Override
-            public <R> DownloadCallback<R> taskStart(DownloadTask<R> task) {
-                // 当有一个下载任务被派生出来时调用
-                // 在这里返回一个DownloadCallback就可以监听该下载任务的状态
-                System.out.printf("开始下载：%s%n", task.getURI());
-                return new CallbackAdapter<R>() {
-
-                    @Override
-                    public void done(R result) {
-                        // 当这个DownloadTask完成时调用
-                        System.out.printf("子任务完成：%s%n", task.getURI());
-                    }
-
-                    @Override
-                    public void failed(Throwable e) {
-                        // 当这个DownloadTask失败时调用
-                        System.out.printf("子任务失败：%s。原因：%s%n", task.getURI(), e);
-                    }
-
-                    @Override
-                    public void cancelled() {
-                        // 当这个DownloadTask被取消时调用
-                        System.out.printf("子任务取消：%s%n", task.getURI());
-                    }
-
-                    @Override
-                    public void retry(Throwable e, int current, int max) {
-                        // 当这个DownloadTask因出错而重试时调用
-                        // 重试不代表着失败
-                        // 也就是说，一个DownloadTask可以重试若干次，
-                        // 每次决定要进行一次重试时就会调用这个方法
-                        // 当最后一次重试失败，这个任务也将失败了，failed()才会被调用
-                        // 所以调用顺序就是这样：
-                        // retry()->retry()->...->failed()
-                        System.out.printf("子任务重试[%d/%d]：%s。原因：%s%n", current, max, task.getURI(), e);
-                    }
-                };
-            }
-        });
-    }
-
-    public static void launch_offline(String gamePath, String userName, boolean debug, boolean fastCheck, int minMem, int maxMem, int windowWidth, int windowHeight, URL server) {
-        String[] args = {"0", userName, String.valueOf(debug), String.valueOf(fastCheck), String.valueOf(minMem), String.valueOf(maxMem), String.valueOf(windowWidth), String.valueOf(windowHeight), server.toString()};
-        main(args);
+        downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 }

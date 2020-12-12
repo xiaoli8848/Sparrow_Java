@@ -70,22 +70,22 @@ public class launcherUI_Controller {
         gameVersionChooser.setItems(options);
         gameVersionChooser.setValue(mc[0].version);
         gameVersion.setText(mc[0].version);
-        browser_eng.load(launcherUI.adURL);
+        browser_eng.load(launcherUI.coverURL);
         launchLanguage(launcherUI.defaultLocale);
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * @return 返回用户指定的玩家名。如果未指定，则返回缺省值“MQ”。
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     public String getPlayerName() {
         return playerName.getText() != "" ? playerName.getText() : "MQ";
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * @return 返回用户当前选中的游戏类（{@link com.MQ.GameClass.Minecraft}）。
      * 该方法不可用，待完善。
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     public Minecraft getSelctMC() {
         //TODO 依据用户指定的版本返回对应Minecraft
@@ -93,16 +93,16 @@ public class launcherUI_Controller {
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * @return 返回用户当前选中的游戏的版本号。如：1.7
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     public String getSelctVersion() {
         return gameVersionChooser.getValue();
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * @return 返回用户当前选中的游戏的根路径。即“.minecraft”文件夹的路径。
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     public String getRootDir() {
         return rootDir;

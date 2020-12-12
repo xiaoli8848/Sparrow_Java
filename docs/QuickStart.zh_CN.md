@@ -2,11 +2,11 @@
 
 基于 [JMCCC](https://github.com/to2mbn/JMCCC) 的Minecraft启动器。
 
-本项目是为**Windows平台**下的**Java版**Minecraft游戏打造的*游戏启动器*。它基于“[JMCCC](https://github.com/to2mbn/JMCCC)”（即一个开源的Java语言针对Minecraft启动的工具），实现了启动游戏~~（并在游戏运行中维护游戏进程以及玩家在线状态）~~、下载游戏的主要功能，并通过不同平台的UI（现有JavaFX和HTML5）与用户交互。
+本项目是为**Windows平台**下的**Java版**Minecraft游戏打造的*游戏启动器*。它是一个开源的Java语言针对Minecraft启动的工具），实现了启动游戏~~（并在游戏运行中维护游戏进程以及玩家在线状态）~~、下载游戏的主要功能，并通过不同平台的UI（现有JavaFX和HTML5）与用户交互。
 
 ## 协议 & 许可
 
-本项目采用协议 [LGPL](../LICENSE.txt)。
+本项目采用[LGPL](../LICENSE.txt)协议。
 
 ## （构建）环境
 本项目为主要使用IDEA（最旧版本为2020.1）开发的Java项目，使用Maven进行版本、依赖管理。  

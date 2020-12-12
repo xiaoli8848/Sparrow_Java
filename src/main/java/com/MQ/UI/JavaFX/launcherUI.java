@@ -11,8 +11,12 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * @author XiaoLi8848, 1662423349@qq.com
+ * 本类中提供了JavaFX UI平台的{@link #main(String[])}程序入口，以采用JavaFX UI启动程序。同时，本类中的{@link #coverURL}等公开静态（常）量，为{@link launcherUI_Controller}类或者其它UI类提供必要的参数。
+ */
 public class launcherUI extends Application {
-    public static final String adURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
+    public static final String coverURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
     public static Locale defaultLocale = Locale.getDefault();
