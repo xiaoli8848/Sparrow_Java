@@ -1,5 +1,6 @@
 package com.MQ.GameClass;
 
+import com.MQ.launcher;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.File;
 public class Minecraft {
     public String path;
     public String version;
+    public String rootPath;
 
     private Minecraft() {
     }
@@ -43,8 +45,13 @@ public class Minecraft {
             Minecraft temp = new Minecraft();
             temp.version = versions[i];
             temp.path = dir.getRoot().toString() + "/versions/" + versions[i] + "/";
+            temp.rootPath=dir.getRoot().getPath();
             result[result_ptr++] = temp;
         }
         return result;
+    }
+
+    public void launch(String playername,boolean debug,boolean FC,int minMem,int maxMem,int width, int height,String serverURL){
+        launcher.launch_offline(rootPath,version,playername,debug,FC,minMem,maxMem,width,height,serverURL);
     }
 }

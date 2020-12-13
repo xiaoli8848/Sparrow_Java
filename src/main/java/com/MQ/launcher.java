@@ -182,6 +182,48 @@ public class launcher {
         }
     }
 
+    public static void launch_offline(String rootDir,
+                                      String version,
+                                      String playerName,
+                                      boolean debugPrint,
+                                      boolean nativesFC,
+                                      int minMemory,
+                                      int maxMemory,
+                                      int windowWidth,
+                                      int windowHeight,
+                                      String serverURL
+    ) {
+        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
+                .setDebugPrintCommandline(debugPrint)
+                .setNativeFastCheck(nativesFC)
+                .build();
+
+        LaunchOption option = null;
+        try {
+            Object[] t = Versions.getVersions(new MinecraftDirectory(rootDir)).toArray();
+            option = new LaunchOption(
+                    t.length == 2 ? (String) t[0] == version ? (String) t[0] : (String) t[1] : (String) t[0], // 游戏版本
+                    new OfflineAuthenticator(playerName), // 使用离线验证
+                    new MinecraftDirectory(rootDir));
+            option.setMaxMemory(maxMemory);
+            option.setMinMemory(minMemory);
+            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
+            if (serverURL != null && serverURL != "") {
+                URL svURL = new URL(serverURL);
+                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // 启动游戏
+        try {
+            launcher.launch(option, gameProcessListener);
+        } catch (LaunchException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
      * @param username     账号
