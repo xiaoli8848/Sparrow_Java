@@ -37,8 +37,6 @@ public class launcherUI_Controller {
     @FXML
     private TextField playerName;
     @FXML
-    private WebView browser;
-    @FXML
     private ComboBox<String> gameVersionChooser;
     @FXML
     private Label gameVersion;
@@ -51,7 +49,7 @@ public class launcherUI_Controller {
     private Minecraft[] mc;
 
     public void Init() {
-        WebEngine browser_eng = browser.getEngine();
+        //WebEngine browser_eng = browser.getEngine();
         //TODO 替换rootDir
         try {
             mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
@@ -71,7 +69,7 @@ public class launcherUI_Controller {
             gameVersionChooser.setItems(options);
             gameVersionChooser.setValue(mc[0].version);
             gameVersion.setText(mc[0].version);
-            browser_eng.load(launcherUI.coverURL);
+            //browser_eng.load(launcherUI.coverURL);
             launchLanguage(launcherUI.defaultLocale);
         }catch (java.lang.NullPointerException e){
             mc = new Minecraft[0];
