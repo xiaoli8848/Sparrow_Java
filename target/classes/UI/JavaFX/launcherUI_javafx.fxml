@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import org.fxmisc.richtext.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
@@ -44,7 +45,7 @@
                         <Font name="DengXian Regular" size="20.0" />
                     </font>
                 </Label>
-                <Hyperlink fx:id="gamePathLink" layoutX="108.0" layoutY="159.0" prefHeight="32.0" prefWidth="115.0" text="Hyperlink" />
+                <Hyperlink fx:id="gamePathLink" layoutX="108.0" layoutY="159.0" onAction="#linkFire" prefHeight="45.0" prefWidth="115.0" text="Hyperlink" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
             <Label fx:id="rootDirLabel" layoutX="14.0" layoutY="14.0" text="根路径：">
                <font>
                   <Font name="DengXian Regular" size="20.0" />
@@ -57,6 +58,7 @@
             </Button>
             </children>
         </Pane>
-        <WebView fx:id="browser" layoutX="14.0" layoutY="14.0" prefHeight="345.0" prefWidth="705.0" />
+        <WebView fx:id="browser" layoutX="15.0" layoutY="15.0" prefHeight="345.0" prefWidth="700.0" />
+      <TextArea fx:id="logText" layoutX="15.0" layoutY="400.0" prefHeight="350.0" prefWidth="700.0" />
     </children>
 </AnchorPane>

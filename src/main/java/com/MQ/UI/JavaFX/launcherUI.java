@@ -28,7 +28,7 @@ public class launcherUI extends Application {
 
     public static void launchGamer() {
         //TODO 替换rootDir和playerName
-        controller.getSelctMC().launch("XiaoLi8848", true, true, 0, 0, 800, 500, "");
+        controller.getSelctMC().launch("XiaoLi8848", false, true, 0, 0, 800, 500, "");
     }
 
     public static String getResString(String name) {

@@ -2,17 +2,29 @@ package com.MQ.UI.JavaFX;
 
 import com.MQ.GameClass.Minecraft;
 import com.MQ.launcher;
+import com.sun.javafx.binding.StringFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
+import org.to2mbn.jmccc.exec.GameProcessListener;
+import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
+import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
+import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
+import org.to2mbn.jmccc.version.Version;
 
+import java.awt.*;
+import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -48,9 +60,12 @@ public class launcherUI_Controller {
     private Label playerNameLabel;
     @FXML
     private Pane infoPane;
+    @FXML
+    private TextArea logText;
     private Minecraft[] mc;
 
     public void Init() {
+        //launchLanguage(launcherUI.defaultLocale);
         WebEngine browser_eng = browser.getEngine();
         //TODO 替换rootDir
         try {
@@ -72,9 +87,94 @@ public class launcherUI_Controller {
             gameVersionChooser.setValue(mc[0].version);
             gameVersion.setText(mc[0].version);
             browser_eng.load(launcherUI.coverURL);
-            launchLanguage(launcherUI.defaultLocale);
         }catch (java.lang.NullPointerException e){
             mc = new Minecraft[0];
+        }
+
+        launcher.gameProcessListener = new GameProcessListener() {
+
+            @Override
+            public void onLog(String log) {
+                appendLog(log); // 输出日志到控制台
+            }
+
+            @Override
+            public void onErrorLog(String log) {
+                appendLog(log); // 输出日志到控制台（同上）
+            }
+
+            @Override
+            public void onExit(int code) {
+                appendLog("游戏进程停止。返回码：" + String.valueOf(code)); // 游戏结束时输出状态码
+            }
+        };
+
+        launcher.combinedDownloadCallback = new CallbackAdapter<Version>() {
+
+            @Override
+            public void done(Version result) {
+                // 当完成时调用
+                // 参数代表实际下载到的Minecraft版本
+                appendLog("MC（版本 " + result + " )下载完成。");
+            }
+
+            @Override
+            public void failed(Throwable e) {
+                // 当失败时调用
+                // 参数代表是由于哪个异常而失败的
+                appendLog("下载出现错误。");
+                e.printStackTrace();
+            }
+
+            @Override
+            public void cancelled() {
+                // 当被取消时调用
+                appendLog("下载取消。");
+            }
+
+            @Override
+            public <R> DownloadCallback<R> taskStart(DownloadTask<R> task) {
+                // 当有一个下载任务被派生出来时调用
+                // 在这里返回一个DownloadCallback就可以监听该下载任务的状态
+                System.out.printf("开始下载：%s%n", task.getURI());
+                return new CallbackAdapter<R>() {
+
+                    @Override
+                    public void done(R result) {
+                        // 当这个DownloadTask完成时调用
+                        appendLog("子任务完成：" + task.getURI());
+                    }
+
+                    @Override
+                    public void failed(Throwable e) {
+                        // 当这个DownloadTask失败时调用
+                        appendLog(String.valueOf(StringFormatter.format("子任务失败：%s。原因：%s", task.getURI(), e)));
+                    }
+
+                    @Override
+                    public void cancelled() {
+                        // 当这个DownloadTask被取消时调
+                        appendLog("子任务取消："+task.getURI());
+                    }
+
+                    @Override
+                    public void retry(Throwable e, int current, int max) {
+                        // 当这个DownloadTask因出错而重试时调用
+                        // 重试不代表着失败
+                        // 也就是说，一个DownloadTask可以重试若干次，
+                        // 每次决定要进行一次重试时就会调用这个方法
+                        // 当最后一次重试失败，这个任务也将失败了，failed()才会被调用
+                        // 所以调用顺序就是这样：
+                        // retry()->retry()->...->failed()
+                        appendLog(String.valueOf(StringFormatter.format("子任务重试[%d/%d]：%s。原因：%s%n", current, max, task.getURI(), e)));
+                    }
+                };
+            }
+        };
+        try {
+            gamePathLink.setText(getSelctMC().rootPath);
+        }catch (Exception e){
+            gamePathLink.setText("未知");
         }
     }
 
@@ -121,11 +221,11 @@ public class launcherUI_Controller {
         if(rootDir != null && rootDir != "")
             launcherUI.launchGamer();
     }
-
-    /**
+/*
+    *//**
      * @author XiaoLi8848, 1662423349@qq.com
      * 以特定语言重载UI上所有的文字。
-     */
+     *//*
     public void launchLanguage(Locale locale) {
         launcherUI.defaultLocale = locale;
         launcherUI.resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx", launcherUI.defaultLocale, launcher.class.getClassLoader());
@@ -135,7 +235,7 @@ public class launcherUI_Controller {
         this.launchButton.setText(launcherUI.getResString(profile.UI_MAIN_LAUNCH));
         this.rootDirLabel.setText(launcherUI.getResString(profile.UI_MAIN_ROOT_DIR_LABEL));
         this.gamePathLabel.setText(launcherUI.getResString(profile.UI_MAIN_PATH_LABEL));
-    }
+    }*/
 
     /**
      * @author XiaoLi8848, 1662423349@qq.com
@@ -150,6 +250,21 @@ public class launcherUI_Controller {
             this.rootDir = chooserTemp;
         }
         Init();
+    }
+
+    public void appendLog(String text){
+        logText.appendText(text + "\n");
+    }
+
+    @FXML
+    void linkFire(ActionEvent event){
+        Desktop desktop = Desktop.getDesktop();
+        File dirToOpen = null;
+        try {
+            dirToOpen = new File(gamePathLink.getText());
+            desktop.open(dirToOpen);
+        } catch (Exception e) {
+        }
     }
 }
 
