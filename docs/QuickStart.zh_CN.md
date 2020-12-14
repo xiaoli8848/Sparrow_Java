@@ -13,16 +13,16 @@
 
 请下载（克隆）整个仓库，并使用IDEA打开。然后使用Maven工具下载依赖。
 
-如果你需要构建项目，你可能需要最低JDK8，最高JDK15的运行时环境。另外，请确保环境中带有JavaFX环境。
+如果你需要构建项目，你可能需要JDK8的运行时环境。另外，请确保环境中带有JavaFX环境。
 
 ------
 
 如果不出意料，项目中应存在有设置好的构建配置，命名为：withUI_ + UI平台名。以下是两个现有的配置：
 
-|    配置名     |            主类             |                VM参数（如果JavaFX环境未预置）                |
-| :-----------: | :-------------------------: | :----------------------------------------------------------: |
-| withUI_JavaFX | com.MQ.UI.JavaFX.launcherUI | --module-path "请填入你安装的JavaFX的lib文件夹路径" --add-modules=javafx.controls,javafx.fxml,javafx.web |
-|   withUI_H5   |   com.MQ.UI.H5.launcherUI   | --module-path "请填入你安装的JavaFX的lib文件夹路径" --add-modules=javafx.controls,javafx.fxml,javafx.web |
+|    配置名     |            主类             |
+| :-----------: | :-------------------------:|
+| withUI_JavaFX | com.MQ.UI.JavaFX.launcherUI |
+|   withUI_H5   |   com.MQ.UI.H5.launcherUI |
 
 如果预期的配置不存在，请根据上表自行配置。
 
