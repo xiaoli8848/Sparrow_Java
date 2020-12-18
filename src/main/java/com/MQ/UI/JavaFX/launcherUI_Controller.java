@@ -25,6 +25,7 @@ import org.to2mbn.jmccc.version.Version;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -63,6 +64,7 @@ public class launcherUI_Controller {
     @FXML
     private TextArea logText;
     private Minecraft[] mc;
+    private String versionPointer;
 
     public void Init() {
         //launchLanguage(launcherUI.defaultLocale);
@@ -136,7 +138,7 @@ public class launcherUI_Controller {
             public <R> DownloadCallback<R> taskStart(DownloadTask<R> task) {
                 // 当有一个下载任务被派生出来时调用
                 // 在这里返回一个DownloadCallback就可以监听该下载任务的状态
-                System.out.printf("开始下载：%s%n", task.getURI());
+                appendLog("开始下载："+task.getURI());
                 return new CallbackAdapter<R>() {
 
                     @Override
@@ -192,8 +194,11 @@ public class launcherUI_Controller {
      * @author XiaoLi8848, 1662423349@qq.com
      */
     public Minecraft getSelctMC() {
-        //TODO 依据用户指定的版本返回对应Minecraft
-        return mc[0];
+        for(int i=0;i<mc.length;i++){
+            if(mc[i].version == versionPointer)
+                return mc[i];
+        }
+        return null;
     }
 
     /**
@@ -265,6 +270,34 @@ public class launcherUI_Controller {
             desktop.open(dirToOpen);
         } catch (Exception e) {
         }
+    }
+
+    @FXML
+    void changeGameVersion(ActionEvent event){
+        versionPointer = gameVersionChooser.getValue();
+    }
+
+    @FXML
+    void inputGame(ActionEvent event) {
+        chooseRootDir(event);
+    }
+
+    @FXML
+    void close(ActionEvent event) {
+        launcherUI.primaryStage.close();
+    }
+
+    @FXML
+    void gotoWebSite(ActionEvent event) {
+        try {
+            launcherUI.gotoWebSite(launcherUI.projectURL);
+        } catch (IOException e) {
+        }
+    }
+
+    @FXML
+    void showAbout(ActionEvent event) {
+
     }
 }
 

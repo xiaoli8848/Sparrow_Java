@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 
 public class launcher {
+    public static final String launcherVersion = "V0.1.0 - alpha";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
 
         @Override

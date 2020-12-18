@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
  */
 public class launcherUI extends Application {
     public static final String coverURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
+    public static final String projectURL = "https://github.com/xiaoli8848/MQ";
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
     public static Locale defaultLocale = Locale.getDefault();
@@ -47,5 +48,16 @@ public class launcherUI extends Application {
         Scene scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public static void gotoWebSite(String url) throws IOException{
+        java.net.URI uri = java.net.URI.create(url);
+        // 获取当前系统桌面扩展
+        java.awt.Desktop dp = java.awt.Desktop.getDesktop();
+        // 判断系统桌面是否支持要执行的功能
+        if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
+            dp.browse(uri);
+            // 获取系统默认浏览器打开链接
+        }
     }
 }

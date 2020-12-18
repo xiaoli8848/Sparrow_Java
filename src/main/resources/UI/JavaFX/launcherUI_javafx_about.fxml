@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.JavaFX.launcherUI_About_Controller">
+   <children>
+      <Label layoutX="255.0" layoutY="14.0" prefHeight="64.0" prefWidth="90.0" text="MQ" textAlignment="CENTER">
+         <font>
+            <Font name="DengXian Light" size="54.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
