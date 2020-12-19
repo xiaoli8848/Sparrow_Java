@@ -7,6 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
@@ -297,7 +301,21 @@ public class launcherUI_Controller {
 
     @FXML
     void showAbout(ActionEvent event) {
-
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle("MQ - About");
+        FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx_about.fxml"));
+        Parent root = null;
+        try {
+            root = a.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        launcherUI_About_Controller controller;
+        controller = a.getController();
+        controller.Init();
+        Scene scene = new Scene(root, 600, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
 

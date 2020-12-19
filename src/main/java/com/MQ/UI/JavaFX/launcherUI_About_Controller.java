@@ -1,7 +1,14 @@
 package com.MQ.UI.JavaFX;
 
-public class launcherUI_About_Controller {
-    public void Init(){
+import com.MQ.launcher;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 
+public class launcherUI_About_Controller {
+    @FXML
+    private Label version;
+
+    public void Init(){
+        version.setText(launcher.launcherVersion);
     }
 }

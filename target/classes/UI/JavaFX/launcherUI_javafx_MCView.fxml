@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root prefHeight="100.0" prefWidth="235.0" style="-fx-background-color: #7b8b83; -fx-background-radius: 20px;" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="versionImage" fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="version" layoutX="85.0" layoutY="10.0" text="1.7.10">
+         <font>
+            <Font name="DengXian Bold" size="24.0" />
+         </font></Label>
+      <Label fx:id="path" layoutX="85.0" layoutY="55.0" text="D:\.minecraft">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="15.0" />
+         </font>
+      </Label>
+      <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+   </children>
+</fx:root>
