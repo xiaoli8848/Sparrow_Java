@@ -22,6 +22,6 @@
             <Font name="Arial Rounded MT Bold" size="15.0" />
          </font>
       </Label>
-      <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+      <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" onMouseClicked="#changeVersion" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
    </children>
 </fx:root>

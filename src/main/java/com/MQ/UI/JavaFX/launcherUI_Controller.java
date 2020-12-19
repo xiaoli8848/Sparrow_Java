@@ -3,8 +3,6 @@ package com.MQ.UI.JavaFX;
 import com.MQ.GameClass.Minecraft;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
@@ -30,8 +31,6 @@ import org.to2mbn.jmccc.version.Version;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
@@ -42,33 +41,55 @@ public class launcherUI_Controller {
     public static Profile profile = new Profile();
     public String rootDir;
     @FXML
-    private Label gameVersionLabel;
-    @FXML
-    private Button launchButton;
-    @FXML
-    private Label gamePathLabel;
-    @FXML
     private Hyperlink gamePathLink;
+
     @FXML
-    private Button rootDirChooseButton;
+    private MenuItem help_About;
+
     @FXML
     private TextField playerName;
+
     @FXML
-    private WebView browser;
-    @FXML
-    private ComboBox<String> gameVersionChooser;
-    @FXML
-    private Label gameVersion;
+    private ImageView versionImage;
+
     @FXML
     private Label rootDirLabel;
+
     @FXML
     private Label playerNameLabel;
+
     @FXML
     private Pane infoPane;
+
     @FXML
     private TextArea logText;
+
+    @FXML
+    private Button launchButton;
+
+    @FXML
+    private Button rootDirChooseButton;
+
+    @FXML
+    private Circle unfoldButton;
+
+    @FXML
+    private WebView browser;
+
+    @FXML
+    private MenuItem help_WebSite;
+
+    @FXML
+    private Label gameVersion;
+
+    @FXML
+    private MenuItem file_Input;
+
+    @FXML
+    private MenuItem file_Close;
+
     private Minecraft[] mc;
-    private String versionPointer;
+    private int mc_pointer = 0;
 
     public void Init() {
         //launchLanguage(launcherUI.defaultLocale);
@@ -76,25 +97,16 @@ public class launcherUI_Controller {
         //TODO 替换rootDir
         try {
             mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-            ObservableList<String> options;
-            if (mc[1].version != null && mc[1].version != "") {
-                options =
-                        FXCollections.observableArrayList(
-                                mc[0].version,
-                                mc[1].version
-                        );
-            } else {
-                options =
-                        FXCollections.observableArrayList(
-                                mc[0].version
-                        );
-            }
-            gameVersionChooser.setItems(options);
-            gameVersionChooser.setValue(mc[0].version);
             gameVersion.setText(mc[0].version);
             browser_eng.load(launcherUI.coverURL);
         }catch (java.lang.NullPointerException e){
             mc = new Minecraft[0];
+            gameVersion.setText("未知");
+        }
+        try {
+            gamePathLink.setText(getSelectMC().rootPath);
+        }catch (Exception e){
+            gamePathLink.setText("未知");
         }
 
         launcher.gameProcessListener = new GameProcessListener() {
@@ -177,11 +189,6 @@ public class launcherUI_Controller {
                 };
             }
         };
-        try {
-            gamePathLink.setText(getSelctMC().rootPath);
-        }catch (Exception e){
-            gamePathLink.setText("未知");
-        }
     }
 
     /**
@@ -197,20 +204,16 @@ public class launcherUI_Controller {
      * 该方法不可用，待完善。
      * @author XiaoLi8848, 1662423349@qq.com
      */
-    public Minecraft getSelctMC() {
-        for(int i=0;i<mc.length;i++){
-            if(mc[i].version == versionPointer)
-                return mc[i];
-        }
-        return null;
+    public Minecraft getSelectMC() {
+        return mc[mc_pointer];
     }
 
     /**
      * @return 返回用户当前选中的游戏的版本号。如：1.7
      * @author XiaoLi8848, 1662423349@qq.com
      */
-    public String getSelctVersion() {
-        return gameVersionChooser.getValue();
+    public String getSelectVersion() {
+        return getSelectMC().version;
     }
 
     /**
@@ -277,8 +280,10 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    void changeGameVersion(ActionEvent event){
-        versionPointer = gameVersionChooser.getValue();
+    void changeGameVersion(){
+        if(mc_pointer < mc.length-1 && mc[mc_pointer].version != "" && mc[mc_pointer].version != null){
+            mc_pointer++;
+        }
     }
 
     @FXML
@@ -316,6 +321,11 @@ public class launcherUI_Controller {
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void updateVersionView(){
+        gameVersion.setText(getSelectVersion());
+        gamePathLink.setText(getSelectMC().rootPath);
     }
 }
 

@@ -29,7 +29,11 @@ public class Minecraft {
                 }
             }
         }
-
+        if(versions.length == 1){
+            String[] temp = new String[1];
+            temp[0] = versions[0];
+            return temp;
+        }
         return versions;
     }
 
@@ -47,6 +51,11 @@ public class Minecraft {
             temp.path = dir.getRoot().toString() + "/versions/" + versions[i] + "/";
             temp.rootPath=dir.getRoot().getPath();
             result[result_ptr++] = temp;
+        }
+        if(result.length == 1){
+            Minecraft[] temp = new Minecraft[1];
+            temp[0] = result[0];
+            return temp;
         }
         return result;
     }

@@ -8,8 +8,7 @@
   -fx-outline: none;
   -fx-color: #fff;
   -fx-background-color: #4CAF50;
-  -fx-border: none;
-  -fx-border-radius: 20px;
+  -fx-background-radius: 15px;
 }
 
 .button:hover {-fx-background-color: #3e8e41}

@@ -22,14 +22,14 @@ public class launcherUI extends Application {
     public static Stage primaryStage;
     public static Locale defaultLocale = Locale.getDefault();
     public static ResourceBundle resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx", defaultLocale, launcher.class.getClassLoader());
-
+    public static Parent root;
     public static void main(String[] args) {
         launch(args);
     }
 
     public static void launchGamer() {
         //TODO 替换rootDir和playerName
-        controller.getSelctMC().launch("XiaoLi8848", false, true, 0, 0, 800, 500, "");
+        controller.getSelectMC().launch("XiaoLi8848", false, true, 0, 0, 800, 500, "");
     }
 
     public static String getResString(String name) {
@@ -42,7 +42,7 @@ public class launcherUI extends Application {
         primaryStage.setTitle("MQ");
         //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
         FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
-        Parent root = a.load();
+        root = a.load();
         controller = a.getController();
         controller.Init();
         Scene scene = new Scene(root, 1000, 800);

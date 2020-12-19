@@ -1,6 +1,7 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.GameClass.Minecraft;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -36,11 +37,15 @@ public class launcherUI_MCView extends AnchorPane {
                     getClass().getResource("UI/JavaFX/launcherUI_javafx_MCView.fxml"));
             loader.setRoot(this);
             loader.setController(this);
-            this.version.setText(mc.get(0).version);
-            this.path.setText(mc.get(0).path);
+            if(mcs.length != 0) {
+                this.version.setText(mc.get(0).version);
+                this.path.setText(mc.get(0).rootPath);
+            }else{
+                this.version.setText("未知");
+                this.path.setText("未知");
+            }
             loader.load();
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -50,6 +55,20 @@ public class launcherUI_MCView extends AnchorPane {
 
     public Minecraft getSelectMC(){
         return mc.get(mc_pointer);
+    }
+
+    public void changeMC(Minecraft[] mcs){
+        mc=Arrays.asList(mcs);
+        mc_pointer=0;
+    }
+
+    @FXML
+    public void changeVersion(ActionEvent event){
+        if(mc_pointer < mc.size()-1){
+            mc_pointer++;
+            this.version.setText(mc.get(mc_pointer).version);
+            this.path.setText(mc.get(mc_pointer).rootPath);
+        }
     }
 }
 
