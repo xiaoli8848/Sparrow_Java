@@ -68,13 +68,16 @@ public class launcherUI_Controller {
     private Button launchButton;
 
     @FXML
+    private TabPane topPane;
+
+    @FXML
+    private Tab setTab;
+
+    @FXML
     private Button rootDirChooseButton;
 
     @FXML
     private Circle unfoldButton;
-
-    @FXML
-    private WebView browser;
 
     @FXML
     private MenuItem help_WebSite;
@@ -93,12 +96,9 @@ public class launcherUI_Controller {
 
     public void Init() {
         //launchLanguage(launcherUI.defaultLocale);
-        WebEngine browser_eng = browser.getEngine();
-        //TODO 替换rootDir
         try {
             mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
             gameVersion.setText(mc[0].version);
-            browser_eng.load(launcherUI.coverURL);
         }catch (java.lang.NullPointerException e){
             mc = new Minecraft[0];
             gameVersion.setText("未知");

@@ -56,7 +56,7 @@
                         <Font name="DengXian Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" onMouseClicked="#changeVersion" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" onMouseClicked="#changeGameVersion" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                   <Hyperlink fx:id="gamePathLink" layoutX="75.0" layoutY="58.0" text="D:\.minecraft" textFill="#725c5c">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
@@ -66,7 +66,6 @@
             </AnchorPane>
             </children>
         </Pane>
-        <WebView fx:id="browser" layoutX="15.0" layoutY="61.0" prefHeight="345.0" prefWidth="700.0" />
       <TextArea fx:id="logText" layoutX="15.0" layoutY="435.0" prefHeight="350.0" prefWidth="700.0" />
       <MenuBar prefHeight="51.0" prefWidth="1000.0">
         <menus>
@@ -88,11 +87,11 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TabPane fx:id="topPane" layoutX="14.0" layoutY="61.0" prefHeight="350.0" prefWidth="971.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="topPane" layoutX="14.0" layoutY="61.0" prefHeight="350.0" prefWidth="970.0" style="-fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="setTab" text="高级设置">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="292.0" prefWidth="961.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="970.0" style="-fx-background-color: rgb(230,230,230);" />
             </content>
           </Tab>
         </tabs>
