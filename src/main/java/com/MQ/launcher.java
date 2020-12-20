@@ -1,5 +1,6 @@
 package com.MQ;
 
+import org.to2mbn.jmccc.auth.AuthenticationException;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.auth.yggdrasil.YggdrasilAuthenticator;
 import org.to2mbn.jmccc.exec.GameProcessListener;
@@ -19,6 +20,8 @@ import org.to2mbn.jmccc.version.Versions;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class launcher {
     public static final String launcherVersion = "V0.1.0 - alpha";
@@ -153,34 +156,18 @@ public class launcher {
                                       int windowHeight,
                                       String serverURL
     ) {
-        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
-                .setDebugPrintCommandline(debugPrint)
-                .setNativeFastCheck(nativesFC)
-                .build();
-
-        LaunchOption option = null;
-        try {
-            option = new LaunchOption(
-                    (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
-                    new OfflineAuthenticator(playerName), // 使用离线验证
-                    new MinecraftDirectory(rootDir));
-            option.setMaxMemory(maxMemory);
-            option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
-            if (serverURL != null && serverURL != "") {
-                URL svURL = new URL(serverURL);
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        // 启动游戏
-        try {
-            launcher.launch(option, gameProcessListener);
-        } catch (LaunchException e) {
-            e.printStackTrace();
-        }
+        launch_offline(
+                rootDir,
+                (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0],
+                playerName,
+                debugPrint,
+                nativesFC,
+                minMemory,
+                maxMemory,
+                windowWidth,
+                windowHeight,
+                serverURL
+                );
     }
 
     public static void launch_offline(String rootDir,
@@ -203,7 +190,7 @@ public class launcher {
         try {
             Object[] t = Versions.getVersions(new MinecraftDirectory(rootDir)).toArray();
             option = new LaunchOption(
-                    t.length == 2 ? (String) t[0] == version ? (String) t[0] : (String) t[1] : (String) t[0], // 游戏版本
+                    t.length == 2 ? t[0] == version ? (String) t[0] : (String) t[1] : (String) t[0], // 游戏版本
                     new OfflineAuthenticator(playerName), // 使用离线验证
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
@@ -213,6 +200,9 @@ public class launcher {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
             }
+            Map<String, String> versionType = new HashMap<>();
+            versionType.put("version_type", "MQ "+launcherVersion);
+            option.setCommandlineVariables(versionType);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -268,9 +258,7 @@ public class launcher {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (org.to2mbn.jmccc.auth.AuthenticationException e) {
+        } catch (IOException | AuthenticationException e) {
             e.printStackTrace();
         }
 

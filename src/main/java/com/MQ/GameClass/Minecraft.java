@@ -45,11 +45,11 @@ public class Minecraft {
         Minecraft[] result = new Minecraft[2];
         int result_ptr = 0;
         String[] versions = getMinecraftVersions(dir);
-        for (int i = 0; i < versions.length; i++) {
+        for (String s : versions) {
             Minecraft temp = new Minecraft();
-            temp.version = versions[i];
-            temp.path = dir.getRoot().toString() + "/versions/" + versions[i] + "/";
-            temp.rootPath=dir.getRoot().getPath();
+            temp.version = s;
+            temp.path = dir.getRoot().toString() + "/versions/" + s + "/";
+            temp.rootPath = dir.getRoot().getPath();
             result[result_ptr++] = temp;
         }
         if(result.length == 1){
