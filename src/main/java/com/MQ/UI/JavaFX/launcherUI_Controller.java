@@ -21,6 +21,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.controlsfx.control.RangeSlider;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
@@ -47,25 +48,19 @@ public class launcherUI_Controller {
     private MenuItem help_About;
 
     @FXML
-    private TextField playerName;
+    private RangeSlider memory;
+
+    @FXML
+    private TextField user_name;
 
     @FXML
     private ImageView versionImage;
 
     @FXML
-    private Label rootDirLabel;
-
-    @FXML
     private Label playerNameLabel;
 
     @FXML
-    private Pane infoPane;
-
-    @FXML
     private TextArea logText;
-
-    @FXML
-    private Button launchButton;
 
     @FXML
     private TabPane topPane;
@@ -74,19 +69,49 @@ public class launcherUI_Controller {
     private Tab setTab;
 
     @FXML
+    private PasswordField password;
+
+    @FXML
+    private MenuItem help_WebSite;
+
+    @FXML
+    private MenuItem file_Input;
+
+    @FXML
+    private TextField height;
+
+    @FXML
+    private TextField playerName;
+
+    @FXML
+    private Label rootDirLabel;
+
+    @FXML
+    private Pane infoPane;
+
+    @FXML
+    private Button launchButton;
+
+    @FXML
     private Button rootDirChooseButton;
 
     @FXML
     private Circle unfoldButton;
 
     @FXML
-    private MenuItem help_WebSite;
+    private CheckBox isAutoMem;
+
+    @FXML
+    private TextField width;
 
     @FXML
     private Label gameVersion;
 
     @FXML
-    private MenuItem file_Input;
+    private CheckBox isFullScreen;
+
+    @FXML
+    private CheckBox isOnlineLaunch;
 
     @FXML
     private MenuItem file_Close;
@@ -96,6 +121,9 @@ public class launcherUI_Controller {
 
     public void Init() {
         //launchLanguage(launcherUI.defaultLocale);
+        ableAutoMem();
+        ableOffline();
+        ableFullScreen();
         try {
             mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
             gameVersion.setText(mc[0].version);
@@ -196,7 +224,7 @@ public class launcherUI_Controller {
      * @author XiaoLi8848, 1662423349@qq.com
      */
     public String getPlayerName() {
-        return playerName.getText() != "" ? playerName.getText() : "MQ";
+        return playerName.getText().length() > 0 ? playerName.getText() : "MQ";
     }
 
     /**
@@ -283,6 +311,7 @@ public class launcherUI_Controller {
     void changeGameVersion(){
         if(mc_pointer < mc.length-1 && mc[mc_pointer].version != "" && mc[mc_pointer].version != null){
             mc_pointer++;
+            updateVersionView();
         }
     }
 
@@ -326,6 +355,113 @@ public class launcherUI_Controller {
     public void updateVersionView(){
         gameVersion.setText(getSelectVersion());
         gamePathLink.setText(getSelectMC().rootPath);
+    }
+
+    @FXML
+    void isOnline(ActionEvent event){
+        if(isOnlineLaunch.isSelected()){
+            ableOnline();
+        }else{
+            ableOffline();
+        }
+    }
+
+    @FXML
+    void isMem(ActionEvent event){
+        if(isAutoMem.isSelected()){
+            ableAutoMem();
+        }else{
+            ableManMem();
+        }
+    }
+
+    @FXML
+    void isFull(ActionEvent event){
+        if(isFullScreen.isSelected()){
+            ableFullScreen();
+        }else{
+            ableNotFullScreen();
+        }
+    }
+
+    private void ableOnline(){
+        isOnlineLaunch.setSelected(true);
+        playerName.setDisable(true);
+        user_name.setDisable(false);
+        password.setDisable(false);
+    }
+
+    private void ableOffline(){
+        isOnlineLaunch.setSelected(false);
+        playerName.setDisable(false);
+        user_name.setDisable(true);
+        password.setDisable(true);
+    }
+
+    private void ableAutoMem(){
+        isAutoMem.setSelected(true);
+        memory.setDisable(true);
+    }
+
+    private void ableManMem(){
+        isAutoMem.setSelected(false);
+        memory.setDisable(false);
+    }
+
+    private void ableFullScreen(){
+        isFullScreen.setSelected(true);
+        width.setDisable(true);
+        height.setDisable(true);
+    }
+
+    private void ableNotFullScreen(){
+        isFullScreen.setSelected(false);
+        width.setDisable(false);
+        height.setDisable(false);
+    }
+
+    public int getMaxMem(){
+        if(isAutoMem.isSelected())
+            return 0;
+        if(memory.getMax() > memory.getMin()){
+            return Integer.parseInt(String.valueOf(memory.getMax()));
+        }else{
+            ableAutoMem();
+            return 0;
+        }
+    }
+
+    public int getMinMem(){
+        if(isAutoMem.isSelected())
+            return 0;
+        if(memory.getMin() < memory.getMax()){
+            return Integer.parseInt(String.valueOf(memory.getMin()));
+        }else{
+            ableAutoMem();
+            return 0;
+        }
+    }
+
+    public int getWidth() {
+        if(isFullScreen.isSelected())
+            return 0;
+        if(Integer.parseInt(width.getText()) >= 0){
+            return Integer.parseInt(width.getText());
+        }else{
+            ableFullScreen();
+            return 0;
+        }
+    }
+
+    public int getHeight() {
+        if(isFullScreen.isSelected())
+            return 0;
+        if(Integer.parseInt(height.getText()) >= 0){
+            return Integer.parseInt(height.getText());
+        }else{
+            ableFullScreen();
+            return 0;
+        }
     }
 }
 

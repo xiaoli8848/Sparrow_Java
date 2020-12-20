@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class launcher {
-    public static final String launcherVersion = "V0.1.0 - alpha";
+    public static final String launcherVersion = "V0.1.0";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
 
         @Override
@@ -170,6 +170,19 @@ public class launcher {
                 );
     }
 
+    /**
+     * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
+     * @param version      要启动的版本（如1.8）
+     * @param playerName   玩家名
+     * @param debugPrint   是否将调试信息输出
+     * @param nativesFC    是否执行natives文件夹完整性的快速检查
+     * @param minMemory    游戏可以使用的最小内存
+     * @param maxMemory    游戏可以使用的最大内存
+     * @param windowWidth  游戏窗口宽度
+     * @param windowHeight 游戏窗口高度
+     * @param serverURL    指定游戏启动后要进入的服务器的URL地址。可为空，则游戏启动后不进入任何服务器。
+     * @author XiaoLi8848, 1662423349@qq.com
+     */
     public static void launch_offline(String rootDir,
                                       String version,
                                       String playerName,
@@ -195,18 +208,34 @@ public class launcher {
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
+            if(windowHeight > 0 && windowWidth > 0)
+                option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
+            else
+                option.setWindowSize(WindowSize.fullscreen());
             if (serverURL != null && serverURL != "") {
                 URL svURL = new URL(serverURL);
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
             }
-            Map<String, String> versionType = new HashMap<>();
-            versionType.put("version_type", "MQ "+launcherVersion);
-            option.setCommandlineVariables(versionType);
+            setVersionTypeToMQ(option);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // 启动游戏
+        try {
+            launcher.launch(option, gameProcessListener);
+        } catch (LaunchException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void launch_offline(String rootDir, boolean debugPrint, boolean nativesFC, LaunchOption option) {
+        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
+                .setDebugPrintCommandline(debugPrint)
+                .setNativeFastCheck(nativesFC)
+                .build();
+
+        setVersionTypeToMQ(option);
         // 启动游戏
         try {
             launcher.launch(option, gameProcessListener);
@@ -282,5 +311,11 @@ public class launcher {
 
         // 下载Minecraft
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
+    }
+
+    public static void setVersionTypeToMQ(LaunchOption option){
+        Map<String, String> versionType = new HashMap<>();
+        versionType.put("version_type", "MQ "+launcherVersion);
+        option.setCommandlineVariables(versionType);
     }
 }
