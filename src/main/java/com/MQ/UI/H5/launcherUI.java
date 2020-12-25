@@ -15,7 +15,7 @@ public class launcherUI extends Application {
     private static Stage primaryStage;
 
     public static void main(String[] args) {
-        Application.launch(launcherUI.class,args);
+        Application.launch(launcherUI.class, args);
     }
 
     public static void launchGamer() {

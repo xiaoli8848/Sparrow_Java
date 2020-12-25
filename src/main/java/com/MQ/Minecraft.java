@@ -1,6 +1,5 @@
-package com.MQ.GameClass;
+package com.MQ;
 
-import com.MQ.launcher;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
@@ -19,17 +18,16 @@ public class Minecraft {
         int ver_ptr = 0;
         File[] subdirs = dir.getVersions().listFiles();
         if (subdirs != null) {
-            File[] var3 = subdirs;
             int var4 = subdirs.length;
 
             for (int var5 = 0; var5 < var4; ++var5) {
-                File file = var3[var5];
+                File file = subdirs[var5];
                 if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
                     versions[ver_ptr++] = file.getName();
                 }
             }
         }
-        if(versions.length == 1){
+        if (versions.length == 1) {
             String[] temp = new String[1];
             temp[0] = versions[0];
             return temp;
@@ -52,7 +50,7 @@ public class Minecraft {
             temp.rootPath = dir.getRoot().getPath();
             result[result_ptr++] = temp;
         }
-        if(result.length == 1){
+        if (result.length == 1) {
             Minecraft[] temp = new Minecraft[1];
             temp[0] = result[0];
             return temp;
@@ -60,7 +58,7 @@ public class Minecraft {
         return result;
     }
 
-    public void launch(String playername,boolean debug,boolean FC,int minMem,int maxMem,int width, int height,String serverURL){
-        launcher.launch_offline(rootPath,version,playername,debug,FC,minMem,maxMem,width,height,serverURL);
+    public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
+        launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
     }
 }

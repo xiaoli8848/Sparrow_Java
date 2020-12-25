@@ -1,13 +1,10 @@
 package com.MQ;
 
-import org.to2mbn.jmccc.auth.AuthenticationException;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
-import org.to2mbn.jmccc.auth.yggdrasil.YggdrasilAuthenticator;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
-import org.to2mbn.jmccc.mcdownloader.MinecraftDownloader;
-import org.to2mbn.jmccc.mcdownloader.MinecraftDownloaderBuilder;
+import org.to2mbn.jmccc.mcdownloader.RemoteVersionList;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
@@ -23,10 +20,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class launcher {
-    public static final String launcherVersion = "V0.1.0";
-    public static GameProcessListener gameProcessListener = new GameProcessListener() {
+import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
 
+public class launcher {
+    public static final String launcherVersion = "V0.2.0 - alpha";
+    public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
             System.out.println(log); // 输出日志到控制台
@@ -104,7 +102,6 @@ public class launcher {
             };
         }
     };
-    private static YggdrasilAuthenticator onlineAuth;
 
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {
@@ -121,14 +118,10 @@ public class launcher {
                         args[9] //进入游戏后要进入的服务器，可为null
                 );
                 break;
-            case 1: //在线登录
-                //TODO 在线登录
-
-                break;
-            case 2: //下载游戏
-                download(
+            case 1: //下载游戏
+                downloadGame(
                         args[1],    //游戏版本
-                        args[2] //目标路径
+                        args[2]     //目标路径
                 );
 
         }
@@ -167,7 +160,7 @@ public class launcher {
                 windowWidth,
                 windowHeight,
                 serverURL
-                );
+        );
     }
 
     /**
@@ -208,7 +201,7 @@ public class launcher {
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
-            if(windowHeight > 0 && windowWidth > 0)
+            if (windowHeight > 0 && windowWidth > 0)
                 option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
             else
                 option.setWindowSize(WindowSize.fullscreen());
@@ -244,78 +237,9 @@ public class launcher {
         }
     }
 
-    /**
-     * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
-     * @param username     账号
-     * @param password     密码
-     * @param debugPrint   是否将调试信息输出
-     * @param nativesFC    是否执行natives文件夹完整性的快速检查
-     * @param minMemory    游戏可以使用的最小内存
-     * @param maxMemory    游戏可以使用的最大内存
-     * @param windowWidth  游戏窗口宽度
-     * @param windowHeight 游戏窗口高度
-     * @param serverURL    指定游戏启动后要进入的服务器的URL地址。可为空，则游戏启动后不进入任何服务器。
-     * @author XiaoLi8848, 1662423349@qq.com
-     */
-    public static void launch_online(String rootDir,
-                                     String username,
-                                     String password,
-                                     boolean debugPrint,
-                                     boolean nativesFC,
-                                     int minMemory,
-                                     int maxMemory,
-                                     int windowWidth,
-                                     int windowHeight,
-                                     String serverURL
-    ) {
-        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
-                .setDebugPrintCommandline(debugPrint)
-                .setNativeFastCheck(nativesFC)
-                .build();
-
-        LaunchOption option = null;
-        try {
-            onlineAuth = YggdrasilAuthenticator.password(username, password);
-            option = new LaunchOption(
-                    (String) Versions.getVersions(new MinecraftDirectory(rootDir)).toArray()[0], // 游戏版本
-                    onlineAuth, // 使用在线验证
-                    new MinecraftDirectory(rootDir));
-            option.setMaxMemory(maxMemory);
-            option.setMinMemory(minMemory);
-            option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
-            if (serverURL != null) {
-                URL svURL = new URL(serverURL);
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
-            }
-        } catch (IOException | AuthenticationException e) {
-            e.printStackTrace();
-        }
-
-        // 启动游戏
-        try {
-            launcher.launch(option, gameProcessListener);
-        } catch (LaunchException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * @param version 要下载的游戏版本的版本号
-     * @param path    要下载到的路径
-     *                下载特定版本的Minecraft到指定路径。
-     * @author XiaoLi8848, 1662423349@qq.com
-     */
-    public static void download(String version, String path) {
-        // 创建MinecraftDownloader
-        MinecraftDownloader downloader = MinecraftDownloaderBuilder.create().build();
-
-        // 下载Minecraft
-        downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
-    }
-
-    public static void setVersionTypeToMQ(LaunchOption option){
+    public static void setVersionTypeToMQ(LaunchOption option) {
         Map<String, String> versionType = new HashMap<>();
-        versionType.put("version_type", "MQ "+launcherVersion);
+        versionType.put("version_type", "MQ " + launcherVersion);
         option.setCommandlineVariables(versionType);
     }
 }

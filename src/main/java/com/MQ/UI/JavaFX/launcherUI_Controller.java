@@ -1,6 +1,6 @@
 package com.MQ.UI.JavaFX;
 
-import com.MQ.GameClass.Minecraft;
+import com.MQ.Minecraft;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.event.ActionEvent;
@@ -8,21 +8,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
+import org.json.JSONObject;
 import org.to2mbn.jmccc.exec.GameProcessListener;
+import org.to2mbn.jmccc.mcdownloader.MinecraftDownloader;
+import org.to2mbn.jmccc.mcdownloader.MinecraftDownloaderBuilder;
+import org.to2mbn.jmccc.mcdownloader.RemoteVersion;
+import org.to2mbn.jmccc.mcdownloader.RemoteVersionList;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
@@ -32,6 +36,9 @@ import org.to2mbn.jmccc.version.Version;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+
+import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
@@ -39,8 +46,9 @@ import java.io.IOException;
  * 本类中提供了访问UI上提供的启动游戏必备的参数的方法，例如 {@link #getRootDir}。
  */
 public class launcherUI_Controller {
-    public static Profile profile = new Profile();
     public String rootDir;
+    public String downloadDir;
+    public String downloadVersion;
     @FXML
     private Hyperlink gamePathLink;
 
@@ -78,13 +86,22 @@ public class launcherUI_Controller {
     private MenuItem file_Input;
 
     @FXML
+    private TextField download_MC_version;
+
+    @FXML
     private TextField height;
+
+    @FXML
+    private Button download_MC_Button;
+
+    @FXML
+    private Tab downloadTab;
 
     @FXML
     private TextField playerName;
 
     @FXML
-    private Label rootDirLabel;
+    private Button download_MC_Path;
 
     @FXML
     private Pane infoPane;
@@ -119,23 +136,10 @@ public class launcherUI_Controller {
     private Minecraft[] mc;
     private int mc_pointer = 0;
 
-    public void Init() {
-        //launchLanguage(launcherUI.defaultLocale);
+    public void install() {
         ableAutoMem();
         ableOffline();
         ableFullScreen();
-        try {
-            mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-            gameVersion.setText(mc[0].version);
-        }catch (java.lang.NullPointerException e){
-            mc = new Minecraft[0];
-            gameVersion.setText("未知");
-        }
-        try {
-            gamePathLink.setText(getSelectMC().rootPath);
-        }catch (Exception e){
-            gamePathLink.setText("未知");
-        }
 
         launcher.gameProcessListener = new GameProcessListener() {
 
@@ -151,7 +155,8 @@ public class launcherUI_Controller {
 
             @Override
             public void onExit(int code) {
-                appendLog("游戏进程停止。返回码：" + String.valueOf(code)); // 游戏结束时输出状态码
+                freeArgs();
+                appendLog("游戏进程停止。返回码：" + code); // 游戏结束时输出状态码
             }
         };
 
@@ -182,7 +187,7 @@ public class launcherUI_Controller {
             public <R> DownloadCallback<R> taskStart(DownloadTask<R> task) {
                 // 当有一个下载任务被派生出来时调用
                 // 在这里返回一个DownloadCallback就可以监听该下载任务的状态
-                appendLog("开始下载："+task.getURI());
+                appendLog("开始下载：" + task.getURI());
                 return new CallbackAdapter<R>() {
 
                     @Override
@@ -200,7 +205,7 @@ public class launcherUI_Controller {
                     @Override
                     public void cancelled() {
                         // 当这个DownloadTask被取消时调
-                        appendLog("子任务取消："+task.getURI());
+                        appendLog("子任务取消：" + task.getURI());
                     }
 
                     @Override
@@ -219,6 +224,22 @@ public class launcherUI_Controller {
         };
     }
 
+    public void Init() {
+        //launchLanguage(launcherUI.defaultLocale);
+        try {
+            mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
+            gameVersion.setText(mc[0].version);
+        } catch (java.lang.NullPointerException e) {
+            mc = new Minecraft[0];
+            gameVersion.setText("未知");
+        }
+        try {
+            gamePathLink.setText(getSelectMC().rootPath);
+        } catch (Exception e) {
+            gamePathLink.setText("未知");
+        }
+    }
+
     /**
      * @return 返回用户指定的玩家名。如果未指定，则返回缺省值“MQ”。
      * @author XiaoLi8848, 1662423349@qq.com
@@ -228,7 +249,7 @@ public class launcherUI_Controller {
     }
 
     /**
-     * @return 返回用户当前选中的游戏类（{@link com.MQ.GameClass.Minecraft}）。
+     * @return 返回用户当前选中的游戏类（{@link Minecraft}）。
      * 该方法不可用，待完善。
      * @author XiaoLi8848, 1662423349@qq.com
      */
@@ -258,24 +279,20 @@ public class launcherUI_Controller {
      */
     @FXML
     void launchGame(ActionEvent event) {
-        if(rootDir != null && rootDir != "")
-            launcherUI.launchGamer();
+        if (rootDir != null && rootDir != "") {
+            if (!isOnlineLaunch.isSelected()) {
+                lockArgs();
+                launcherUI.launchGameOffline();
+            } else {
+                if (user_name.getText() != "" && password.getText() != "") {
+                    lockArgs();
+                    launcherUI.launchGameOnline();
+                } else {
+                    //TODO 处理空账号/密码
+                }
+            }
+        }
     }
-/*
-    *//**
-     * @author XiaoLi8848, 1662423349@qq.com
-     * 以特定语言重载UI上所有的文字。
-     *//*
-    public void launchLanguage(Locale locale) {
-        launcherUI.defaultLocale = locale;
-        launcherUI.resourceBundle = ResourceBundle.getBundle("UI/JavaFX/properties/UI-javafx", launcherUI.defaultLocale, launcher.class.getClassLoader());
-        this.gameVersionLabel.setText(launcherUI.getResString(profile.UI_MAIN_VERSION_LABEL));
-        this.playerNameLabel.setText(launcherUI.getResString(profile.UI_MAIN_PLAYER_NAME_LABEL));
-        this.rootDirChooseButton.setText(launcherUI.getResString(profile.UI_MAIN_CHOOSE));
-        this.launchButton.setText(launcherUI.getResString(profile.UI_MAIN_LAUNCH));
-        this.rootDirLabel.setText(launcherUI.getResString(profile.UI_MAIN_ROOT_DIR_LABEL));
-        this.gamePathLabel.setText(launcherUI.getResString(profile.UI_MAIN_PATH_LABEL));
-    }*/
 
     /**
      * @author XiaoLi8848, 1662423349@qq.com
@@ -284,20 +301,20 @@ public class launcherUI_Controller {
     @FXML
     void chooseRootDir(ActionEvent event) {
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle(launcherUI.getResString(profile.UI_DIALOG_CHOOSE_ROOT_DIR));
+        directoryChooser.setTitle("选择“.minecraft”文件夹");
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
         if (chooserTemp != null) {
-            this.rootDir = chooserTemp;
+            rootDir = chooserTemp;
         }
         Init();
     }
 
-    public void appendLog(String text){
+    public void appendLog(String text) {
         logText.appendText(text + "\n");
     }
 
     @FXML
-    void linkFire(ActionEvent event){
+    void linkFire(ActionEvent event) {
         Desktop desktop = Desktop.getDesktop();
         File dirToOpen = null;
         try {
@@ -308,8 +325,8 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    void changeGameVersion(){
-        if(mc_pointer < mc.length-1 && mc[mc_pointer].version != "" && mc[mc_pointer].version != null){
+    void changeGameVersion() {
+        if (mc_pointer < mc.length - 1 && mc[mc_pointer].version != "" && mc[mc_pointer].version != null) {
             mc_pointer++;
             updateVersionView();
         }
@@ -352,116 +369,156 @@ public class launcherUI_Controller {
         primaryStage.show();
     }
 
-    public void updateVersionView(){
+    public void updateVersionView() {
         gameVersion.setText(getSelectVersion());
         gamePathLink.setText(getSelectMC().rootPath);
     }
 
     @FXML
-    void isOnline(ActionEvent event){
-        if(isOnlineLaunch.isSelected()){
+    void isOnline(ActionEvent event) {
+        if (isOnlineLaunch.isSelected()) {
             ableOnline();
-        }else{
+        } else {
             ableOffline();
         }
     }
 
     @FXML
-    void isMem(ActionEvent event){
-        if(isAutoMem.isSelected()){
+    void isMem(ActionEvent event) {
+        if (isAutoMem.isSelected()) {
             ableAutoMem();
-        }else{
+        } else {
             ableManMem();
         }
     }
 
     @FXML
-    void isFull(ActionEvent event){
-        if(isFullScreen.isSelected()){
+    void isFull(ActionEvent event) {
+        if (isFullScreen.isSelected()) {
             ableFullScreen();
-        }else{
+        } else {
             ableNotFullScreen();
         }
     }
 
-    private void ableOnline(){
+    private void ableOnline() {
         isOnlineLaunch.setSelected(true);
         playerName.setDisable(true);
         user_name.setDisable(false);
         password.setDisable(false);
+        versionImage.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("UI/JavaFX/imgs/iron_sword_double.png"))));
     }
 
-    private void ableOffline(){
+    private void ableOffline() {
         isOnlineLaunch.setSelected(false);
         playerName.setDisable(false);
         user_name.setDisable(true);
         password.setDisable(true);
+        versionImage.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("UI/JavaFX/imgs/iron_sword.png"))));
     }
 
-    private void ableAutoMem(){
+    private void ableAutoMem() {
         isAutoMem.setSelected(true);
         memory.setDisable(true);
     }
 
-    private void ableManMem(){
+    private void ableManMem() {
         isAutoMem.setSelected(false);
         memory.setDisable(false);
     }
 
-    private void ableFullScreen(){
+    private void ableFullScreen() {
         isFullScreen.setSelected(true);
         width.setDisable(true);
         height.setDisable(true);
     }
 
-    private void ableNotFullScreen(){
+    private void ableNotFullScreen() {
         isFullScreen.setSelected(false);
         width.setDisable(false);
         height.setDisable(false);
     }
 
-    public int getMaxMem(){
-        if(isAutoMem.isSelected())
+    public int getMaxMem() {
+        if (isAutoMem.isSelected())
             return 0;
-        if(memory.getMax() > memory.getMin()){
-            return Integer.parseInt(String.valueOf(memory.getMax()));
-        }else{
+        if (memory.getMax() > memory.getMin()) {
+            return new Double(memory.getHighValue()).intValue();
+        } else {
             ableAutoMem();
             return 0;
         }
     }
 
-    public int getMinMem(){
-        if(isAutoMem.isSelected())
+    public int getMinMem() {
+        if (isAutoMem.isSelected())
             return 0;
-        if(memory.getMin() < memory.getMax()){
-            return Integer.parseInt(String.valueOf(memory.getMin()));
-        }else{
+        if (memory.getMin() < memory.getMax()) {
+            return new Double(memory.getLowValue()).intValue();
+        } else {
             ableAutoMem();
             return 0;
         }
     }
 
     public int getWidth() {
-        if(isFullScreen.isSelected())
+        if (isFullScreen.isSelected())
             return 0;
-        if(Integer.parseInt(width.getText()) >= 0){
+        if (Integer.parseInt(width.getText()) >= 0) {
             return Integer.parseInt(width.getText());
-        }else{
+        } else {
             ableFullScreen();
             return 0;
         }
     }
 
     public int getHeight() {
-        if(isFullScreen.isSelected())
+        if (isFullScreen.isSelected())
             return 0;
-        if(Integer.parseInt(height.getText()) >= 0){
+        if (Integer.parseInt(height.getText()) >= 0) {
             return Integer.parseInt(height.getText());
-        }else{
+        } else {
             ableFullScreen();
             return 0;
         }
+    }
+
+    public String getUserName() {
+        return user_name.getText();
+    }
+
+    public String getPassword() {
+        return password.getText();
+    }
+
+    public void lockArgs() {
+        setTab.setDisable(true);
+    }
+
+    public void freeArgs() {
+        setTab.setDisable(false);
+    }
+
+    @FXML
+    public void choosePath_MC(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("选择“.minecraft”文件夹");
+        String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
+        if (chooserTemp != null) {
+            downloadDir = chooserTemp;
+        }
+    }
+
+    @FXML
+    public void download_MC(){
+        if(new File(downloadDir).exists()){
+            downloadGame(download_MC_version.getText(),downloadDir);
+        }
+    }
+
+    @FXML
+    public void chooseVersion_MC(){
+        downloadVersion=download_MC_version.getText();
     }
 }
 

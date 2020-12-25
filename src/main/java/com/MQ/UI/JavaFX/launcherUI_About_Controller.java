@@ -8,7 +8,7 @@ public class launcherUI_About_Controller {
     @FXML
     private Label version;
 
-    public void Init(){
+    public void Init() {
         version.setText(launcher.launcherVersion);
     }
 }

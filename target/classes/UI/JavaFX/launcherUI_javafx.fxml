@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.media.*?>
 <?import org.controlsfx.control.tableview2.*?>
 <?import org.controlsfx.control.*?>
 <?import com.sun.javafx.charts.*?>
@@ -17,7 +18,12 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.JavaFX.launcherUI_Controller">
     <children>
-        <Pane fx:id="infoPane" layoutX="729.0" layoutY="476.0" prefHeight="250.0" prefWidth="255.0" style="-fx-background-color:rgb(230,230,230)">
+      <ImageView fitHeight="800.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@imgs/defaultBackground.jpeg" />
+         </image>
+      </ImageView>
+        <Pane fx:id="infoPane" layoutX="729.0" layoutY="465.0" prefHeight="250.0" prefWidth="255.0">
             <children>
                 <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="14.0" layoutY="207.0" prefHeight="24.0" prefWidth="80.0" text="玩家名：" textAlignment="CENTER">
                     <font>
@@ -29,17 +35,12 @@
                         <Font size="19.0" />
                     </font>
                 </TextField>
-            <Label fx:id="rootDirLabel" layoutX="14.0" layoutY="14.0" text="根路径：">
-               <font>
-                  <Font name="DengXian Regular" size="20.0" />
-               </font>
-            </Label>
-            <Button fx:id="rootDirChooseButton" layoutX="113.0" layoutY="9.0" mnemonicParsing="false" onAction="#chooseRootDir" prefHeight="40.0" prefWidth="100.0" text="选择">
+            <Button fx:id="rootDirChooseButton" layoutX="69.0" layoutY="14.0" mnemonicParsing="false" onAction="#chooseRootDir" prefHeight="40.0" prefWidth="118.0" text="导入游戏">
                <font>
                   <Font name="DengXian Regular" size="19.0" />
                </font>
             </Button>
-            <AnchorPane layoutX="10.0" layoutY="79.0" prefHeight="100.0" prefWidth="235.0" style="-fx-background-color: #7b8b83; -fx-background-radius: 20px;">
+            <AnchorPane layoutX="10.0" layoutY="79.0" opacity="0.9" prefHeight="100.0" prefWidth="235.0" style="-fx-background-color: #7b8b83; -fx-background-radius: 20px;">
                <children>
                   <ImageView fx:id="versionImage" fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +62,7 @@
             </AnchorPane>
             </children>
         </Pane>
-      <TextArea fx:id="logText" layoutX="14.0" layoutY="471.0" prefHeight="310.0" prefWidth="700.0" />
+      <TextArea fx:id="logText" layoutX="14.0" layoutY="471.0" opacity="0.9" prefHeight="310.0" prefWidth="700.0" />
       <MenuBar prefHeight="51.0" prefWidth="1000.0">
         <menus>
           <Menu mnemonicParsing="false" text="文件">
@@ -82,9 +83,9 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TabPane fx:id="topPane" layoutX="14.0" layoutY="61.0" prefHeight="395.0" prefWidth="970.0" style="-fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="topPane" layoutX="14.0" layoutY="61.0" opacity="0.9" prefHeight="395.0" prefWidth="970.0" style="-fx-background-radius: 10px;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab fx:id="setTab" text="高级设置">
+          <Tab fx:id="setTab" text="启动设置">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="290.0" prefWidth="970.0" style="-fx-background-color: rgb(230,230,230);">
                      <children>
@@ -119,7 +120,7 @@
                         </AnchorPane>
                         <Pane layoutX="14.0" layoutY="197.0" prefHeight="129.0" prefWidth="369.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
                            <children>
-                              <RangeSlider fx:id="memory" highValue="512.0" layoutX="27.0" layoutY="60.0" lowValue="0.0" majorTickUnit="1024.0" max="4096.0" minorTickCount="512" prefHeight="55.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                              <RangeSlider fx:id="memory" blockIncrement="256.0" highValue="1024.0" highValueChanging="true" layoutX="27.0" layoutY="60.0" lowValue="0.0" lowValueChanging="true" majorTickUnit="1024.0" max="4096.0" minorTickCount="512" prefHeight="55.0" prefWidth="315.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                               <CheckBox fx:id="isAutoMem" layoutX="106.0" layoutY="14.0" mnemonicParsing="false" onAction="#isMem" text="自动分配内存">
                                  <font>
                                     <Font size="20.0" />
@@ -129,7 +130,7 @@
                         </Pane>
                         <AnchorPane layoutX="223.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="173.0" prefWidth="160.0" style="-fx-background-color: white; -fx-background-radius: 10px;">
                            <children>
-                              <TextField fx:id="width" layoutX="63.0" layoutY="67.0" prefHeight="31.0" prefWidth="90.0" promptText="Width" text="800">
+                              <TextField fx:id="width" layoutX="63.0" layoutY="67.0" prefHeight="31.0" prefWidth="90.0" promptText="Width" text="1000">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -149,7 +150,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </CheckBox>
-                              <TextField fx:id="height" layoutX="63.0" layoutY="123.0" prefHeight="31.0" prefWidth="90.0" promptText="Height" text="1000">
+                              <TextField fx:id="height" layoutX="63.0" layoutY="123.0" prefHeight="31.0" prefWidth="90.0" promptText="Height" text="700">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -159,9 +160,45 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab fx:id="downloadTab" text="下载">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-border-color: black; -fx-background-color: white; -fx-border-radius: 5px;">
+                     <children>
+                        <Pane layoutX="14.0" layoutY="14.0" prefHeight="310.0" prefWidth="235.0" style="-fx-background-color: rgb(230,230,230); -fx-background-radius: 10px;">
+                           <children>
+                              <Label layoutX="14.0" layoutY="75.0" text="版本：">
+                                 <font>
+                                    <Font name="DengXian Regular" size="24.0" />
+                                 </font></Label>
+                              <Label layoutX="14.0" layoutY="149.0" text="路径：">
+                                 <font>
+                                    <Font name="DengXian Regular" size="24.0" />
+                                 </font></Label>
+                              <Button fx:id="download_MC_Path" layoutX="112.0" layoutY="141.0" mnemonicParsing="false" onAction="#choosePath_MC" prefHeight="51.0" prefWidth="80.0" text="选择" />
+                              <Label layoutX="46.0" layoutY="8.0" text="Minecraft">
+                                 <font>
+                                    <Font name="DengXian Regular" size="35.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="download_MC_Button" layoutX="118.0" layoutY="235.0" mnemonicParsing="false" onAction="#download_MC" prefHeight="48.0" prefWidth="103.0" stylesheets="@button.css" text="下载" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="DengXian Regular" size="19.0" />
+                                 </font>
+                              </Button>
+                              <TextField fx:id="download_MC_version" layoutX="87.0" layoutY="72.0" onAction="#chooseVersion_MC" prefHeight="42.0" prefWidth="130.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
-          <Button fx:id="launchButton" layoutX="880.0" layoutY="735.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="@button.css" text="启动" textAlignment="CENTER">
+          <Button fx:id="launchButton" layoutX="880.0" layoutY="725.0" mnemonicParsing="false" onAction="#launchGame" prefHeight="48.0" prefWidth="103.0" stylesheets="@button.css" text="启动" textAlignment="CENTER">
               <font>
                   <Font name="DengXian Regular" size="19.0" />
               </font>

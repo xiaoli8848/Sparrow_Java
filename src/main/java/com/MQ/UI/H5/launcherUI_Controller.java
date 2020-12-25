@@ -1,13 +1,13 @@
 package com.MQ.UI.H5;
 
-import com.MQ.GameClass.Minecraft;
+import com.MQ.Minecraft;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class launcherUI_Controller {
-    public String rootDir = "D:/Minecraft1.12.2/.minecraft";
+    public String rootDir;
     @FXML
     private WebView browser;
     private Minecraft[] mc;
