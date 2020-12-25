@@ -1,6 +1,7 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
+import com.MQ.Tools.WindowsNotification;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.event.ActionEvent;
@@ -21,12 +22,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
-import org.json.JSONObject;
 import org.to2mbn.jmccc.exec.GameProcessListener;
-import org.to2mbn.jmccc.mcdownloader.MinecraftDownloader;
-import org.to2mbn.jmccc.mcdownloader.MinecraftDownloaderBuilder;
-import org.to2mbn.jmccc.mcdownloader.RemoteVersion;
-import org.to2mbn.jmccc.mcdownloader.RemoteVersionList;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
@@ -36,7 +32,6 @@ import org.to2mbn.jmccc.version.Version;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
 
@@ -157,6 +152,10 @@ public class launcherUI_Controller {
             public void onExit(int code) {
                 freeArgs();
                 appendLog("游戏进程停止。返回码：" + code); // 游戏结束时输出状态码
+                try {
+                    WindowsNotification.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
+                } catch (AWTException awtException) {
+                }
             }
         };
 
@@ -167,6 +166,10 @@ public class launcherUI_Controller {
                 // 当完成时调用
                 // 参数代表实际下载到的Minecraft版本
                 appendLog("MC（版本 " + result + " )下载完成。");
+                try {
+                    WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "MC版本：" + result + "已下载完成。");
+                } catch (AWTException awtException) {
+                }
             }
 
             @Override
@@ -174,6 +177,10 @@ public class launcherUI_Controller {
                 // 当失败时调用
                 // 参数代表是由于哪个异常而失败的
                 appendLog("下载出现错误。");
+                try {
+                    WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "下载MC时遇到错误：" + e.toString());
+                } catch (AWTException awtException) {
+                }
                 e.printStackTrace();
             }
 
@@ -500,7 +507,7 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    public void choosePath_MC(){
+    public void choosePath_MC() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("选择“.minecraft”文件夹");
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
@@ -510,15 +517,15 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    public void download_MC(){
-        if(new File(downloadDir).exists()){
-            downloadGame(download_MC_version.getText(),downloadDir);
+    public void download_MC() {
+        if (new File(downloadDir).exists()) {
+            downloadGame(download_MC_version.getText(), downloadDir);
         }
     }
 
     @FXML
-    public void chooseVersion_MC(){
-        downloadVersion=download_MC_version.getText();
+    public void chooseVersion_MC() {
+        downloadVersion = download_MC_version.getText();
     }
 }
 
