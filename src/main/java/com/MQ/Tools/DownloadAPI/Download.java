@@ -1,19 +1,25 @@
 package com.MQ.Tools.DownloadAPI;
 
+import com.MQ.UI.JavaFX.launcherUI;
 import org.to2mbn.jmccc.mcdownloader.MinecraftDownloader;
 import org.to2mbn.jmccc.mcdownloader.MinecraftDownloaderBuilder;
-import org.to2mbn.jmccc.mcdownloader.RemoteVersionList;
-import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
-import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
 import org.to2mbn.jmccc.mcdownloader.provider.DefaultLayoutProvider;
 import org.to2mbn.jmccc.mcdownloader.provider.MinecraftDownloadProvider;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeDownloadProvider;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderDownloadProvider;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
+import org.to2mbn.jmccc.mcdownloader.provider.MojangDownloadProvider;
 
 import static com.MQ.launcher.combinedDownloadCallback;
 
 public class Download {
-    public static final DefaultLayoutProvider defaultDownloadAPI = new BMCL();
+    public static final DefaultLayoutProvider defaultDownloadAPI = new MojangDownloadProvider();
+    public static final ForgeDownloadProvider forgeProvider = new ForgeDownloadProvider();
+    public static final LiteloaderDownloadProvider liteloaderProvider = new LiteloaderDownloadProvider();
+    public static MinecraftDownloader downloader;
 
     public static void downloadGame(MinecraftDownloader downloader, String version, String path) {
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
@@ -61,11 +67,13 @@ public class Download {
                         .setDefaultTries(tries)
                         .setUseVersionDownloadInfo(useDownloadVersionInfo)
                         .setCheckAssetsHash(checkAssetsHash)
-                        .setCheckLibrariesHash(checkLibrariesHash);
+                        .setCheckLibrariesHash(checkLibrariesHash)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider);
         for (MinecraftDownloadProvider provider : downloadProviders) {
             downloaderTemp = downloaderTemp.appendProvider(provider);
         }
-        MinecraftDownloader downloader = downloaderTemp.build();
+        downloader = downloaderTemp.build();
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
@@ -109,8 +117,10 @@ public class Download {
                         .setDefaultTries(tries)
                         .setUseVersionDownloadInfo(useDownloadVersionInfo)
                         .setCheckAssetsHash(checkAssetsHash)
-                        .setCheckLibrariesHash(checkLibrariesHash);
-        MinecraftDownloader downloader = downloaderTemp.build();
+                        .setCheckLibrariesHash(checkLibrariesHash)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider);
+        downloader = downloaderTemp.build();
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
@@ -152,8 +162,10 @@ public class Download {
                         .setDefaultTries(tries)
                         .setUseVersionDownloadInfo(useDownloadVersionInfo)
                         .setCheckAssetsHash(checkAssetsHash)
-                        .setCheckLibrariesHash(checkLibrariesHash);
-        MinecraftDownloader downloader = downloaderTemp.build();
+                        .setCheckLibrariesHash(checkLibrariesHash)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider);
+        downloader = downloaderTemp.build();
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
@@ -186,8 +198,10 @@ public class Download {
                         .setDefaultTries(tries)
                         .setUseVersionDownloadInfo(useDownloadVersionInfo)
                         .setCheckAssetsHash(checkAssetsHash)
-                        .setCheckLibrariesHash(checkLibrariesHash);
-        MinecraftDownloader downloader = downloaderTemp.build();
+                        .setCheckLibrariesHash(checkLibrariesHash)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider);
+        downloader = downloaderTemp.build();
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
@@ -205,8 +219,10 @@ public class Download {
                 MinecraftDownloaderBuilder.create()
                         .setBaseProvider(defaultDownloadAPI)
                         .setCheckAssetsHash(checkAssetsHash)
-                        .setCheckLibrariesHash(checkLibrariesHash);
-        MinecraftDownloader downloader = downloaderTemp.build();
+                        .setCheckLibrariesHash(checkLibrariesHash)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider);
+        downloader = downloaderTemp.build();
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
@@ -215,11 +231,45 @@ public class Download {
         MinecraftDownloader downloader =
                 MinecraftDownloaderBuilder.create()
                         .setBaseProvider(defaultDownloadAPI)
+                        //.appendProvider(forgeProvider)
+                        //.appendProvider(liteloaderProvider)
                         .build();
 
         // 下载Minecraft
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
     }
 
+    public static void downloadForgeVersionList() {
+        downloader =
+                MinecraftDownloaderBuilder
+                        .create()
+                        .setBaseProvider(defaultDownloadAPI)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider)
+                        .build();
+        downloader.download(forgeProvider.forgeVersionList(), new CallbackAdapter<ForgeVersionList>() {
+            @Override
+            public void done(ForgeVersionList result) {
+                launcherUI.controller.appendLog("Forge版本信息更新完毕。");
+                launcherUI.controller.updateForgeVersion(result);
+            }
+        });
+    }
 
+    public static void downloadLiteloaderVersionList() {
+        downloader =
+                MinecraftDownloaderBuilder
+                        .create()
+                        .setBaseProvider(defaultDownloadAPI)
+                        .appendProvider(forgeProvider)
+                        .appendProvider(liteloaderProvider)
+                        .build();
+        downloader.download(liteloaderProvider.liteloaderVersionList(), new CallbackAdapter<LiteloaderVersionList>() {
+            @Override
+            public void done(LiteloaderVersionList result) {
+                launcherUI.controller.appendLog("LiteLoader版本信息更新完毕。");
+                launcherUI.controller.updateLiteloader(result);
+            }
+        });
+    }
 }

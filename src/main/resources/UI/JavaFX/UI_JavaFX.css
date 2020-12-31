@@ -1,0 +1,41 @@
+.Pane_white{
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+}
+
+.Pane_gray{
+    -fx-background-color:  rgb(230,230,230);
+    -fx-background-radius: 10px;
+}
+
+.button_apply {
+  -fx-display: inline-block;
+  -fx-padding: 13px 20px;
+  -fx-font-size: 24px;
+  -fx-cursor: pointer;
+  -fx-text-align: center;
+  -fx-text-decoration: none;
+  -fx-outline: none;
+  -fx-color: #fff;
+  -fx-background-color: #4CAF50;
+  -fx-background-radius: 15px;
+}
+
+.button_apply:hover {-fx-background-color: #3e8e41}
+
+.button_apply:active {
+  -fx-background-color: #3e8e41;
+}
+
+.button_choose{
+-fx-display: inline-block;
+  -fx-padding: 13px 20px;
+  -fx-font-size: 20px;
+  -fx-cursor: pointer;
+  -fx-text-align: center;
+  -fx-text-decoration: none;
+  -fx-outline: none;
+  -fx-color: black;
+  -fx-background-color: gray;
+  -fx-background-radius: 20px;
+}

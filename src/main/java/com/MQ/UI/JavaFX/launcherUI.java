@@ -114,10 +114,10 @@ public class launcherUI extends Application {
         FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
         root = a.load();
         controller = a.getController();
-        controller.install();
-        controller.Init();
         Scene scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
+        controller.install();
+        controller.Init();
     }
 }

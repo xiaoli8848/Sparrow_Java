@@ -19,14 +19,7 @@
             <scope>compile</scope>
             <optional>false</optional>
         </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpasyncclient</artifactId>
-            <version>4.1.1</version>
-            <type>jar</type>
-            <scope>compile</scope>
-            <optional>false</optional>
-        </dependency>
+
         <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>

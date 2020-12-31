@@ -22,10 +22,15 @@ import javafx.scene.shape.Circle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
+import org.controlsfx.control.ToggleSwitch;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersion;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.version.Version;
 
@@ -33,7 +38,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
+import static com.MQ.Tools.DownloadAPI.Download.*;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
@@ -46,6 +51,9 @@ public class launcherUI_Controller {
     public String downloadVersion;
     @FXML
     private Hyperlink gamePathLink;
+
+    @FXML
+    private ToggleSwitch download_Forge_is;
 
     @FXML
     private MenuItem help_About;
@@ -66,6 +74,12 @@ public class launcherUI_Controller {
     private TextArea logText;
 
     @FXML
+    private Pane download_Forge;
+
+    @FXML
+    private Pane download_Liteloader;
+
+    @FXML
     private TabPane topPane;
 
     @FXML
@@ -73,6 +87,9 @@ public class launcherUI_Controller {
 
     @FXML
     private PasswordField password;
+
+    @FXML
+    private TextField download_Forge_version;
 
     @FXML
     private MenuItem help_WebSite;
@@ -93,10 +110,19 @@ public class launcherUI_Controller {
     private Tab downloadTab;
 
     @FXML
+    private Pane download_MC;
+
+    @FXML
     private TextField playerName;
 
     @FXML
     private Button download_MC_Path;
+
+    @FXML
+    private TextField download_Liteloader_version;
+
+    @FXML
+    private ToggleSwitch download_Liteloader_is;
 
     @FXML
     private Pane infoPane;
@@ -128,6 +154,10 @@ public class launcherUI_Controller {
     @FXML
     private MenuItem file_Close;
 
+    private ForgeVersionList forgeVersionList = null;
+    private LiteloaderVersionList liteloaderVersionList = null;
+    private static ForgeVersion forgeVersion;
+    private static LiteloaderVersion liteloaderVersion;
     private Minecraft[] mc;
     private int mc_pointer = 0;
 
@@ -167,7 +197,7 @@ public class launcherUI_Controller {
                 // 参数代表实际下载到的Minecraft版本
                 appendLog("MC（版本 " + result + " )下载完成。");
                 try {
-                    WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "MC版本：" + result + "已下载完成。");
+                    WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "恭喜。MC版本：" + result + "已下载完成。");
                 } catch (AWTException awtException) {
                 }
             }
@@ -178,7 +208,7 @@ public class launcherUI_Controller {
                 // 参数代表是由于哪个异常而失败的
                 appendLog("下载出现错误。");
                 try {
-                    WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "下载MC时遇到错误：" + e.toString());
+                    WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "抱歉。下载MC时遇到错误：" + e.toString());
                 } catch (AWTException awtException) {
                 }
                 e.printStackTrace();
@@ -229,6 +259,11 @@ public class launcherUI_Controller {
                 };
             }
         };
+
+        appendLog("轻巧、便捷为一体，尽在 MQ · 新一代MC启动器 。加载完毕。");
+
+        downloadForgeVersionList();
+        downloadLiteloaderVersionList();
     }
 
     public void Init() {
@@ -500,10 +535,12 @@ public class launcherUI_Controller {
 
     public void lockArgs() {
         setTab.setDisable(true);
+        launchButton.setDisable(true);
     }
 
     public void freeArgs() {
         setTab.setDisable(false);
+        launchButton.setDisable(false);
     }
 
     @FXML
@@ -526,6 +563,27 @@ public class launcherUI_Controller {
     @FXML
     public void chooseVersion_MC() {
         downloadVersion = download_MC_version.getText();
+        try{
+            if(forgeVersionList != null) {
+                forgeVersion = forgeVersionList.getLatest(download_MC_version.getText());
+                download_Forge_version.setText(forgeVersion.toString());
+            }
+            if(liteloaderVersionList != null) {
+                liteloaderVersion = liteloaderVersionList.getLatest(download_MC_version.getText());
+                download_Liteloader_version.setText(liteloaderVersion.toString());
+            }
+        }catch (Exception e){
+            download_Forge_version.setText("");
+            download_Liteloader_version.setText("");
+        }
+    }
+
+    public void updateForgeVersion(ForgeVersionList list) {
+        forgeVersionList = list;
+    }
+
+    public void updateLiteloader(LiteloaderVersionList list) {
+        liteloaderVersionList = list;
     }
 }
 

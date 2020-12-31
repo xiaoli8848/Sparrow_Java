@@ -1,5 +1,9 @@
 package com.MQ;
 
+import com.MQ.Tools.DownloadAPI.Download;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;

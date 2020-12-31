@@ -2,8 +2,7 @@ package com.MQ.Tools.DownloadAPI;
 
 import org.to2mbn.jmccc.mcdownloader.provider.DefaultLayoutProvider;
 
-public class BMCL extends DefaultLayoutProvider {
-
+class BMCL extends DefaultLayoutProvider {
     @Override
     protected String getLibraryBaseURL() {
         return "http://bmclapi2.bangbang93.com/libraries/";
