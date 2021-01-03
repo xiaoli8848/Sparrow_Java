@@ -36,5 +36,6 @@ com.MQ为本项目包根路径。
 - com.MQ.Minecraft  定义了一个类，包含Minecraft游戏路径和封装自 com.MQ.launcher 的启动方法和其它工具方法。
 - com.MQ.Tools 存储了各工具类。
 - com.MQ.UI 存储了程序GUI。
-  - 其下的每个包都是一个平台的GUI。例如com.MQ.UI.JavaFX
+  - 其下的每个包都是一个平台的GUI。com.MQ.UI.JavaFX
+  - 
 
