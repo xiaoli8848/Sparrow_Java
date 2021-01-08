@@ -3,25 +3,12 @@
     <output-path>$PROJECT_DIR$/out/artifacts/MQ_jar</output-path>
     <root id="archive" name="MCLauncher_JMCCC.jar">
       <element id="module-output" name="MCLauncher_JMCCC" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-yggdrasil-authenticator/2.4/jmccc-yggdrasil-authenticator-2.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/tukaani/xz/1.5/xz-1.5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc/2.4/jmccc-2.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20140107/json-20140107.jar" path-in-jar="/" />
-      <element id="dir-copy" path="$PROJECT_DIR$" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-mcdownloader/2.4/jmccc-mcdownloader-2.4.jar" path-in-jar="/" />
       <element id="library" level="project" name="Maven: org.json:json:20140107" />
       <element id="library" level="project" name="Maven: org.to2mbn:jmccc-mcdownloader:2.4" />
       <element id="library" level="project" name="Maven: org.to2mbn:jmccc-yggdrasil-authenticator:2.4" />
       <element id="library" level="project" name="Maven: org.to2mbn:jmccc:2.4" />
       <element id="library" level="project" name="Maven: org.tukaani:xz:1.5" />
-      <element id="library" level="project" name="javafx-swt" />
       <element id="file-copy" path="$PROJECT_DIR$/lib/controlsfx.jar" />
-      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
-      <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
-      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpasyncclient:4.1.1" />
-      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.1" />
-      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.4" />
-      <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
       <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.0.3" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:11.0.2" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:11.0.2" />

@@ -34,6 +34,6 @@
             <Font size="26.0" />
          </font>
       </Label>
-      <TextArea layoutX="40.0" layoutY="190.0" prefHeight="200.0" prefWidth="530.0" text="特别感谢：MQ的诞生离不开JMCCC。" wrapText="true" />
+      <TextArea layoutX="40.0" layoutY="190.0" prefHeight="200.0" prefWidth="530.0" text="特别感谢：&#10;· JMCCC&#10;· jbootx&#10;MQ的诞生离不开它们。" wrapText="true" />
    </children>
 </AnchorPane>
