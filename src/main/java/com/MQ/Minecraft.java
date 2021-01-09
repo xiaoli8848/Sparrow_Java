@@ -1,6 +1,7 @@
 package com.MQ;
 
 import com.MQ.Tools.DownloadAPI.Download;
+import com.MQ.UI.JavaFX.launcherUI;
 import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
 import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
 import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
@@ -63,6 +64,10 @@ public class Minecraft {
     }
 
     public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
-        launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
+        try {
+            launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
+        }catch (Exception e){
+            launcherUI.controller.printError(e);
+        }
     }
 }

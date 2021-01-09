@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
@@ -46,125 +45,98 @@ import static com.MQ.Tools.DownloadAPI.Download.*;
  * 本类中提供了访问UI上提供的启动游戏必备的参数的方法，例如 {@link #getRootDir}。
  */
 public class launcherUI_Controller {
+    private static ForgeVersion forgeVersion;
+    private static LiteloaderVersion liteloaderVersion;
     public String rootDir;
     public String downloadDir;
     public String downloadVersion;
     @FXML
     private Hyperlink gamePathLink;
-
     @FXML
     private ToggleSwitch download_Forge_is;
-
-    @FXML
-    private MenuItem help_About;
-
     @FXML
     private RangeSlider memory;
-
     @FXML
     private TextField user_name;
-
     @FXML
     private ImageView versionImage;
-
     @FXML
     private Label playerNameLabel;
-
     @FXML
     private TextArea logText;
-
     @FXML
     private Pane download_Forge;
-
     @FXML
     private Pane download_Liteloader;
-
     @FXML
     private TabPane topPane;
-
-    @FXML
-    private Tab setTab;
-
     @FXML
     private PasswordField password;
-
+    @FXML
+    private CheckBox isThroughServer;
     @FXML
     private TextField download_Forge_version;
-
-    @FXML
-    private MenuItem help_WebSite;
-
-    @FXML
-    private MenuItem file_Input;
-
     @FXML
     private TextField download_MC_version;
-
     @FXML
     private TextField height;
-
     @FXML
     private Button download_MC_Button;
-
+    @FXML
+    private Tab launchTab;
     @FXML
     private Tab downloadTab;
-
     @FXML
     private Pane download_MC;
-
+    @FXML
+    private TextField address;
     @FXML
     private TextField playerName;
-
     @FXML
     private Button download_MC_Path;
-
     @FXML
     private TextField download_Liteloader_version;
-
     @FXML
     private ToggleSwitch download_Liteloader_is;
-
     @FXML
     private Pane infoPane;
-
     @FXML
     private Button launchButton;
-
     @FXML
     private Button rootDirChooseButton;
-
+    @FXML
+    private Label versionLabel;
     @FXML
     private Circle unfoldButton;
-
+    @FXML
+    private TextField port;
     @FXML
     private CheckBox isAutoMem;
-
     @FXML
     private TextField width;
-
     @FXML
     private Label gameVersion;
-
     @FXML
     private CheckBox isFullScreen;
-
     @FXML
     private CheckBox isOnlineLaunch;
-
-    @FXML
-    private MenuItem file_Close;
-
     private ForgeVersionList forgeVersionList = null;
     private LiteloaderVersionList liteloaderVersionList = null;
-    private static ForgeVersion forgeVersion;
-    private static LiteloaderVersion liteloaderVersion;
     private Minecraft[] mc;
     private int mc_pointer = 0;
 
+    public void printError(Exception e) {
+        appendLog(e.toString());
+    }
+
     public void install() {
+        versionLabel.setText("MQ启动器 " + launcher.launcherVersion);
+        launchTab.setDisable(true);
+        rootDirChooseButton.setVisible(true);
         ableAutoMem();
         ableOffline();
         ableFullScreen();
+        ableNonThroughServer();
 
         launcher.gameProcessListener = new GameProcessListener() {
 
@@ -186,6 +158,7 @@ public class launcherUI_Controller {
                     WindowsNotification.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
                 } catch (AWTException awtException) {
                 }
+                appendLog("\n------------------\n");
             }
         };
 
@@ -271,14 +244,12 @@ public class launcherUI_Controller {
         try {
             mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
             gameVersion.setText(mc[0].version);
-        } catch (java.lang.NullPointerException e) {
+            gamePathLink.setText(getSelectMC().rootPath);
+            launchTab.setDisable(false);
+            rootDirChooseButton.setVisible(false);
+        } catch (Exception e) {
             mc = new Minecraft[0];
             gameVersion.setText("未知");
-        }
-        try {
-            gamePathLink.setText(getSelectMC().rootPath);
-        } catch (Exception e) {
-            gamePathLink.setText("未知");
         }
     }
 
@@ -352,7 +323,11 @@ public class launcherUI_Controller {
     }
 
     public void appendLog(String text) {
-        logText.appendText(text + "\n");
+        try {
+            logText.appendText(text + "\n");
+        }catch (Exception e){
+
+        }
     }
 
     @FXML
@@ -363,32 +338,6 @@ public class launcherUI_Controller {
             dirToOpen = new File(gamePathLink.getText());
             desktop.open(dirToOpen);
         } catch (Exception e) {
-        }
-    }
-
-    @FXML
-    void changeGameVersion() {
-        if (mc_pointer < mc.length - 1 && mc[mc_pointer].version != "" && mc[mc_pointer].version != null) {
-            mc_pointer++;
-            updateVersionView();
-        }
-    }
-
-    @FXML
-    void inputGame(ActionEvent event) {
-        chooseRootDir(event);
-    }
-
-    @FXML
-    void close(ActionEvent event) {
-        launcherUI.primaryStage.close();
-    }
-
-    @FXML
-    void gotoWebSite(ActionEvent event) {
-        try {
-            launcherUI.gotoWebSite(launcherUI.projectURL);
-        } catch (IOException e) {
         }
     }
 
@@ -481,6 +430,18 @@ public class launcherUI_Controller {
         height.setDisable(false);
     }
 
+    private void ableThroughServer() {
+        isThroughServer.setSelected(true);
+        address.setDisable(false);
+        port.setDisable(false);
+    }
+
+    private void ableNonThroughServer() {
+        isThroughServer.setSelected(false);
+        address.setDisable(true);
+        port.setDisable(true);
+    }
+
     public int getMaxMem() {
         if (isAutoMem.isSelected())
             return 0;
@@ -534,13 +495,11 @@ public class launcherUI_Controller {
     }
 
     public void lockArgs() {
-        setTab.setDisable(true);
-        launchButton.setDisable(true);
+        launchTab.setDisable(true);
     }
 
     public void freeArgs() {
-        setTab.setDisable(false);
-        launchButton.setDisable(false);
+        launchTab.setDisable(false);
     }
 
     @FXML
@@ -563,16 +522,16 @@ public class launcherUI_Controller {
     @FXML
     public void chooseVersion_MC() {
         downloadVersion = download_MC_version.getText();
-        try{
-            if(forgeVersionList != null) {
+        try {
+            if (forgeVersionList != null) {
                 forgeVersion = forgeVersionList.getLatest(download_MC_version.getText());
                 download_Forge_version.setText(forgeVersion.toString());
             }
-            if(liteloaderVersionList != null) {
+            if (liteloaderVersionList != null) {
                 liteloaderVersion = liteloaderVersionList.getLatest(download_MC_version.getText());
                 download_Liteloader_version.setText(liteloaderVersion.toString());
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             download_Forge_version.setText("");
             download_Liteloader_version.setText("");
         }
@@ -584,6 +543,24 @@ public class launcherUI_Controller {
 
     public void updateLiteloader(LiteloaderVersionList list) {
         liteloaderVersionList = list;
+    }
+
+    @FXML
+    public void changeTab() {
+
+    }
+
+    @FXML
+    void isThroughServer() {
+        if (isThroughServer.isSelected()) {
+            ableThroughServer();
+        } else {
+            ableNonThroughServer();
+        }
+    }
+
+    public String getServer() {
+        return address.getText() != "" && port.getText() != "" ? port.getText() != "" ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
 }
 

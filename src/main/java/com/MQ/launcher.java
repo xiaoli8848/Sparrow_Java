@@ -23,7 +23,7 @@ import java.util.Map;
 import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
 
 public class launcher {
-    public static final String launcherVersion = "V0.2.0 - alpha";
+    public static final String launcherVersion = "V0.2.0";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
@@ -206,8 +206,7 @@ public class launcher {
             else
                 option.setWindowSize(WindowSize.fullscreen());
             if (serverURL != null && serverURL != "") {
-                URL svURL = new URL(serverURL);
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
+                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":")+1,serverURL.length()-1))));
             }
             setVersionTypeToMQ(option);
         } catch (IOException e) {

@@ -1,5 +1,5 @@
 .Pane_white{
-    -fx-background-color: white;
+    -fx-background-color: rgb(179,229,252);
     -fx-background-radius: 10px;
 }
 
@@ -8,17 +8,17 @@
     -fx-background-radius: 10px;
 }
 
-.button_apply {
-  -fx-display: inline-block;
+.button_apply{
+-fx-display: inline-block;
   -fx-padding: 13px 20px;
-  -fx-font-size: 24px;
+  -fx-font-size: 20px;
   -fx-cursor: pointer;
   -fx-text-align: center;
   -fx-text-decoration: none;
   -fx-outline: none;
-  -fx-color: #fff;
-  -fx-background-color: #4CAF50;
-  -fx-background-radius: 15px;
+  -fx-color: black;
+  -fx-background-color: rgb(68,138,225);
+  -fx-background-radius: 20px;
 }
 
 .button_apply:hover {-fx-background-color: #3e8e41}
@@ -36,6 +36,6 @@
   -fx-text-decoration: none;
   -fx-outline: none;
   -fx-color: black;
-  -fx-background-color: gray;
+  -fx-background-color: rgb(68,138,225);
   -fx-background-radius: 20px;
 }

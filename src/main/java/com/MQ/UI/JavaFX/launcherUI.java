@@ -15,7 +15,6 @@ import org.to2mbn.jmccc.option.WindowSize;
 import org.to2mbn.jmccc.version.Versions;
 
 import java.io.IOException;
-import java.net.URL;
 
 import static com.MQ.launcher.gameProcessListener;
 
@@ -36,12 +35,12 @@ public class launcherUI extends Application {
     }
 
     public static void launchGameOffline() {
-        controller.getSelectMC().launchOffline(controller.getPlayerName(), false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), "");
+        controller.getSelectMC().launchOffline(controller.getPlayerName(), false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), controller.getServer());
     }
 
     public static void launchGameOnline() {
         Minecraft tempMC = controller.getSelectMC();
-        launch_online(tempMC.rootPath, false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), "");
+        launch_online(tempMC.rootPath, false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), controller.getServer());
     }
 
     public static void gotoWebSite(String url) throws IOException {
@@ -91,8 +90,7 @@ public class launcherUI extends Application {
             option.setMinMemory(minMemory);
             option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
             if (serverURL != null && serverURL != "") {
-                URL svURL = new URL(serverURL);
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":") - 1), svURL.getPort()));
+                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":")+1,serverURL.length()-1))));
             }
         } catch (IOException e) {
             e.printStackTrace();
