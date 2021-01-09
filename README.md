@@ -1,16 +1,22 @@
-Lang : Eng | [简体中文](https://github.com/xiaoli8848/MQ/blob/main/README.zh_CN.md)
-
 # MQ
-A MC launcher based on [JMCCC](https://github.com/to2mbn/JMCCC).
+基于 [JMCCC](https://github.com/to2mbn/JMCCC) 的Minecraft启动器
 
 ## License
 
-MQ is licensed under [the LGPL](LICENSE.txt).
+本项目采用协议 [LGPL](LICENSE.txt).
 
-(JMCCC is licensed under [the MIT license](https://to2mbn.github.io/jmccc/LICENSE.txt).)
+( JMCCC使用协议 [MIT license](https://to2mbn.github.io/jmccc/LICENSE.txt))
 
 ## Features
 
-- Launch all versions of Minecraft
-- Downloads all versions of Minecraft
-- Uses the UI by JavaFX to launch (or download) the different versions of Minecraft.
+- 能够启动所有版本的 Minecraft Java版 客户端。
+
+- 下载并自动安装任何版本的 Minecraft Java版 客户端。
+
+- 使用JavaFX实现可视化界面交互。
+
+## 后记
+
+本项目的核心开发者极其少，但工程量并不小，所以我们非常希望你能够随手为本项目做些贡献，如fork后开发一些feat然后创建pull request。
+
+![屏幕截图](docs\Screenshot.png)
