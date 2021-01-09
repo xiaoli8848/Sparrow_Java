@@ -118,4 +118,9 @@ public class launcherUI extends Application {
         controller.install();
         controller.Init();
     }
+
+    @Override
+    public void stop() throws Exception {
+        System.exit(0);
+    }
 }
