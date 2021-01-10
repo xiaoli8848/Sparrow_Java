@@ -292,12 +292,12 @@ public class launcherUI_Controller {
      */
     @FXML
     void launchGame(ActionEvent event) {
-        if (rootDir != null && rootDir != "") {
+        if (rootDir != null && !rootDir.equals("")) {
             if (!isOnlineLaunch.isSelected()) {
                 lockArgs();
                 launcherUI.launchGameOffline();
             } else {
-                if (user_name.getText() != "" && password.getText() != "") {
+                if (!user_name.getText().equals("") && !password.getText().equals("")) {
                     lockArgs();
                     launcherUI.launchGameOnline();
                 } else {
@@ -325,7 +325,7 @@ public class launcherUI_Controller {
     public void appendLog(String text) {
         try {
             logText.appendText(text + "\n");
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -503,7 +503,7 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    public void choosePath_MC() {
+    void choosePath_MC() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("选择“.minecraft”文件夹");
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
@@ -513,14 +513,14 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    public void download_MC() {
+    void download_MC() {
         if (new File(downloadDir).exists()) {
             downloadGame(download_MC_version.getText(), downloadDir);
         }
     }
 
     @FXML
-    public void chooseVersion_MC() {
+    void chooseVersion_MC() {
         downloadVersion = download_MC_version.getText();
         try {
             if (forgeVersionList != null) {
@@ -546,7 +546,7 @@ public class launcherUI_Controller {
     }
 
     @FXML
-    public void changeTab() {
+    void changeTab() {
 
     }
 
@@ -560,7 +560,7 @@ public class launcherUI_Controller {
     }
 
     public String getServer() {
-        return address.getText() != "" && port.getText() != "" ? port.getText() != "" ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
+        return !address.getText().equals("") && !port.getText().equals("") ? !port.getText().equals("") ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
 }
 

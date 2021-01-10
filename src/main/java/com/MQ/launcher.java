@@ -4,7 +4,6 @@ import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
-import org.to2mbn.jmccc.mcdownloader.RemoteVersionList;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
@@ -16,9 +15,9 @@ import org.to2mbn.jmccc.version.Version;
 import org.to2mbn.jmccc.version.Versions;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
 
@@ -205,8 +204,8 @@ public class launcher {
                 option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
             else
                 option.setWindowSize(WindowSize.fullscreen());
-            if (serverURL != null && serverURL != "") {
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":")+1,serverURL.length()-1))));
+            if (serverURL != null && !Objects.equals(serverURL, "")) {
+                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
             }
             setVersionTypeToMQ(option);
         } catch (IOException e) {

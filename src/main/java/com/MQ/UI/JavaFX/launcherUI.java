@@ -15,6 +15,7 @@ import org.to2mbn.jmccc.option.WindowSize;
 import org.to2mbn.jmccc.version.Versions;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.MQ.launcher.gameProcessListener;
 
@@ -89,8 +90,8 @@ public class launcherUI extends Application {
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
             option.setWindowSize(WindowSize.window(windowWidth, windowHeight));
-            if (serverURL != null && serverURL != "") {
-                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":")+1,serverURL.length()-1))));
+            if (serverURL != null && !Objects.equals(serverURL, "")) {
+                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,7 +121,7 @@ public class launcherUI extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         System.exit(0);
     }
 }

@@ -5,8 +5,7 @@ import java.awt.*;
 public class WindowsNotification {
     public static void main(String[] args) throws AWTException {
         if (SystemTray.isSupported()) {
-            WindowsNotification nd = new WindowsNotification();
-            nd.displayTray("MQ Test","MQ","Hello");
+            displayTray("MQ Test", "MQ", "Hello");
         }
     }
 
