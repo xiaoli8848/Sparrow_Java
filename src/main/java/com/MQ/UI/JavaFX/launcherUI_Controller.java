@@ -38,6 +38,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.MQ.Tools.DownloadAPI.Download.*;
+import static com.MQ.UI.JavaFX.launcherUI_dialog.showDialog;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
@@ -155,6 +156,7 @@ public class launcherUI_Controller {
                 freeArgs();
                 appendLog("游戏进程停止。返回码：" + code); // 游戏结束时输出状态码
                 try {
+                    showDialog(dialogType.INFO_OK,"游戏结束","游戏进程结束。返回码：" + code);
                     WindowsNotification.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
                 } catch (AWTException awtException) {
                 }
@@ -170,6 +172,7 @@ public class launcherUI_Controller {
                 // 参数代表实际下载到的Minecraft版本
                 appendLog("MC（版本 " + result + " )下载完成。");
                 try {
+                    showDialog(dialogType.INFO_OK,"下载完成","恭喜。游戏下载完成，版本：" + result);
                     WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "恭喜。MC版本：" + result + "已下载完成。");
                 } catch (AWTException awtException) {
                 }
@@ -181,6 +184,7 @@ public class launcherUI_Controller {
                 // 参数代表是由于哪个异常而失败的
                 appendLog("下载出现错误。");
                 try {
+                    showDialog(dialogType.INFO_OK,"下载错误","很抱歉，下载MC时遇到错误：" + e.toString());
                     WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "抱歉。下载MC时遇到错误：" + e.toString());
                 } catch (AWTException awtException) {
                 }
