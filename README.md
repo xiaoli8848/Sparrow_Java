@@ -19,4 +19,4 @@
 
 本项目的核心开发者极其少，但工程量并不小，所以我们非常希望你能够随手为本项目做些贡献，如fork后开发一些feat然后创建pull request。
 
-![屏幕截图](docs\Screenshot.png)
+![屏幕截图](docs/Screenshot.png)

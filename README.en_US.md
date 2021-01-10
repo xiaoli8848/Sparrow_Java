@@ -19,4 +19,4 @@ MQ is licensed under [the LGPL](LICENSE.txt).
 
 Here are very few core developers on this project, but the amount of work is not small, so we really hope that you can contribute to this project at any time, such as developing some FEAT and then creating Pull Request after fork.
 
-![Screenshot](docs\Screenshot.png)
+![Screenshot](docs/Screenshot.png)
