@@ -351,6 +351,7 @@ public class launcherUI_Controller {
             root = a.load();
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
         launcherUI_About_Controller controller;
         controller = a.getController();
