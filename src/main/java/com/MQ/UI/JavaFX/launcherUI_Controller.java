@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.control.RangeSlider;
 import org.controlsfx.control.ToggleSwitch;
 import org.to2mbn.jmccc.exec.GameProcessListener;
@@ -38,7 +39,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.MQ.Tools.DownloadAPI.Download.*;
-import static com.MQ.UI.JavaFX.launcherUI_dialog.showDialog;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
@@ -48,6 +48,7 @@ import static com.MQ.UI.JavaFX.launcherUI_dialog.showDialog;
 public class launcherUI_Controller {
     private static ForgeVersion forgeVersion;
     private static LiteloaderVersion liteloaderVersion;
+    private static Stage dialogPrimaryStage;
     public String rootDir;
     public String downloadDir;
     public String downloadVersion;
@@ -126,6 +127,30 @@ public class launcherUI_Controller {
     private Minecraft[] mc;
     private int mc_pointer = 0;
 
+    public void showDialog(String title, String text) {
+        dialogPrimaryStage = new Stage();
+        dialogPrimaryStage.setTitle(title);
+        FXMLLoader a = new FXMLLoader(launcherUI_dialog_INFO_controller.class.getClassLoader().getResource("UI/JavaFX/launcherUI_javafx_dialog.fxml"));
+        Parent root = null;
+        try {
+            root = a.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        launcherUI_dialog_INFO_controller controller;
+        controller = a.getController();
+        controller.init(title, text);
+        Scene scene = new Scene(root, 450, 200);
+        dialogPrimaryStage.setScene(scene);
+        dialogPrimaryStage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(null);
+        dialogPrimaryStage.show();
+    }
+
+    public static void closeDialog() {
+        dialogPrimaryStage.close();
+    }
+
     public void printError(Exception e) {
         appendLog(e.toString());
     }
@@ -156,7 +181,7 @@ public class launcherUI_Controller {
                 freeArgs();
                 appendLog("游戏进程停止。返回码：" + code); // 游戏结束时输出状态码
                 try {
-                    showDialog(dialogType.INFO_OK,"游戏结束","游戏进程结束。返回码：" + code);
+                    showDialog("游戏结束", "游戏进程结束。返回码：" + code);
                     WindowsNotification.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
                 } catch (AWTException awtException) {
                 }
@@ -172,7 +197,7 @@ public class launcherUI_Controller {
                 // 参数代表实际下载到的Minecraft版本
                 appendLog("MC（版本 " + result + " )下载完成。");
                 try {
-                    showDialog(dialogType.INFO_OK,"下载完成","恭喜。游戏下载完成，版本：" + result);
+                    showDialog("下载完成", "恭喜。游戏下载完成，版本：" + result);
                     WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "恭喜。MC版本：" + result + "已下载完成。");
                 } catch (AWTException awtException) {
                 }
@@ -184,7 +209,7 @@ public class launcherUI_Controller {
                 // 参数代表是由于哪个异常而失败的
                 appendLog("下载出现错误。");
                 try {
-                    showDialog(dialogType.INFO_OK,"下载错误","很抱歉，下载MC时遇到错误：" + e.toString());
+                    showDialog("下载错误", "很抱歉，下载MC时遇到错误：" + e.toString());
                     WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "抱歉。下载MC时遇到错误：" + e.toString());
                 } catch (AWTException awtException) {
                 }
@@ -566,5 +591,30 @@ public class launcherUI_Controller {
     public String getServer() {
         return !address.getText().equals("") && !port.getText().equals("") ? !port.getText().equals("") ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
-}
 
+    public void changeThread() {
+
+    }
+
+    public class launcherUI_dialog_INFO_controller {
+        @FXML
+        private ImageView icon;
+
+        @FXML
+        private Label text;
+
+        @FXML
+        private Label title;
+
+        protected void init(String title, String text) {
+            icon.setImage(new Image(String.valueOf(getClass().getClassLoader().getResource("UI/JavaFX/imgs/info.png"))));
+            this.text.setText(text);
+            this.title.setText(title);
+        }
+
+        @FXML
+        void OK() {
+            closeDialog();
+        }
+    }
+}
