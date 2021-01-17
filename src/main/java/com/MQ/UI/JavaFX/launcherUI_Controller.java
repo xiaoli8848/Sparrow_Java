@@ -2,6 +2,7 @@ package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
 import com.MQ.Tools.WindowsNotification;
+import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.stdDialog;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
@@ -21,7 +22,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.controlsfx.control.RangeSlider;
 import org.controlsfx.control.ToggleSwitch;
 import org.to2mbn.jmccc.exec.GameProcessListener;
@@ -295,16 +295,21 @@ public class launcherUI_Controller {
     @FXML
     void launchGame(ActionEvent event) {
         if (rootDir != null && !rootDir.equals("")) {
-            if (!isOnlineLaunch.isSelected()) {
-                lockArgs();
-                launcherUI.launchGameOffline();
-            } else {
-                if (!user_name.getText().equals("") && !password.getText().equals("")) {
+            if (isThroughServer.isSelected() && address.getText().length() > 0 || !isThroughServer.isSelected()) {
+                if (!isOnlineLaunch.isSelected()) {
                     lockArgs();
-                    launcherUI.launchGameOnline();
+                    launcherUI.launchGameOffline();
                 } else {
-                    //TODO 处理空账号/密码
+                    if (!user_name.getText().equals("") && !password.getText().equals("")) {
+
+                            lockArgs();
+                            launcherUI.launchGameOnline();
+                    } else {
+                        new errDialog().apply("参数错误", "参数为空！", "在线登录的账户名或密码不能为空。");
+                    }
                 }
+            }else{
+                new errDialog().apply("参数错误", "参数为空！", "直入的服务器地址不能为空。");
             }
         }
     }

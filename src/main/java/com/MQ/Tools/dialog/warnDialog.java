@@ -8,7 +8,10 @@ public class warnDialog extends voidDialog {
     @Override
     public void apply(String title, String header, String content) {
         this.setTitle(title);
-        this.setHeaderText(header);
+        if(header != "")
+            this.setHeaderText(header);
+        else
+            this.setHeaderText(null);
         this.setContentText(content);
 
         this.showAndWait();

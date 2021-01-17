@@ -13,7 +13,10 @@ import java.util.Optional;
 public class loginDialog extends Dialog<Pair<String, String>> {
     public String[] apply(String title, String header) {
         this.setTitle(title);
-        this.setHeaderText(header);
+        if(header != "")
+            this.setHeaderText(header);
+        else
+            this.setHeaderText(null);
 
 // Set the icon (must be included in the project).
         this.setGraphic(new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/login.png").toString()));
