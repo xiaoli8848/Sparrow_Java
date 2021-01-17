@@ -2,6 +2,7 @@ package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
 import com.MQ.Tools.WindowsNotification;
+import com.MQ.Tools.dialog.stdDialog;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.control.RangeSlider;
 import org.controlsfx.control.ToggleSwitch;
 import org.to2mbn.jmccc.exec.GameProcessListener;
@@ -563,5 +565,8 @@ public class launcherUI_Controller {
     public String getServer() {
         return !address.getText().equals("") && !port.getText().equals("") ? !port.getText().equals("") ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
-}
 
+    public void changeThread() {
+
+    }
+}
