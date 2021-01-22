@@ -6,6 +6,8 @@ import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +41,8 @@ import org.to2mbn.jmccc.version.Version;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import static com.MQ.Tools.DownloadAPI.Download.downloadForgeVersionList;
 import static com.MQ.Tools.DownloadAPI.Download.downloadLiteloaderVersionList;
@@ -148,7 +152,7 @@ public class launcherUI_Controller {
         versionLabel.setText("MQ启动器 " + launcher.launcherVersion);
         ableAutoMem();
         ableOffline();
-        ableFullScreen();
+        ableNotFullScreen();
         ableNonThroughServer();
         memory.setHighValue(4096);
         memory.setLowValue(1024);
@@ -249,15 +253,27 @@ public class launcherUI_Controller {
             }
         };
 
+        versionView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Minecraft>() {
+            @Override
+            public void changed(ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) {
+                updateVersionView();
+            }
+        });
+
         appendLog("轻巧、便捷为一体，尽在 MQ · 新一代MC启动器 。加载完毕。");
 
         versionView.setCellFactory(param -> new minecraftCell());
 
+        Init(System.getProperty("user.dir")+File.pathSeparatorChar+".minecraft");
         downloadForgeVersionList();
         downloadLiteloaderVersionList();
     }
 
     public void Init(String rootDir) {
+        final File test = new File(rootDir);
+        if(!test.exists() || !test.isDirectory()){
+            return;
+        }
         try {
             versionView.getItems().addAll(Minecraft.getMinecrafts(new MinecraftDirectory(rootDir)));
             versionView.getSelectionModel().select(0);
@@ -517,6 +533,18 @@ public class launcherUI_Controller {
         launchTab.setDisable(false);
     }
 
+    public void setServerInfo(String address, String port) {
+        ableThroughServer();
+        this.address.setText(address);
+        this.address.setText(port);
+    }
+
+    public void setServerInfo(String address) {
+        ableThroughServer();
+        this.address.setText(address);
+        this.address.setText("");
+    }
+
     @FXML
     void choosePath_MC() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -568,7 +596,6 @@ public class launcherUI_Controller {
         @Override
         public void updateItem(Minecraft item, boolean empty) {
             super.updateItem(item, empty);
-
             if (!empty && item != null) {
                 BorderPane cell = new BorderPane();
 
@@ -582,6 +609,9 @@ public class launcherUI_Controller {
                 cell.setLeft(date);
 
                 setGraphic(cell);
+            } else if (empty) {
+                setText(null);
+                setGraphic(null);
             }
         }
     }

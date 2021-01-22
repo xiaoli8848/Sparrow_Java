@@ -172,7 +172,7 @@
                      </font>
                   </Label>
                   <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" radius="12.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                  <Hyperlink fx:id="gamePathLink" layoutX="75.0" layoutY="58.0" text="未知" textFill="#725c5c">
+                  <Hyperlink fx:id="gamePathLink" layoutX="75.0" layoutY="58.0" maxHeight="25.0" maxWidth="105.0" prefHeight="25.0" prefWidth="105.0" text="未知" textFill="#725c5c" textOverrun="WORD_ELLIPSIS">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="15.0" />
                      </font>
