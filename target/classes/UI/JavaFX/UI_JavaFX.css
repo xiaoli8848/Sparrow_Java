@@ -4,38 +4,6 @@
 }
 
 .Pane_gray{
-    -fx-background-color:  rgb(230,230,230);
+    -fx-background-color:  linear-gradient(to bottom, rgba(254,255,255,1) 0%,rgba(221,241,249,1) 35%,rgba(160,216,239,1) 100%);
     -fx-background-radius: 10px;
-}
-
-.button_apply{
--fx-display: inline-block;
-  -fx-padding: 13px 20px;
-  -fx-font-size: 20px;
-  -fx-cursor: pointer;
-  -fx-text-align: center;
-  -fx-text-decoration: none;
-  -fx-outline: none;
-  -fx-color: black;
-  -fx-background-color: rgb(68,138,225);
-  -fx-background-radius: 20px;
-}
-
-.button_apply:hover {-fx-background-color: #3e8e41}
-
-.button_apply:active {
-  -fx-background-color: #3e8e41;
-}
-
-.button_choose{
--fx-display: inline-block;
-  -fx-padding: 13px 20px;
-  -fx-font-size: 20px;
-  -fx-cursor: pointer;
-  -fx-text-align: center;
-  -fx-text-decoration: none;
-  -fx-outline: none;
-  -fx-color: black;
-  -fx-background-color: rgb(68,138,225);
-  -fx-background-radius: 20px;
 }

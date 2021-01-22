@@ -117,7 +117,6 @@ public class launcherUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         controller.install();
-        controller.Init();
     }
 
     @Override

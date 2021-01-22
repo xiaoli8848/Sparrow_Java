@@ -31,7 +31,6 @@ public class launcherUI extends Application {
         FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/H5/launcherUI_h5.fxml"));
         Parent root = a.load();
         controller = a.getController();
-        controller.Init();
         Scene scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -4,6 +4,9 @@ import com.MQ.UI.JavaFX.launcherUI;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class Minecraft {
     public String path;
@@ -13,15 +16,19 @@ public class Minecraft {
     private Minecraft() {
     }
 
-    public static String[] getMinecraftVersions(MinecraftDirectory dir) {
+    @Override
+    public String toString() {
+        return this.version + " - " + path;
+    }
+
+    private static Stack<String> getMinecraftVersions(MinecraftDirectory dir) {
         //Objects.requireNonNull(dir);
-        String[] versions = new String[2];
-        int ver_ptr = 0;
+        Stack<String> versions = new Stack<>();
         File[] subdirs = dir.getVersions().listFiles();
         if (subdirs != null) {
             for (File file : subdirs) {
                 if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
-                    versions[ver_ptr++] = file.getName();
+                    versions.push(file.getName());
                 }
             }
         }
@@ -33,17 +40,16 @@ public class Minecraft {
     }
 
     public static Minecraft[] getMinecrafts(MinecraftDirectory dir) {
-        Minecraft[] result = new Minecraft[2];
-        int result_ptr = 0;
-        String[] versions = getMinecraftVersions(dir);
+        List<String> versions= new ArrayList<>(getMinecraftVersions(dir));
+        ArrayList<Minecraft> result = new ArrayList<>();
         for (String s : versions) {
             Minecraft temp = new Minecraft();
             temp.version = s;
             temp.path = dir.getRoot().toString() + "/versions/" + s + "/";
             temp.rootPath = dir.getRoot().getPath();
-            result[result_ptr++] = temp;
+            result.add(temp);
         }
-        return result;
+        return result.toArray(new Minecraft[versions.size()]);
     }
 
     public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
