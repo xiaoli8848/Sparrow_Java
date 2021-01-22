@@ -1,9 +1,11 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
+import com.MQ.Tools.DownloadAPI.Download;
 import com.MQ.Tools.WindowsNotification;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
+import com.MQ.Tools.dialog.inputDialog;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.beans.value.ChangeListener;
@@ -259,12 +261,13 @@ public class launcherUI_Controller {
                 updateVersionView();
             }
         });
+        logText.setScrollTop(Double.MIN_VALUE);
 
         appendLog("轻巧、便捷为一体，尽在 MQ · 新一代MC启动器 。加载完毕。");
 
         versionView.setCellFactory(param -> new minecraftCell());
 
-        Init(System.getProperty("user.dir")+File.pathSeparatorChar+".minecraft");
+        Init(System.getProperty("user.dir")+File.separator+".minecraft");
         downloadForgeVersionList();
         downloadLiteloaderVersionList();
     }
@@ -354,7 +357,9 @@ public class launcherUI_Controller {
 
     public void appendLog(String text) {
         try {
+            int caretPosition = logText.caretPositionProperty().get();
             logText.appendText(text + "\n");
+            logText.positionCaret(caretPosition);
         } catch (Exception e) {
 
         }
@@ -587,8 +592,10 @@ public class launcherUI_Controller {
         return !address.getText().equals("") && !port.getText().equals("") ? !port.getText().equals("") ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
 
-    public void changeThread() {
 
+    @FXML
+    void downloadGame(){
+        Download.downloadGame(new inputDialog().apply("输入游戏版本",null,"请输入要下载的游戏版本（如1.7.10，支持快照）"),System.getProperty("user.dir")+File.separator+".minecraft");
     }
 
     private class minecraftCell extends ListCell<Minecraft> {

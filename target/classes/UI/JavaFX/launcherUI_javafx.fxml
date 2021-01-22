@@ -18,7 +18,7 @@
 
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.JavaFX.launcherUI_Controller">
     <children>
-      <TextArea fx:id="logText" layoutX="18.0" layoutY="482.0" opacity="0.9" prefHeight="262.0" prefWidth="703.0" styleClass="text-area" stylesheets="@bootstrap3.css" wrapText="true" />
+      <TextArea fx:id="logText" editable="false" layoutX="18.0" layoutY="482.0" opacity="0.9" prefHeight="262.0" prefWidth="703.0" style="overflow-y: visible;" styleClass="text-area" stylesheets="@bootstrap3.css" wrapText="true" />
       <TabPane fx:id="topPane" layoutX="298.0" layoutY="14.0" onMouseClicked="#changeTab" opacity="0.9" prefHeight="442.0" prefWidth="686.0" style="-fx-background-radius: 10px;" stylesheets="@bootstrap3.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="launchTab" text="启动设置">
@@ -194,7 +194,7 @@
                   <Font name="DengXian Regular" size="19.0" />
                </font>
             </Button>
-            <Button fx:id="downloadButton" defaultButton="true" mnemonicParsing="false" prefHeight="32.0" prefWidth="103.0" styleClass="action-btn" text="下载游戏">
+            <Button fx:id="downloadButton" defaultButton="true" mnemonicParsing="false" onAction="#downloadGame" prefHeight="32.0" prefWidth="103.0" styleClass="action-btn" text="下载游戏">
                <font>
                   <Font name="DengXian Regular" size="19.0" />
                </font>
