@@ -1,4 +1,4 @@
-package com.MQ.Tools.DownloadAPI;
+package com.MQ.Tools.Download;
 
 import org.to2mbn.jmccc.mcdownloader.provider.DefaultLayoutProvider;
 

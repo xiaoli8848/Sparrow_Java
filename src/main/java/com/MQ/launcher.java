@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
+import static com.MQ.Tools.Download.Download.downloadGame;
 
 public class launcher {
     public static final String launcherVersion = "V0.3.0 - alpha";

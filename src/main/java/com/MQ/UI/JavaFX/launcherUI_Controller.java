@@ -1,7 +1,7 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
-import com.MQ.Tools.DownloadAPI.Download;
+import com.MQ.Tools.Download.Download;
 import com.MQ.Tools.WindowsNotification;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
@@ -43,11 +43,9 @@ import org.to2mbn.jmccc.version.Version;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-import static com.MQ.Tools.DownloadAPI.Download.downloadForgeVersionList;
-import static com.MQ.Tools.DownloadAPI.Download.downloadLiteloaderVersionList;
+import static com.MQ.Tools.Download.Download.downloadForgeVersionList;
+import static com.MQ.Tools.Download.Download.downloadLiteloaderVersionList;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
