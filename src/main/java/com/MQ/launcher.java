@@ -195,7 +195,7 @@ public class launcher {
         try {
             Object[] t = Versions.getVersions(new MinecraftDirectory(rootDir)).toArray();
             option = new LaunchOption(
-                    t.length == 2 ? t[0] == version ? (String) t[0] : (String) t[1] : (String) t[0], // 游戏版本
+                    version, // 游戏版本
                     new OfflineAuthenticator(playerName), // 使用离线验证
                     new MinecraftDirectory(rootDir));
             option.setMaxMemory(maxMemory);
@@ -220,7 +220,7 @@ public class launcher {
         }
     }
 
-    public static void launch_offline(String rootDir, boolean debugPrint, boolean nativesFC, LaunchOption option) {
+    public static void launch_offline(LaunchOption option, boolean nativesFC, boolean debugPrint) {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
                 .setDebugPrintCommandline(debugPrint)
                 .setNativeFastCheck(nativesFC)
