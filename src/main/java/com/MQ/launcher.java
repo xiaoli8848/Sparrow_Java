@@ -122,7 +122,6 @@ public class launcher {
                         args[1],    //游戏版本
                         args[2]     //目标路径
                 );
-
         }
     }
 

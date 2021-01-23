@@ -33,10 +33,6 @@ import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
-import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersion;
-import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
-import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
-import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.version.Version;
 
@@ -44,17 +40,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static com.MQ.Tools.Download.Download.downloadForgeVersionList;
-import static com.MQ.Tools.Download.Download.downloadLiteloaderVersionList;
-
 /**
  * @author XiaoLi8848, 1662423349@qq.com
  * 本类作为JavaFX UI的Controller，管理UI与程序的交互以及UI界面。
  * 本类中提供了访问UI上提供的启动游戏必备的参数的方法。
  */
 public class launcherUI_Controller {
-    private static ForgeVersion forgeVersion;
-    private static LiteloaderVersion liteloaderVersion;
     public String downloadDir;
     public String downloadVersion;
     @FXML
@@ -140,9 +131,6 @@ public class launcherUI_Controller {
 
     @FXML
     private CheckBox isOnlineLaunch;
-
-    private ForgeVersionList forgeVersionList = null;
-    private LiteloaderVersionList liteloaderVersionList = null;
 
     public void printError(Exception e) {
         appendLog(e.toString());
@@ -265,14 +253,12 @@ public class launcherUI_Controller {
 
         versionView.setCellFactory(param -> new minecraftCell());
 
-        Init(System.getProperty("user.dir")+File.separator+".minecraft");
-        downloadForgeVersionList();
-        downloadLiteloaderVersionList();
+        Init(System.getProperty("user.dir") + File.separator + ".minecraft");
     }
 
     public void Init(String rootDir) {
         final File test = new File(rootDir);
-        if(!test.exists() || !test.isDirectory()){
+        if (!test.exists() || !test.isDirectory()) {
             return;
         }
         try {
@@ -558,14 +544,6 @@ public class launcherUI_Controller {
         }
     }
 
-    public void updateForgeVersion(ForgeVersionList list) {
-        forgeVersionList = list;
-    }
-
-    public void updateLiteloader(LiteloaderVersionList list) {
-        liteloaderVersionList = list;
-    }
-
     @FXML
     void changeTab() {
 
@@ -592,8 +570,10 @@ public class launcherUI_Controller {
 
 
     @FXML
-    void downloadGame(){
-        Download.downloadGame(new inputDialog().apply("输入游戏版本",null,"请输入要下载的游戏版本（如1.7.10，支持快照）"),System.getProperty("user.dir")+File.separator+".minecraft");
+    void downloadGame() {
+        String version = new inputDialog().apply("输入游戏版本", null, "请输入要下载的游戏版本（如1.7.10，支持快照）");
+        if (version != "")
+            Download.downloadGame(version, System.getProperty("user.dir") + File.separator + ".minecraft");
     }
 
     private class minecraftCell extends ListCell<Minecraft> {

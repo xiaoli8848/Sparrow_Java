@@ -16,11 +16,6 @@ public class Minecraft {
     private Minecraft() {
     }
 
-    @Override
-    public String toString() {
-        return this.version + " - " + path;
-    }
-
     private static Stack<String> getMinecraftVersions(MinecraftDirectory dir) {
         //Objects.requireNonNull(dir);
         Stack<String> versions = new Stack<>();
@@ -40,7 +35,7 @@ public class Minecraft {
     }
 
     public static Minecraft[] getMinecrafts(MinecraftDirectory dir) {
-        List<String> versions= new ArrayList<>(getMinecraftVersions(dir));
+        List<String> versions = new ArrayList<>(getMinecraftVersions(dir));
         ArrayList<Minecraft> result = new ArrayList<>();
         for (String s : versions) {
             Minecraft temp = new Minecraft();
@@ -50,6 +45,11 @@ public class Minecraft {
             result.add(temp);
         }
         return result.toArray(new Minecraft[versions.size()]);
+    }
+
+    @Override
+    public String toString() {
+        return this.version + " - " + path;
     }
 
     public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {

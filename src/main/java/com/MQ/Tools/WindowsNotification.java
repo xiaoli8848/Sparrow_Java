@@ -3,12 +3,6 @@ package com.MQ.Tools;
 import java.awt.*;
 
 public class WindowsNotification {
-    public static void main(String[] args) throws AWTException {
-        if (SystemTray.isSupported()) {
-            displayTray("MQ Test", "MQ", "Hello");
-        }
-    }
-
     public static void displayTray(String toolTip, String caption, String text) throws AWTException {
         //Obtain only one instance of the SystemTray object
         SystemTray tray = SystemTray.getSystemTray();

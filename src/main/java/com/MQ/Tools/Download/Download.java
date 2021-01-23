@@ -1,16 +1,12 @@
 package com.MQ.Tools.Download;
 
-import com.MQ.UI.JavaFX.launcherUI;
 import org.to2mbn.jmccc.mcdownloader.MinecraftDownloader;
 import org.to2mbn.jmccc.mcdownloader.MinecraftDownloaderBuilder;
-import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
 import org.to2mbn.jmccc.mcdownloader.provider.DefaultLayoutProvider;
 import org.to2mbn.jmccc.mcdownloader.provider.MinecraftDownloadProvider;
 import org.to2mbn.jmccc.mcdownloader.provider.MojangDownloadProvider;
 import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeDownloadProvider;
-import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
 import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderDownloadProvider;
-import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import static com.MQ.launcher.combinedDownloadCallback;
@@ -237,39 +233,5 @@ public class Download {
 
         // 下载Minecraft
         downloader.downloadIncrementally(new MinecraftDirectory(path), version, combinedDownloadCallback);
-    }
-
-    public static void downloadForgeVersionList() {
-        downloader =
-                MinecraftDownloaderBuilder
-                        .create()
-                        .setBaseProvider(defaultDownloadAPI)
-                        .appendProvider(forgeProvider)
-                        .appendProvider(liteloaderProvider)
-                        .build();
-        downloader.download(forgeProvider.forgeVersionList(), new CallbackAdapter<ForgeVersionList>() {
-            @Override
-            public void done(ForgeVersionList result) {
-                launcherUI.controller.appendLog("Forge版本信息更新完毕。");
-                launcherUI.controller.updateForgeVersion(result);
-            }
-        });
-    }
-
-    public static void downloadLiteloaderVersionList() {
-        downloader =
-                MinecraftDownloaderBuilder
-                        .create()
-                        .setBaseProvider(defaultDownloadAPI)
-                        .appendProvider(forgeProvider)
-                        .appendProvider(liteloaderProvider)
-                        .build();
-        downloader.download(liteloaderProvider.liteloaderVersionList(), new CallbackAdapter<LiteloaderVersionList>() {
-            @Override
-            public void done(LiteloaderVersionList result) {
-                launcherUI.controller.appendLog("LiteLoader版本信息更新完毕。");
-                launcherUI.controller.updateLiteloader(result);
-            }
-        });
     }
 }

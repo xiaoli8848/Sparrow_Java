@@ -16,7 +16,7 @@ public class expDialog extends Alert {
 
     public void apply(String title, String header, String content, Exception error) {
         this.setTitle(title);
-        if(header != "")
+        if (header != "")
             this.setHeaderText(header);
         else
             this.setHeaderText(null);
