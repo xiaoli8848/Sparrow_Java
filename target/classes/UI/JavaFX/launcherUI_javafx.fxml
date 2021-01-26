@@ -62,12 +62,12 @@
                                     <Font size="20.0" />
                                  </font>
                               </CheckBox>
-                              <TextField fx:id="minMemory" editable="false" layoutX="14.0" layoutY="77.0" prefWidth="72.0">
+                              <TextField fx:id="minMemory" layoutX="14.0" layoutY="77.0" onAction="#uploadMemory" prefWidth="72.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="maxMemory" editable="false" layoutX="528.0" layoutY="77.0" prefWidth="72.0">
+                              <TextField fx:id="maxMemory" layoutX="528.0" layoutY="77.0" onAction="#uploadMemory" prefWidth="72.0">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -147,7 +147,7 @@
             <Font name="DengXian Bold" size="21.0" />
          </font>
       </Label>
-        <Pane fx:id="infoPane" layoutX="721.0" layoutY="496.0" prefHeight="262.0" prefWidth="255.0" style="-fx-background-radius: 10px;">
+        <Pane fx:id="infoPane" layoutX="728.0" layoutY="484.0" prefHeight="262.0" prefWidth="255.0" style="-fx-background-radius: 10px;">
             <children>
                 <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="24.0" prefWidth="80.0" text="玩家名：" textAlignment="CENTER">
                     <font>

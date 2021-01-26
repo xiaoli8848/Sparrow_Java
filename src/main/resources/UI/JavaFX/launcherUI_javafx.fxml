@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.media.*?>
-<?import org.controlsfx.control.tableview2.*?>
-<?import org.controlsfx.control.*?>
-<?import com.sun.javafx.charts.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.input.*?>
-<?import org.fxmisc.richtext.*?>
-<?import javafx.scene.web.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.*?>
+<?import org.controlsfx.control.RangeSlider?>
 <AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.JavaFX.launcherUI_Controller">
     <children>
       <TextArea fx:id="logText" editable="false" layoutX="18.0" layoutY="482.0" opacity="0.9" prefHeight="262.0" prefWidth="703.0" style="overflow-y: visible;" styleClass="text-area" stylesheets="@bootstrap3.css" wrapText="true" />
@@ -62,16 +53,18 @@
                                     <Font size="20.0" />
                                  </font>
                               </CheckBox>
-                              <TextField fx:id="minMemory" editable="false" layoutX="14.0" layoutY="77.0" prefWidth="72.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="maxMemory" editable="false" layoutX="528.0" layoutY="77.0" prefWidth="72.0">
-                                 <font>
-                                    <Font size="10.0" />
-                                 </font>
-                              </TextField>
+                               <TextField fx:id="minMemory" layoutX="14.0" layoutY="77.0" onAction="#uploadMemory"
+                                          prefWidth="72.0">
+                                   <font>
+                                       <Font size="10.0"/>
+                                   </font>
+                               </TextField>
+                               <TextField fx:id="maxMemory" layoutX="528.0" layoutY="77.0" onAction="#uploadMemory"
+                                          prefWidth="72.0">
+                                   <font>
+                                       <Font size="10.0"/>
+                                   </font>
+                               </TextField>
                            </children>
                         </Pane>
                         <AnchorPane layoutX="36.0" layoutY="24.0" minHeight="0.0" minWidth="0.0" prefHeight="170.0" prefWidth="160.0" styleClass="Pane_white" stylesheets="@UI_JavaFX.css">
@@ -147,16 +140,19 @@
             <Font name="DengXian Bold" size="21.0" />
          </font>
       </Label>
-        <Pane fx:id="infoPane" layoutX="721.0" layoutY="496.0" prefHeight="262.0" prefWidth="255.0" style="-fx-background-radius: 10px;">
+        <Pane fx:id="infoPane" layoutX="728.0" layoutY="484.0" prefHeight="262.0" prefWidth="255.0"
+              style="-fx-background-radius: 10px;">
             <children>
-                <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="24.0" prefWidth="80.0" text="玩家名：" textAlignment="CENTER">
+                <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="14.0" layoutY="148.0" prefHeight="24.0"
+                       prefWidth="80.0" text="玩家名：" textAlignment="CENTER">
                     <font>
-                        <Font name="DengXian Regular" size="20.0" />
+                        <Font name="DengXian Regular" size="20.0"/>
                     </font>
                 </Label>
-                <TextField fx:id="playerName" layoutX="91.0" layoutY="139.0" prefHeight="42.0" prefWidth="145.0" promptText="Player name">
+                <TextField fx:id="playerName" layoutX="91.0" layoutY="139.0" prefHeight="42.0" prefWidth="145.0"
+                           promptText="Player name">
                     <font>
-                        <Font size="19.0" />
+                        <Font size="19.0"/>
                     </font>
                 </TextField>
             <AnchorPane layoutX="10.0" layoutY="14.0" opacity="0.9" prefHeight="100.0" prefWidth="235.0" style="-fx-background-color: rgb(179,229,252); -fx-background-radius: 20px;">

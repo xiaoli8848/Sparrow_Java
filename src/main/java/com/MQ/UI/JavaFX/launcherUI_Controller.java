@@ -25,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -576,6 +578,19 @@ public class launcherUI_Controller {
             Download.downloadGame(version, System.getProperty("user.dir") + File.separator + ".minecraft");
     }
 
+    @FXML
+    void uploadMemory(){
+        double low = Double.parseDouble(minMemory.getText());
+        double high = Double.parseDouble(maxMemory.getText());
+        if(low<=high) {
+            memory.setLowValue(low);
+            memory.setHighValue(high);
+        }else{
+            minMemory.setText(String.valueOf(memory.getLowValue()));
+            maxMemory.setText(String.valueOf(memory.getHighValue()));
+        }
+    }
+
     private class minecraftCell extends ListCell<Minecraft> {
 
         @Override
@@ -585,13 +600,16 @@ public class launcherUI_Controller {
                 BorderPane cell = new BorderPane();
 
                 Text title = new Text(item.version);
-                title.setFont(new javafx.scene.text.Font(14));
+                title.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD,20));
 
                 Text date = new Text(item.rootPath);
-                date.setFont(new javafx.scene.text.Font(10));
+                date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC,10));
 
-                cell.setTop(title);
-                cell.setLeft(date);
+                ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/mc_icon.png").toString());
+
+                cell.setCenter(title);
+                cell.setBottom(date);
+                cell.setLeft(icon);
 
                 setGraphic(cell);
             } else if (empty) {
