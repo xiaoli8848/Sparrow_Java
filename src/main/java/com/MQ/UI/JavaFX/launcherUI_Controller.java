@@ -6,6 +6,7 @@ import com.MQ.Tools.WindowsNotification;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
 import com.MQ.Tools.dialog.inputDialog;
+import com.MQ.Tools.pack.mcPack;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
@@ -29,6 +31,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
 import org.to2mbn.jmccc.exec.GameProcessListener;
@@ -72,10 +75,10 @@ public class launcherUI_Controller {
     private ListView<Minecraft> versionView;
 
     @FXML
-    private TextArea logText;
+    private Button packButton;
 
     @FXML
-    private TabPane topPane;
+    private TextArea logText;
 
     @FXML
     private PasswordField password;
@@ -87,7 +90,10 @@ public class launcherUI_Controller {
     private TextField height;
 
     @FXML
-    private Tab launchTab;
+    private Button unpackButton;
+
+    @FXML
+    private AnchorPane launchTab;
 
     @FXML
     private TextField minMemory;
@@ -573,7 +579,7 @@ public class launcherUI_Controller {
 
     @FXML
     void downloadGame() {
-        String version = new inputDialog().apply("输入游戏版本", null, "请输入要下载的游戏版本（如1.7.10，支持快照）");
+        String version = new inputDialog().apply("输入游戏版本", null, "请输入你要下载的游戏版本（如1.7.10，支持快照）");
         if (version != "")
             Download.downloadGame(version, System.getProperty("user.dir") + File.separator + ".minecraft");
     }
@@ -588,6 +594,35 @@ public class launcherUI_Controller {
         }else{
             minMemory.setText(String.valueOf(memory.getLowValue()));
             maxMemory.setText(String.valueOf(memory.getHighValue()));
+        }
+    }
+
+    public void pack(){
+        if(versionView.getSelectionModel().getSelectedItem() == null) {
+            appendLog("不好意思，你还没有导入游戏。无法打包整合包。");
+            return;
+        }
+        appendLog("开始打包整合包。");
+        if(mcPack.pack(new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath()+File.separator+"pack.zip",versionView.getSelectionModel().getSelectedItem().rootPath)){
+            appendLog("打包成功。路径：" + new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath());
+        }else{
+            appendLog("打包失败。");
+        }
+    }
+
+    public void unpack(){
+        String zipPath = new FileChooser().showOpenDialog(launcherUI.primaryStage).toString();
+        if(zipPath!=null){
+            String toPath = new DirectoryChooser().showDialog(launcherUI.primaryStage).toString();
+            if(toPath != null){
+                if(mcPack.unpack(zipPath,toPath)){
+                    appendLog("导出成功。路径：" + toPath);
+                    Init(toPath);
+                    Init(toPath+File.separator+".minecraft");
+                }else{
+                    appendLog("导出失败。");
+                }
+            }
         }
     }
 
