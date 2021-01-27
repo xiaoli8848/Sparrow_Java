@@ -1,11 +1,16 @@
 package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
+import com.MQ.Tools.Download.Download;
 import com.MQ.Tools.WindowsNotification;
 import com.MQ.Tools.dialog.errDialog;
-import com.MQ.Tools.dialog.stdDialog;
+import com.MQ.Tools.dialog.expDialog;
+import com.MQ.Tools.dialog.inputDialog;
+import com.MQ.Tools.pack.mcPack;
 import com.MQ.launcher;
 import com.sun.javafx.binding.StringFormatter;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,20 +23,21 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.control.RangeSlider;
-import org.controlsfx.control.ToggleSwitch;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadCallback;
 import org.to2mbn.jmccc.mcdownloader.download.DownloadTask;
 import org.to2mbn.jmccc.mcdownloader.download.concurrent.CallbackAdapter;
-import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersion;
-import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersionList;
-import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
-import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersionList;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.version.Version;
 
@@ -39,93 +45,100 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import static com.MQ.Tools.DownloadAPI.Download.*;
-
 /**
  * @author XiaoLi8848, 1662423349@qq.com
  * 本类作为JavaFX UI的Controller，管理UI与程序的交互以及UI界面。
- * 本类中提供了访问UI上提供的启动游戏必备的参数的方法，例如 {@link #getRootDir}。
+ * 本类中提供了访问UI上提供的启动游戏必备的参数的方法。
  */
 public class launcherUI_Controller {
-    private static ForgeVersion forgeVersion;
-    private static LiteloaderVersion liteloaderVersion;
-    public String rootDir;
     public String downloadDir;
     public String downloadVersion;
     @FXML
     private Hyperlink gamePathLink;
-    @FXML
-    private ToggleSwitch download_Forge_is;
+
     @FXML
     private RangeSlider memory;
+
     @FXML
     private TextField user_name;
+
     @FXML
     private ImageView versionImage;
+
     @FXML
     private Label playerNameLabel;
+
+    @FXML
+    private TextField maxMemory;
+
+    @FXML
+    private ListView<Minecraft> versionView;
+
+    @FXML
+    private Button packButton;
+
     @FXML
     private TextArea logText;
-    @FXML
-    private Pane download_Forge;
-    @FXML
-    private Pane download_Liteloader;
-    @FXML
-    private TabPane topPane;
+
     @FXML
     private PasswordField password;
+
     @FXML
     private CheckBox isThroughServer;
-    @FXML
-    private TextField download_Forge_version;
-    @FXML
-    private TextField download_MC_version;
+
     @FXML
     private TextField height;
+
     @FXML
-    private Button download_MC_Button;
+    private Button unpackButton;
+
     @FXML
-    private Tab launchTab;
+    private AnchorPane launchTab;
+
     @FXML
-    private Tab downloadTab;
+    private TextField minMemory;
+
     @FXML
-    private Pane download_MC;
+    private Button downloadButton;
+
     @FXML
     private TextField address;
+
     @FXML
     private TextField playerName;
-    @FXML
-    private Button download_MC_Path;
-    @FXML
-    private TextField download_Liteloader_version;
-    @FXML
-    private ToggleSwitch download_Liteloader_is;
+
     @FXML
     private Pane infoPane;
+
     @FXML
     private Button launchButton;
-    @FXML
-    private Button rootDirChooseButton;
+
     @FXML
     private Label versionLabel;
+
     @FXML
-    private Circle unfoldButton;
+    private Button rootDirChooseButton;
+
     @FXML
     private TextField port;
+
+    @FXML
+    private Circle unfoldButton;
+
     @FXML
     private CheckBox isAutoMem;
+
     @FXML
     private TextField width;
+
     @FXML
     private Label gameVersion;
+
     @FXML
     private CheckBox isFullScreen;
+
     @FXML
     private CheckBox isOnlineLaunch;
-    private ForgeVersionList forgeVersionList = null;
-    private LiteloaderVersionList liteloaderVersionList = null;
-    private Minecraft[] mc;
-    private int mc_pointer = 0;
 
     public void printError(Exception e) {
         appendLog(e.toString());
@@ -133,12 +146,13 @@ public class launcherUI_Controller {
 
     public void install() {
         versionLabel.setText("MQ启动器 " + launcher.launcherVersion);
-        launchTab.setDisable(true);
-        rootDirChooseButton.setVisible(true);
         ableAutoMem();
         ableOffline();
-        ableFullScreen();
+        ableNotFullScreen();
         ableNonThroughServer();
+        memory.setHighValue(4096);
+        memory.setLowValue(1024);
+        updateMemory();
 
         launcher.gameProcessListener = new GameProcessListener() {
 
@@ -235,22 +249,35 @@ public class launcherUI_Controller {
             }
         };
 
+        versionView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Minecraft>() {
+            @Override
+            public void changed(ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) {
+                updateVersionView();
+            }
+        });
+        logText.setScrollTop(Double.MIN_VALUE);
+
         appendLog("轻巧、便捷为一体，尽在 MQ · 新一代MC启动器 。加载完毕。");
 
-        downloadForgeVersionList();
-        downloadLiteloaderVersionList();
+        versionView.setCellFactory(param -> new minecraftCell());
+
+        Init(System.getProperty("user.dir") + File.separator + ".minecraft");
     }
 
-    public void Init() {
-        //launchLanguage(launcherUI.defaultLocale);
+    public void Init(String rootDir) {
+        final File test = new File(rootDir);
+        if (!test.exists() || !test.isDirectory()) {
+            return;
+        }
         try {
-            mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-            gameVersion.setText(mc[0].version);
+            versionView.getItems().addAll(Minecraft.getMinecrafts(new MinecraftDirectory(rootDir)));
+            versionView.getSelectionModel().select(0);
+            gameVersion.setText(versionView.getSelectionModel().getSelectedItem().version);
             gamePathLink.setText(getSelectMC().rootPath);
-            launchTab.setDisable(false);
-            rootDirChooseButton.setVisible(false);
         } catch (Exception e) {
-            mc = new Minecraft[0];
+            new expDialog().apply("导入错误", null, "游戏导入发生错误。", e);
+            e.printStackTrace();
+            versionView.setItems(null);
             gameVersion.setText("未知");
         }
     }
@@ -269,7 +296,7 @@ public class launcherUI_Controller {
      * @author XiaoLi8848, 1662423349@qq.com
      */
     public Minecraft getSelectMC() {
-        return mc[mc_pointer];
+        return versionView.getSelectionModel().getSelectedItem();
     }
 
     /**
@@ -281,20 +308,12 @@ public class launcherUI_Controller {
     }
 
     /**
-     * @return 返回用户当前选中的游戏的根路径。即“.minecraft”文件夹的路径。
-     * @author XiaoLi8848, 1662423349@qq.com
-     */
-    public String getRootDir() {
-        return rootDir;
-    }
-
-    /**
      * @author XiaoLi8848, 1662423349@qq.com
      * 加载游戏。
      */
     @FXML
     void launchGame(ActionEvent event) {
-        if (rootDir != null && !rootDir.equals("")) {
+        if (versionView.getSelectionModel().getSelectedItem() != null) {
             if (isThroughServer.isSelected() && address.getText().length() > 0 || !isThroughServer.isSelected()) {
                 if (!isOnlineLaunch.isSelected()) {
                     lockArgs();
@@ -302,13 +321,13 @@ public class launcherUI_Controller {
                 } else {
                     if (!user_name.getText().equals("") && !password.getText().equals("")) {
 
-                            lockArgs();
-                            launcherUI.launchGameOnline();
+                        lockArgs();
+                        launcherUI.launchGameOnline();
                     } else {
                         new errDialog().apply("参数错误", "参数为空！", "在线登录的账户名或密码不能为空。");
                     }
                 }
-            }else{
+            } else {
                 new errDialog().apply("参数错误", "参数为空！", "直入的服务器地址不能为空。");
             }
         }
@@ -324,14 +343,15 @@ public class launcherUI_Controller {
         directoryChooser.setTitle("选择“.minecraft”文件夹");
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
         if (chooserTemp != null) {
-            rootDir = chooserTemp;
+            Init(chooserTemp);
         }
-        Init();
     }
 
     public void appendLog(String text) {
         try {
+            int caretPosition = logText.caretPositionProperty().get();
             logText.appendText(text + "\n");
+            logText.positionCaret(caretPosition);
         } catch (Exception e) {
 
         }
@@ -510,6 +530,18 @@ public class launcherUI_Controller {
         launchTab.setDisable(false);
     }
 
+    public void setServerInfo(String address, String port) {
+        ableThroughServer();
+        this.address.setText(address);
+        this.address.setText(port);
+    }
+
+    public void setServerInfo(String address) {
+        ableThroughServer();
+        this.address.setText(address);
+        this.address.setText("");
+    }
+
     @FXML
     void choosePath_MC() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -518,39 +550,6 @@ public class launcherUI_Controller {
         if (chooserTemp != null) {
             downloadDir = chooserTemp;
         }
-    }
-
-    @FXML
-    void download_MC() {
-        if (new File(downloadDir).exists()) {
-            downloadGame(download_MC_version.getText(), downloadDir);
-        }
-    }
-
-    @FXML
-    void chooseVersion_MC() {
-        downloadVersion = download_MC_version.getText();
-        try {
-            if (forgeVersionList != null) {
-                forgeVersion = forgeVersionList.getLatest(download_MC_version.getText());
-                download_Forge_version.setText(forgeVersion.toString());
-            }
-            if (liteloaderVersionList != null) {
-                liteloaderVersion = liteloaderVersionList.getLatest(download_MC_version.getText());
-                download_Liteloader_version.setText(liteloaderVersion.toString());
-            }
-        } catch (Exception e) {
-            download_Forge_version.setText("");
-            download_Liteloader_version.setText("");
-        }
-    }
-
-    public void updateForgeVersion(ForgeVersionList list) {
-        forgeVersionList = list;
-    }
-
-    public void updateLiteloader(LiteloaderVersionList list) {
-        liteloaderVersionList = list;
     }
 
     @FXML
@@ -567,11 +566,91 @@ public class launcherUI_Controller {
         }
     }
 
+    @FXML
+    void updateMemory() {
+        minMemory.setText(String.valueOf(memory.getLowValue()));
+        maxMemory.setText(String.valueOf(memory.getHighValue()));
+    }
+
     public String getServer() {
         return !address.getText().equals("") && !port.getText().equals("") ? !port.getText().equals("") ? address.getText() + ":25565" : address.getText() + ":" + port.getText() : "";
     }
 
-    public void changeThread() {
 
+    @FXML
+    void downloadGame() {
+        String version = new inputDialog().apply("输入游戏版本", null, "请输入你要下载的游戏版本（如1.7.10，支持快照）");
+        if (version != "")
+            Download.downloadGame(version, System.getProperty("user.dir") + File.separator + ".minecraft");
+    }
+
+    @FXML
+    void uploadMemory(){
+        double low = Double.parseDouble(minMemory.getText());
+        double high = Double.parseDouble(maxMemory.getText());
+        if(low<=high) {
+            memory.setLowValue(low);
+            memory.setHighValue(high);
+        }else{
+            minMemory.setText(String.valueOf(memory.getLowValue()));
+            maxMemory.setText(String.valueOf(memory.getHighValue()));
+        }
+    }
+
+    public void pack(){
+        if(versionView.getSelectionModel().getSelectedItem() == null) {
+            appendLog("不好意思，你还没有导入游戏。无法打包整合包。");
+            return;
+        }
+        appendLog("开始打包整合包。");
+        if(mcPack.pack(new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath()+File.separator+"pack.zip",versionView.getSelectionModel().getSelectedItem().rootPath)){
+            appendLog("打包成功。路径：" + new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath());
+        }else{
+            appendLog("打包失败。");
+        }
+    }
+
+    public void unpack(){
+        String zipPath = new FileChooser().showOpenDialog(launcherUI.primaryStage).toString();
+        if(zipPath!=null){
+            String toPath = new DirectoryChooser().showDialog(launcherUI.primaryStage).toString();
+            if(toPath != null){
+                if(mcPack.unpack(zipPath,toPath)){
+                    appendLog("导出成功。路径：" + toPath);
+                    Init(toPath);
+                    Init(toPath+File.separator+".minecraft");
+                }else{
+                    appendLog("导出失败。");
+                }
+            }
+        }
+    }
+
+    private class minecraftCell extends ListCell<Minecraft> {
+
+        @Override
+        public void updateItem(Minecraft item, boolean empty) {
+            super.updateItem(item, empty);
+            if (!empty && item != null) {
+                BorderPane cell = new BorderPane();
+
+                Text title = new Text(item.version);
+                title.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD,20));
+
+                Text date = new Text(item.rootPath);
+                date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC,10));
+
+                ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/mc_icon.png").toString());
+
+                cell.setCenter(title);
+                cell.setBottom(date);
+                cell.setLeft(icon);
+
+                setGraphic(cell);
+            } else if (empty) {
+                setText(null);
+                setGraphic(null);
+            }
+        }
     }
 }

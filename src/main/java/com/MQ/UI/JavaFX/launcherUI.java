@@ -26,6 +26,8 @@ import static com.MQ.launcher.gameProcessListener;
 public class launcherUI extends Application {
     public static final String coverURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
     public static final String projectURL = "https://github.com/xiaoli8848/MQ";
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 850;
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
     public static Parent root;
@@ -106,18 +108,22 @@ public class launcherUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
-        primaryStage.setTitle("MQ");
-        //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
-        FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
-        root = a.load();
-        controller = a.getController();
-        Scene scene = new Scene(root, 1000, 800);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        controller.install();
-        controller.Init();
+    public void start(Stage primaryStage) {
+        try {
+            this.primaryStage = primaryStage;
+            primaryStage.setTitle("MQ");
+            FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
+            root = a.load();
+            controller = a.getController();
+            Scene scene = new Scene(root, WIDTH, HEIGHT);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            controller.install();
+        }catch (Exception e){
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     @Override

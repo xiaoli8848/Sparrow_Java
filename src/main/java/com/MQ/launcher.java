@@ -19,10 +19,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.MQ.Tools.DownloadAPI.Download.downloadGame;
+import static com.MQ.Tools.Download.Download.downloadGame;
 
 public class launcher {
-    public static final String launcherVersion = "V0.2.1";
+    public static final String launcherVersion = "V0.3.0 - alpha";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
@@ -122,7 +122,6 @@ public class launcher {
                         args[1],    //游戏版本
                         args[2]     //目标路径
                 );
-
         }
     }
 

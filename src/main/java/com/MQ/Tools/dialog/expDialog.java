@@ -16,7 +16,7 @@ public class expDialog extends Alert {
 
     public void apply(String title, String header, String content, Exception error) {
         this.setTitle(title);
-        if(header != "")
+        if (header != "")
             this.setHeaderText(header);
         else
             this.setHeaderText(null);
@@ -27,7 +27,7 @@ public class expDialog extends Alert {
         error.printStackTrace(pw);
         String exceptionText = sw.toString();
 
-        Label label = new Label("The exception stacktrace was:");
+        Label label = new Label("错误详情如下：");
 
         TextArea textArea = new TextArea(exceptionText);
         textArea.setEditable(false);

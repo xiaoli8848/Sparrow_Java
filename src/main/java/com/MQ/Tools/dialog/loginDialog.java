@@ -13,7 +13,7 @@ import java.util.Optional;
 public class loginDialog extends Dialog<Pair<String, String>> {
     public String[] apply(String title, String header) {
         this.setTitle(title);
-        if(header != "")
+        if (header != "")
             this.setHeaderText(header);
         else
             this.setHeaderText(null);

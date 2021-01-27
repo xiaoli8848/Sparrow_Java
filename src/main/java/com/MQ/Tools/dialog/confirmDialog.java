@@ -12,7 +12,7 @@ public class confirmDialog extends Alert {
 
     public boolean apply(String title, String header, String content) {
         this.setTitle(title);
-        if(header != "")
+        if (header != "")
             this.setHeaderText(header);
         else
             this.setHeaderText(null);
