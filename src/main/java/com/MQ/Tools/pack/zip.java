@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipUtils {
+public class zip {
     private static final int BUFFER_SIZE = 2 * 1024;
 
     /**
@@ -30,7 +30,7 @@ public class ZipUtils {
             compress(sourceFile, zos, sourceFile.getName(), KeepDirStructure);
             long end = System.currentTimeMillis();
         } catch (Exception e) {
-            throw new RuntimeException("zip error from ZipUtils", e);
+            throw new RuntimeException("zip error from zip", e);
         } finally {
             if (zos != null) {
                 try {
@@ -67,7 +67,7 @@ public class ZipUtils {
             }
             long end = System.currentTimeMillis();
         } catch (Exception e) {
-            throw new RuntimeException("zip error from ZipUtils", e);
+            throw new RuntimeException("zip error from zip", e);
         } finally {
             if (zos != null) {
                 try {
