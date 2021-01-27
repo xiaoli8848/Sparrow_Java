@@ -12,7 +12,8 @@
             style="-fx-background-color: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);"
             xmlns="http://javafx.com/javafx/8" fx:controller="com.MQ.UI.JavaFX.launcherUI_Controller">
     <children>
-        <AnchorPane layoutX="299.0" layoutY="124.0" minHeight="0.0" minWidth="0.0" prefHeight="363.0" prefWidth="680.0">
+        <AnchorPane fx:id="launchTab" layoutX="299.0" layoutY="124.0" minHeight="0.0" minWidth="0.0" prefHeight="363.0"
+                    prefWidth="680.0">
             <children>
                 <AnchorPane layoutX="214.0" layoutY="24.0" minHeight="0.0" minWidth="0.0" prefHeight="170.0"
                             prefWidth="191.0" styleClass="Pane_white" stylesheets="@UI_JavaFX.css">
@@ -174,16 +175,17 @@
                 </TextField>
             <AnchorPane layoutX="10.0" layoutY="14.0" opacity="0.9" prefHeight="100.0" prefWidth="235.0" style="-fx-background-color: rgb(179,229,252); -fx-background-radius: 20px;">
                <children>
-                  <ImageView fx:id="versionImage" fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@imgs/iron_sword.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="gameVersion" layoutX="85.0" layoutY="14.0" text="未知">
-                     <font>
-                        <Font name="DengXian Bold" size="24.0" />
-                     </font>
-                  </Label>
+                   <ImageView fx:id="versionImage" fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="20.0"
+                              pickOnBounds="true" preserveRatio="true">
+                       <image>
+                           <Image url="@imgs/iron_sword.png"/>
+                       </image>
+                   </ImageView>
+                   <Label fx:id="gameVersion" layoutX="85.0" layoutY="14.0" text="未知">
+                       <font>
+                           <Font name="DengXian Bold" size="24.0"/>
+                       </font>
+                   </Label>
                    <Circle fx:id="unfoldButton" fill="#737b83" layoutX="209.0" layoutY="46.0" radius="12.0"
                            stroke="TRANSPARENT" strokeType="INSIDE"/>
                    <Hyperlink fx:id="gamePathLink" layoutX="75.0" layoutY="58.0" maxHeight="25.0" maxWidth="105.0"

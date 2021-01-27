@@ -14,7 +14,7 @@
 
 <AnchorPane maxHeight="850.0" maxWidth="1000.0" minHeight="850.0" minWidth="1000.0" prefHeight="850.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.MQ.UI.JavaFX.launcherUI_Controller">
     <children>
-  <AnchorPane layoutX="299.0" layoutY="124.0" minHeight="0.0" minWidth="0.0" prefHeight="363.0" prefWidth="680.0">
+  <AnchorPane fx:id="launchTab" layoutX="299.0" layoutY="124.0" minHeight="0.0" minWidth="0.0" prefHeight="363.0" prefWidth="680.0">
          <children>
           <AnchorPane layoutX="214.0" layoutY="24.0" minHeight="0.0" minWidth="0.0" prefHeight="170.0" prefWidth="191.0" styleClass="Pane_white" stylesheets="@UI_JavaFX.css">
                <children>
