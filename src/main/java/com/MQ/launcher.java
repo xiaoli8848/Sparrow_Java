@@ -22,7 +22,7 @@ import java.util.Objects;
 import static com.MQ.Tools.Download.Download.downloadGame;
 
 public class launcher {
-    public static final String launcherVersion = "V0.3.0 - alpha";
+    public static final String LAUNCHER_VERSION = "V0.3.0 - alpha";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
@@ -236,7 +236,7 @@ public class launcher {
 
     public static void setVersionTypeToMQ(LaunchOption option) {
         Map<String, String> versionType = new HashMap<>();
-        versionType.put("version_type", "MQ " + launcherVersion);
+        versionType.put("version_type", "MQ " + LAUNCHER_VERSION);
         option.setCommandlineVariables(versionType);
     }
 }

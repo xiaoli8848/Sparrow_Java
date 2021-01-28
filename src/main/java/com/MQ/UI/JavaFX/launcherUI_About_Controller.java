@@ -9,6 +9,6 @@ public class launcherUI_About_Controller {
     private Label version;
 
     public void Init() {
-        version.setText(launcher.launcherVersion);
+        version.setText(launcher.LAUNCHER_VERSION);
     }
 }

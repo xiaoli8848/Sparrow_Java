@@ -33,6 +33,6 @@ public class launcherUI_Controller {
 
     //public String getSelctVersion() {return gameVersionChooser.getValue();}
 
-    //void launchGame(ActionEvent event) { launcherUI.launchGamer();}
+    //void launchGame(ActionEvent event) { launcherUI_Controller.launchGamer();}
 }
 

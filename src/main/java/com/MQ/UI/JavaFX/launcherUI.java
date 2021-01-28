@@ -38,12 +38,12 @@ public class launcherUI extends Application {
     }
 
     public static void launchGameOffline() {
-        controller.getSelectMC().launchOffline(controller.getPlayerName(), false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), controller.getServer());
+        controller.getSelectMC().launchOffline(controller.getPlayerName(), false, true, controller.getMinMemory(), controller.getMaxMemory(), controller.getGameWindowWidth(), controller.getGameWindowHeight(), controller.getServer());
     }
 
     public static void launchGameOnline() {
         Minecraft tempMC = controller.getSelectMC();
-        launch_online(tempMC.rootPath, false, true, controller.getMinMem(), controller.getMaxMem(), controller.getWidth(), controller.getHeight(), controller.getServer());
+        launch_online(tempMC.rootPath, false, true, controller.getMinMemory(), controller.getMaxMemory(), controller.getGameWindowWidth(), controller.getGameWindowHeight(), controller.getServer());
     }
 
     public static void gotoWebSite(String url) throws IOException {
