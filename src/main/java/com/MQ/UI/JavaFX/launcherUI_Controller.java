@@ -2,6 +2,7 @@ package com.MQ.UI.JavaFX;
 
 import com.MQ.Minecraft;
 import com.MQ.Tools.Download.Download;
+import com.MQ.Tools.IO;
 import com.MQ.Tools.WindowsNotification;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
@@ -46,11 +47,12 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author XiaoLi8848, 1662423349@qq.com
  * 本类作为JavaFX UI的Controller，管理UI与程序的交互以及UI界面。
  * 本类中提供了访问UI上提供的启动游戏必备的参数的方法。
+ * @author XiaoLi8848, 1662423349@qq.com
  */
-public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
+public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
+    public static final String PACK_NAME = "pack.zip";
     public String downloadDir;
     public String downloadVersion;
     @FXML
@@ -140,7 +142,8 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
     @FXML
     private CheckBox isOnlineLaunch;
 
-    public void printError(Exception e) {
+    @Override
+    public void printErrorInfo(Exception e) {
         appendLog(e.toString());
     }
 
@@ -295,7 +298,6 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
 
     /**
      * @return 返回用户当前选中的游戏类（{@link Minecraft}）。
-     * 该方法不可用，待完善。
      * @author XiaoLi8848, 1662423349@qq.com
      */
     @Override
@@ -307,13 +309,14 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
      * @return 返回用户当前选中的游戏的版本号。如：1.7
      * @author XiaoLi8848, 1662423349@qq.com
      */
-    public String getSelectVersion() {
+    @Override
+    public String getSelectMC_Version() {
         return getSelectMC().version;
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * 加载游戏。
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     @FXML
     void launchGame(ActionEvent event) {
@@ -338,8 +341,8 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
     }
 
     /**
-     * @author XiaoLi8848, 1662423349@qq.com
      * 弹出一个{@link DirectoryChooser}对话框，引导用户选择rootDir路径。
+     * @author XiaoLi8848, 1662423349@qq.com
      */
     @FXML
     void chooseRootDir(ActionEvent event) {
@@ -395,7 +398,7 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
     }
 
     public void updateVersionView() {
-        gameVersion.setText(getSelectVersion());
+        gameVersion.setText(getSelectMC_Version());
         gamePathLink.setText(getSelectMC().rootPath);
     }
 
@@ -613,8 +616,10 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
             return;
         }
         appendLog("开始打包整合包。");
-        if (mcPack.pack(new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath() + File.separator + "pack.zip", versionView.getSelectionModel().getSelectedItem().rootPath)) {
-            appendLog("打包成功。路径：" + new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath());
+        String pathTemp = new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath();
+        String zipPath = pathTemp.substring(0, pathTemp.lastIndexOf(File.separator)) + File.separator + PACK_NAME;
+        if (mcPack.pack(zipPath, versionView.getSelectionModel().getSelectedItem().rootPath)) {
+            appendLog("打包成功。路径：" + zipPath);
         } else {
             appendLog("打包失败。");
         }
@@ -636,6 +641,9 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
         }
     }
 
+    /**
+     * 用于处理游戏版本列表视图。
+     */
     private class minecraftCell extends ListCell<Minecraft> {
 
         @Override
@@ -644,16 +652,23 @@ public class launcherUI_Controller extends com.MQ.UI.launcherUI_Controller {
             if (!empty && item != null) {
                 BorderPane cell = new BorderPane();
 
-                Text title = new Text(item.version);
-                title.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 20));
+                Text version = new Text(item.version);
+                version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 20));
 
-                Text date = new Text(item.rootPath);
-                date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC, 10));
+                Hyperlink path = new Hyperlink(item.rootPath);
+                path.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+                path.setOnAction(event -> {
+                    try {
+                        IO.browseFile(path.getText());
+                    } catch (Exception e) {
+                        new expDialog().apply("打开路径失败", null, "不好意思，打开游戏版本所在路径失败。", e);
+                    }
+                });
 
                 ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/mc_icon.png").toString());
 
-                cell.setCenter(title);
-                cell.setBottom(date);
+                cell.setCenter(version);
+                cell.setBottom(path);
                 cell.setLeft(icon);
 
                 setGraphic(cell);

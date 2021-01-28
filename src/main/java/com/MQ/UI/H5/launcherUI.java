@@ -25,7 +25,7 @@ public class launcherUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
+        launcherUI.primaryStage = primaryStage;
         primaryStage.setTitle("MQ");
         //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
         FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/H5/launcherUI_h5.fxml"));

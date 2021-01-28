@@ -46,17 +46,6 @@ public class launcherUI extends Application {
         launch_online(tempMC.rootPath, false, true, controller.getMinMemory(), controller.getMaxMemory(), controller.getGameWindowWidth(), controller.getGameWindowHeight(), controller.getServer());
     }
 
-    public static void gotoWebSite(String url) throws IOException {
-        java.net.URI uri = java.net.URI.create(url);
-        // 获取当前系统桌面扩展
-        java.awt.Desktop dp = java.awt.Desktop.getDesktop();
-        // 判断系统桌面是否支持要执行的功能
-        if (dp.isSupported(java.awt.Desktop.Action.BROWSE)) {
-            dp.browse(uri);
-            // 获取系统默认浏览器打开链接
-        }
-    }
-
     /**
      * @param rootDir      游戏根路径（即“.minecraft”文件夹的路径）
      * @param debugPrint   是否将调试信息输出
@@ -110,7 +99,7 @@ public class launcherUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            this.primaryStage = primaryStage;
+            launcherUI.primaryStage = primaryStage;
             primaryStage.setTitle("MQ");
             FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/JavaFX/launcherUI_javafx.fxml"));
             root = a.load();
@@ -120,7 +109,7 @@ public class launcherUI extends Application {
             primaryStage.setResizable(false);
             primaryStage.show();
             controller.install();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }

@@ -56,7 +56,7 @@ public class Minecraft {
         try {
             launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
         } catch (Exception e) {
-            launcherUI.controller.printError(e);
+            launcherUI.controller.printErrorInfo(e);
         }
     }
 }
