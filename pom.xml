@@ -41,6 +41,11 @@
             <artifactId>ant</artifactId>
             <version>1.9.4</version>
         </dependency>
+        <dependency>
+            <groupId>io.jboot</groupId>
+            <artifactId>jboot</artifactId>
+            <version>3.9.1</version>
+        </dependency>
     </dependencies>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.mclucr</groupId>

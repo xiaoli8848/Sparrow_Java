@@ -3,7 +3,7 @@ package com.MQ.UI.JavaFX;
 import com.MQ.Minecraft;
 import com.MQ.Tools.Download.Download;
 import com.MQ.Tools.IO;
-import com.MQ.Tools.WindowsNotification;
+import com.MQ.Tools.SystemPlatform;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
 import com.MQ.Tools.dialog.inputDialog;
@@ -49,10 +49,10 @@ import java.io.IOException;
 /**
  * 本类作为JavaFX UI的Controller，管理UI与程序的交互以及UI界面。
  * 本类中提供了访问UI上提供的启动游戏必备的参数的方法。
+ *
  * @author XiaoLi8848, 1662423349@qq.com
  */
 public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
-    public static final String PACK_NAME = "pack.zip";
     public String downloadDir;
     public String downloadVersion;
     @FXML
@@ -175,7 +175,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
                 freeArgs();
                 appendLog("游戏进程停止。返回码：" + code); // 游戏结束时输出状态码
                 try {
-                    WindowsNotification.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
+                    SystemPlatform.displayTray("MQ - 游戏结束", "游戏进程结束", "返回码：" + code);
                 } catch (AWTException awtException) {
                 }
                 appendLog("\n------------------\n");
@@ -190,7 +190,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
                 // 参数代表实际下载到的Minecraft版本
                 appendLog("MC（版本 " + result + " )下载完成。");
                 try {
-                    WindowsNotification.displayTray("MQ - 下载完成", "下载完成", "恭喜。MC版本：" + result + "已下载完成。");
+                    SystemPlatform.displayTray("MQ - 下载完成", "下载完成", "恭喜。MC版本：" + result + "已下载完成。");
                 } catch (AWTException awtException) {
                 }
             }
@@ -201,7 +201,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
                 // 参数代表是由于哪个异常而失败的
                 appendLog("下载出现错误。");
                 try {
-                    WindowsNotification.displayTray("MQ - 下载错误", "下载错误", "抱歉。下载MC时遇到错误：" + e.toString());
+                    SystemPlatform.displayTray("MQ - 下载错误", "下载错误", "抱歉。下载MC时遇到错误：" + e.toString());
                 } catch (AWTException awtException) {
                 }
                 e.printStackTrace();
@@ -316,6 +316,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
 
     /**
      * 加载游戏。
+     *
      * @author XiaoLi8848, 1662423349@qq.com
      */
     @FXML
@@ -342,6 +343,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
 
     /**
      * 弹出一个{@link DirectoryChooser}对话框，引导用户选择rootDir路径。
+     *
      * @author XiaoLi8848, 1662423349@qq.com
      */
     @FXML
@@ -560,9 +562,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("选择“.minecraft”文件夹");
         String chooserTemp = directoryChooser.showDialog(launcherUI.primaryStage).getPath();
-        if (chooserTemp != null) {
-            downloadDir = chooserTemp;
-        }
+        downloadDir = chooserTemp;
     }
 
     @FXML
@@ -610,14 +610,24 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
         }
     }
 
-    public void pack() {
+    public void pack(){
+        packThread packThread = new packThread();
+        packThread.start();
+    }
+
+    public void unpack(){
+        unpackThread unpackThread = new unpackThread();
+        unpackThread.start();
+    }
+
+    public void _pack() {
         if (versionView.getSelectionModel().getSelectedItem() == null) {
             appendLog("不好意思，你还没有导入游戏。无法打包整合包。");
             return;
         }
         appendLog("开始打包整合包。");
         String pathTemp = new File(versionView.getSelectionModel().getSelectedItem().rootPath).getPath();
-        String zipPath = pathTemp.substring(0, pathTemp.lastIndexOf(File.separator)) + File.separator + PACK_NAME;
+        String zipPath = pathTemp.substring(0, pathTemp.lastIndexOf(File.separator)) + File.separator + launcherUI.PACK_NAME;
         if (mcPack.pack(zipPath, versionView.getSelectionModel().getSelectedItem().rootPath)) {
             appendLog("打包成功。路径：" + zipPath);
         } else {
@@ -625,7 +635,7 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
         }
     }
 
-    public void unpack() {
+    public void _unpack() {
         String zipPath = new FileChooser().showOpenDialog(launcherUI.primaryStage).toString();
         if (zipPath != null) {
             String toPath = new DirectoryChooser().showDialog(launcherUI.primaryStage).toString();
@@ -640,42 +650,57 @@ public class launcherUI_Controller implements com.MQ.UI.launcherUI_ControllerI {
             }
         }
     }
+}
 
-    /**
-     * 用于处理游戏版本列表视图。
-     */
-    private class minecraftCell extends ListCell<Minecraft> {
 
-        @Override
-        public void updateItem(Minecraft item, boolean empty) {
-            super.updateItem(item, empty);
-            if (!empty && item != null) {
-                BorderPane cell = new BorderPane();
+/**
+ * 用于处理游戏版本列表视图。
+ */
+class minecraftCell extends ListCell<Minecraft> {
 
-                Text version = new Text(item.version);
-                version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 20));
+    @Override
+    public void updateItem(Minecraft item, boolean empty) {
+        super.updateItem(item, empty);
+        if (!empty && item != null) {
+            BorderPane cell = new BorderPane();
 
-                Hyperlink path = new Hyperlink(item.rootPath);
-                path.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC, 14));
-                path.setOnAction(event -> {
-                    try {
-                        IO.browseFile(path.getText());
-                    } catch (Exception e) {
-                        new expDialog().apply("打开路径失败", null, "不好意思，打开游戏版本所在路径失败。", e);
-                    }
-                });
+            Text version = new Text(item.version);
+            version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 20));
 
-                ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/mc_icon.png").toString());
+            Hyperlink path = new Hyperlink(item.rootPath);
+            path.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC, 14));
+            path.setOnAction(event -> {
+                try {
+                    IO.browseFile(path.getText());
+                } catch (Exception e) {
+                    new expDialog().apply("打开路径失败", null, "不好意思，打开游戏版本所在路径失败。", e);
+                }
+            });
 
-                cell.setCenter(version);
-                cell.setBottom(path);
-                cell.setLeft(icon);
+            ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("UI/JavaFX/imgs/mc_icon.png").toString());
 
-                setGraphic(cell);
-            } else if (empty) {
-                setText(null);
-                setGraphic(null);
-            }
+            cell.setCenter(version);
+            cell.setBottom(path);
+            cell.setLeft(icon);
+
+            setGraphic(cell);
+        } else if (empty) {
+            setText(null);
+            setGraphic(null);
         }
+    }
+}
+
+class packThread extends Thread{
+    @Override
+    public void run() {
+        launcherUI.controller._pack();
+    }
+}
+
+class unpackThread extends Thread{
+    @Override
+    public void run() {
+        launcherUI.controller._unpack();
     }
 }

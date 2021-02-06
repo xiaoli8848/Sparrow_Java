@@ -21,13 +21,12 @@ import static com.MQ.launcher.gameProcessListener;
 
 /**
  * @author XiaoLi8848, 1662423349@qq.com
- * 本类中提供了JavaFX UI平台的{@link #main(String[])}程序入口，以采用JavaFX UI启动程序。同时，本类中的{@link #coverURL}等公开静态（常）量，为{@link launcherUI_Controller}类或者其它UI类提供必要的参数。
+ * 本类中提供了JavaFX UI平台的{@link #main(String[])}程序入口，以采用JavaFX UI启动程序。同时，本类中的公开静态（常）量，为{@link launcherUI_Controller}类或者其它UI类提供必要的参数。
  */
 public class launcherUI extends Application {
-    public static final String coverURL = "http://xiaoli8848.usa3v.vip/JMCCC/";
-    public static final String projectURL = "https://github.com/xiaoli8848/MQ";
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 850;
+    protected static final String PACK_NAME = "pack.zip";
     public static launcherUI_Controller controller;
     public static Stage primaryStage;
     public static Parent root;
@@ -109,6 +108,7 @@ public class launcherUI extends Application {
             primaryStage.setResizable(false);
             primaryStage.show();
             controller.install();
+
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

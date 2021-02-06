@@ -56,7 +56,7 @@ public interface launcherUI_ControllerI {
     String getPlayerName();
 
     /**
-     * 输出错误信息，默认通过本类中的appendLog()输出
+     * 输出错误信息，推荐通过本类中的appendLog()输出
      *
      * @param e 抛出的错误对象
      */

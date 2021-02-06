@@ -225,9 +225,9 @@
                     </font>
                 </Button>
                 <Separator orientation="VERTICAL" prefHeight="40.0"/>
-                <Button fx:id="packButton" mnemonicParsing="false" onAction="#pack" styleClass="action-btn"
+                <Button fx:id="packButton" mnemonicParsing="false" onAction="#_pack" styleClass="action-btn"
                         stylesheets="@bootstrap3.css" text="打包整合包"/>
-                <Button fx:id="unpackButton" mnemonicParsing="false" onAction="#unpack" styleClass="action-btn"
+                <Button fx:id="unpackButton" mnemonicParsing="false" onAction="#_unpack" styleClass="action-btn"
                         stylesheets="@bootstrap3.css" text="导入整合包"/>
             </items>
         </ToolBar>

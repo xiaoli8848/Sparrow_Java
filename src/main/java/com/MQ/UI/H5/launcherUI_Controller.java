@@ -1,38 +1,66 @@
 package com.MQ.UI.H5;
 
-import com.MQ.Minecraft;
-import javafx.fxml.FXML;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import org.to2mbn.jmccc.option.MinecraftDirectory;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-public class launcherUI_Controller {
-    public String rootDir;
-    @FXML
-    private WebView browser;
-    private Minecraft[] mc;
-
-    public void Init() {
-        WebEngine browser_eng = browser.getEngine();
-        //TODO 替换rootDir
-        mc = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-        String[] versions = new String[2];
-        if (mc[1].version != null && mc[1].version != "") {
-            versions[0] = mc[0].version;
-            versions[1] = mc[1].version;
-        } else {
-            versions = new String[1];
-            versions[0] = mc[0].version;
+public class launcherUI_Controller{
+    ServerSocket serverSkt=null;
+    Socket clientSkt=null;
+    BufferedReader in=null;
+    PrintStream out=null;
+    //构造方法
+    public launcherUI_Controller(int port){
+        System.out.println("服务器代理正在监听，端口："+port);
+        try{
+            serverSkt=new ServerSocket(port);
+        }catch(IOException e){
+            System.out.println("监听端口"+port+"失败！");
         }
-        browser_eng.load(launcherUI.UI_H5);
+    }
+    //收到客户端请求
+    public String getRequest(){
+        String frmClt=null;
+        try{
+            clientSkt=serverSkt.accept();
+
+        }catch(IOException e){
+            System.out.println("连接失败");
+        }
+        try{
+            in=new BufferedReader(new InputStreamReader(clientSkt.getInputStream()));
+            out=new PrintStream(clientSkt.getOutputStream());
+
+        }catch(IOException e){
+
+        }
+        try{
+            frmClt=in.readLine();
+            System.out.println("Server收到请求："+frmClt);
+        }catch(Exception e){
+            System.out.println("无法读取端口.......");
+            System.exit(0);
+        }
+        return frmClt;
+    }
+    //发送响应给客户端
+    public void sendResponse(String response){
+        try{
+            out.println(response);
+            System.out.println("Server响应请求 ："+response);
+        }catch(Exception ex){
+            System.out.println("写端口失败！。。。");
+            System.exit(0);
+        }
     }
 
-    //public String getPlayerName() { return ""; }
-
-    //public Minecraft getSelctMC() { return mc[0]; }
-
-    //public String getSelctVersion() {return gameVersionChooser.getValue();}
-
-    //void launchGame(ActionEvent event) { launcherUI_Controller.launchGamer();}
+    public static void main(String args[]) {
+        launcherUI_Controller sa = new launcherUI_Controller(8080);
+        while (true) {
+            sa.sendResponse(sa.getRequest());
+        }
+    }
 }
-
