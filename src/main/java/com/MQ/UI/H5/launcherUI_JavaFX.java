@@ -24,8 +24,9 @@ public class launcherUI_JavaFX extends Application {
         FXMLLoader a = new FXMLLoader(getClass().getClassLoader().getResource("UI/H5/launcherUI_h5.fxml"));
         Parent root = a.load();
         controller = a.getController();
-        Scene scene = new Scene(root, 1000, 800);
+        Scene scene = new Scene(root, 1000, 850);
         primaryStage.setScene(scene);
+        controller.install();
         primaryStage.show();
     }
 }

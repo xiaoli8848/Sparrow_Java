@@ -10,7 +10,7 @@ public class launcherUI_Controller_JavaFX {
 
     public void install() {
         WebEngine browser_eng = browser.getEngine();
-        browser_eng.load("localhost:8080");
+        browser_eng.load(launcherUI.class.getClassLoader().getResource("UI/H5/webapp/index.html").toString());
     }
 }
 
