@@ -1,5 +1,6 @@
 package com.MQ.UI.H5;
 
+import com.MQ.launcher;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.*;
@@ -36,14 +37,47 @@ public class launcherUI_Controller {
                         MinecraftDirectory gamePath = new MinecraftDirectory(path);
                         File[] versions = gamePath.getVersions().listFiles();
                         String ans="";
-                        for(int i=0;i<versions.length;i++){
-                            ans += versions[i].toString()+";";
+                        for (File version : versions) {
+                            ans += version.toString() + ";";
                         }
                         ans=ans.substring(0,ans.length()-1);
                         connect.sendResponse(ans);
                     }catch (Exception e){
                         connect.sendResponse("0");
                     }
+                    break;
+                case "launch_offline":
+                    try {
+                        try{command.args.get(7);}catch (Exception e){
+                            launcher.launch_offline(
+                                command.args.get(0),
+                                command.args.get(1),
+                                false,
+                                Boolean.parseBoolean(command.args.get(2)),
+                                Integer.parseInt(command.args.get(3)),
+                                Integer.parseInt(command.args.get(4)),
+                                Integer.parseInt(command.args.get(5)),
+                                Integer.parseInt(command.args.get(6)),
+                                    null
+                                );
+                        }
+                        launcher.launch_offline(
+                                command.args.get(0),
+                                command.args.get(1),
+                                false,
+                                Boolean.parseBoolean(command.args.get(2)),
+                                Integer.parseInt(command.args.get(3)),
+                                Integer.parseInt(command.args.get(4)),
+                                Integer.parseInt(command.args.get(5)),
+                                Integer.parseInt(command.args.get(6)),
+                                command.args.get(7)
+                        );
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        connect.sendResponse("0");
+                        break;
+                    }
+                    connect.sendResponse("1");
                     break;
             }
         }
@@ -65,14 +99,19 @@ public class launcherUI_Controller {
         } catch (IOException e) {
 
         }
+        char[] temp = new char[1000];
+        String t = "";
         try {
-            frmClt = in.readLine();
-            System.out.println("Server收到请求：" + frmClt);
+            in.read(temp);
+            t = String.valueOf(temp);
+            System.out.println("Server收到请求：" + t);
         } catch (Exception e) {
             System.out.println("无法读取端口.......");
             System.exit(0);
         }
-        return frmClt;
+        String ans = t.substring(t.lastIndexOf("data:")+6,t.lastIndexOf("}"));
+        System.out.println(ans);
+        return ans;
     }
 
     //发送响应给客户端
@@ -94,7 +133,7 @@ class command {
     /**
      * 将形如 "summary arg;arg;arg;..." 的字符串拆分
      *
-     * @param commandString
+     * @param commandString 形如 “summary arg;arg;arg” 的字符串
      */
     public command(String commandString) {
         String argsTemp = "";
