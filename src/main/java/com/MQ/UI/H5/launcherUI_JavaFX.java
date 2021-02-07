@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -25,7 +26,10 @@ public class launcherUI_JavaFX extends Application {
         Parent root = a.load();
         controller = a.getController();
         Scene scene = new Scene(root, 1000, 850);
+        scene.setFill(null);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         controller.install();
         primaryStage.show();
     }
