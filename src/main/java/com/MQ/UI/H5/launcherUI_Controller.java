@@ -86,6 +86,10 @@ public class launcherUI_Controller {
                             connect.sendResponse("1");
                             break;
                         }
+                        if (!new File(command.args.get(1)).isFile() || new File(command.args.get(1)).exists()){
+                            connect.sendResponse("1");
+                            break;
+                        }
                     } catch (Exception e) {
                         connect.sendResponse("1");
                         break;
