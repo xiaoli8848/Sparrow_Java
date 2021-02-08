@@ -2,12 +2,14 @@ package com.MQ.UI.H5;
 
 import com.MQ.Tools.pack.mcPack;
 import com.MQ.launcher;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.*;
 
 public class launcherUI_Controller {
     ServerSocket serverSkt = null;
@@ -35,13 +37,38 @@ public class launcherUI_Controller {
                         File path = new File(command.args.get(0));
                         MinecraftDirectory gamePath = new MinecraftDirectory(path);
                         File[] versions = gamePath.getVersions().listFiles();
-                        String ans = "";
+                        JSONArray ans = new JSONArray();
                         for (File version : versions) {
-                            ans += version.toString() + ";";
+                            JSONObject itemTemp = new JSONObject();
+                            itemTemp.put("version",version.toString().substring(version.toString().lastIndexOf(File.separator)+1));
+                            itemTemp.put("corePath",version.toString()+File.separator+itemTemp.getString("version")+".jar");
+                            File settingsProperties = new File(version.toString()+File.separator+"independentSettings.properties");
+                            if(!settingsProperties.exists()){
+                                itemTemp.put("versionName","Minecraft");
+                                itemTemp.put("setting","global");
+                            }else{
+                                Properties properties = new Properties();
+                                properties.load(new BufferedInputStream (new FileInputStream(settingsProperties.toString())));
+                                String nameTemp = "";
+                                try{
+                                    nameTemp = properties.getProperty("versionName");
+                                }catch (Exception e){
+                                    itemTemp.put("versionName","Minecraft");
+                                    itemTemp.put("setting","global");
+                                    break;
+                                }
+                                itemTemp.put("setting","independent");
+                                itemTemp.put("versionName",nameTemp);
+                                System.out.println(GetAllProperties(properties));
+                                String source = "{" + GetAllProperties(properties) + "}";
+                                String value = new JSONObject(source).toString();
+                                itemTemp.put("independentSettings", value);
+                            }
+                            ans.put(itemTemp);
                         }
-                        ans = ans.substring(0, ans.length() - 1);
-                        connect.sendResponse(ans);
+                        connect.sendResponse(ans.toString());
                     } catch (Exception e) {
+                        e.printStackTrace();
                         connect.sendResponse("0");
                     }
                     break;
@@ -86,7 +113,7 @@ public class launcherUI_Controller {
                             connect.sendResponse("1");
                             break;
                         }
-                        if (!new File(command.args.get(1)).isFile() || new File(command.args.get(1)).exists()){
+                        if (!new File(command.args.get(1)).isFile() || new File(command.args.get(1)).exists()) {
                             connect.sendResponse("1");
                             break;
                         }
@@ -122,6 +149,44 @@ public class launcherUI_Controller {
                     break;
                 case "minimize":
                     launcherUI_JavaFX.primaryStage.setIconified(true);
+                    break;
+                case "appendProperties":
+                    try {
+                        File properties = new File(command.args.get(0) + "versions" + File.separator + command.args.get(1) + File.separator + "independentSettings.properties");
+                        if (!properties.exists()) {
+                            try {
+                                properties.createNewFile();
+                            } catch (IOException e) {
+                                connect.sendResponse("1");
+                                break;
+                            }
+                        }
+                        Properties propertie = new Properties();
+                        propertie.load(new BufferedInputStream (new FileInputStream(properties.toString())));
+                        FileOutputStream fos = new FileOutputStream(properties.toString(), false);
+                        OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8");
+                        try{
+                            propertie.get(command.args.get(2));
+                        }catch (Exception e){
+                            propertie.setProperty(command.args.get(2),command.args.get(3));
+                            propertie.store(osw,"游戏参数");
+                            break;
+                        }
+                        Map<String, String> keyValueMap = new HashMap<>();
+                        keyValueMap.put(command.args.get(2), command.args.get(3));
+                        for (String key: keyValueMap.keySet()) {
+                            propertie.setProperty(key,keyValueMap.get(key));
+                        }
+                        propertie.store(osw,"游戏参数");
+
+                        fos.close();
+                        osw.close();
+                        connect.sendResponse("0");
+                        break;
+                    }catch (Exception e){
+                        connect.sendResponse("1");
+                        break;
+                    }
             }
         }
     }
@@ -166,6 +231,16 @@ public class launcherUI_Controller {
             System.out.println("写端口失败！。。。");
             System.exit(0);
         }
+    }
+
+    private static String GetAllProperties(Properties properties) throws IOException {
+        String ans="";
+        Set<Object> keys = properties.keySet();//返回属性key的集合
+        for (Object key : keys) {
+            ans+= key.toString() + ": " + properties.get(key) +",";
+        }
+
+        return ans.substring(0,ans.length()-1);
     }
 }
 

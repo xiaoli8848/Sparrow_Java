@@ -1,13 +1,11 @@
 package com.MQ.UI.H5;
 
-import com.MQ.UI.JavaFX.YggdrasilAuthenticator_JavaFX;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
 import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.option.ServerInfo;
 import org.to2mbn.jmccc.option.WindowSize;
-import org.to2mbn.jmccc.version.Versions;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -17,7 +15,7 @@ import static com.MQ.launcher.gameProcessListener;
 public class launcherUI {
     private static YggdrasilAuthenticator_H5 onlineAuth;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         controller controllerThread = new controller();
         controllerThread.start();
         launcherUI_JavaFX.main(new String[0]);
@@ -80,8 +78,8 @@ public class launcherUI {
     }
 }
 
-class controller extends Thread{
-    public void run(){
+class controller extends Thread {
+    public void run() {
         launcherUI_Controller.main(new String[0]);
     }
 }
