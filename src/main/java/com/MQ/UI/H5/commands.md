@@ -1,5 +1,15 @@
 # Commands
 
+## 说明
+
+HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocket）请求。
+
+请求数据格式为：**data:{command arg;arg;arg;...}**
+
+以下是对command及其args的枚举说明。
+
+## 指令枚举
+
 ### verify [gamePath]
 
 检查给定的gamePath路径是否为Minecraft游戏路径。
