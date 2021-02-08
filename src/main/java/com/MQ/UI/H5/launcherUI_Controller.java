@@ -1,5 +1,6 @@
 package com.MQ.UI.H5;
 
+import com.MQ.Tools.pack.mcPack;
 import com.MQ.launcher;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
@@ -13,8 +14,6 @@ public class launcherUI_Controller {
     Socket clientSkt = null;
     BufferedReader in = null;
     PrintStream out = null;
-
-
 
     //构造方法
     public launcherUI_Controller(int port) {
@@ -30,36 +29,38 @@ public class launcherUI_Controller {
         launcherUI_Controller connect = new launcherUI_Controller(8080);
         while (true) {
             command command = new command(connect.getRequest());
-            switch (command.summary){
+            switch (command.summary) {
                 case "verify":
                     try {
                         File path = new File(command.args.get(0));
                         MinecraftDirectory gamePath = new MinecraftDirectory(path);
                         File[] versions = gamePath.getVersions().listFiles();
-                        String ans="";
+                        String ans = "";
                         for (File version : versions) {
                             ans += version.toString() + ";";
                         }
-                        ans=ans.substring(0,ans.length()-1);
+                        ans = ans.substring(0, ans.length() - 1);
                         connect.sendResponse(ans);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         connect.sendResponse("0");
                     }
                     break;
                 case "launch_offline":
                     try {
-                        try{command.args.get(7);}catch (Exception e){
+                        try {
+                            command.args.get(7);
+                        } catch (Exception e) {
                             launcher.launch_offline(
-                                command.args.get(0),
-                                command.args.get(1),
-                                false,
-                                Boolean.parseBoolean(command.args.get(2)),
-                                Integer.parseInt(command.args.get(3)),
-                                Integer.parseInt(command.args.get(4)),
-                                Integer.parseInt(command.args.get(5)),
-                                Integer.parseInt(command.args.get(6)),
+                                    command.args.get(0),
+                                    command.args.get(1),
+                                    false,
+                                    Boolean.parseBoolean(command.args.get(2)),
+                                    Integer.parseInt(command.args.get(3)),
+                                    Integer.parseInt(command.args.get(4)),
+                                    Integer.parseInt(command.args.get(5)),
+                                    Integer.parseInt(command.args.get(6)),
                                     null
-                                );
+                            );
                         }
                         launcher.launch_offline(
                                 command.args.get(0),
@@ -72,13 +73,51 @@ public class launcherUI_Controller {
                                 Integer.parseInt(command.args.get(6)),
                                 command.args.get(7)
                         );
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
-                        connect.sendResponse("0");
+                        connect.sendResponse("1");
                         break;
                     }
-                    connect.sendResponse("1");
+                    connect.sendResponse("0");
                     break;
+                case "pack":
+                    try {
+                        if (!new MinecraftDirectory(command.args.get(0)).getVersions().exists()) {
+                            connect.sendResponse("1");
+                            break;
+                        }
+                    } catch (Exception e) {
+                        connect.sendResponse("1");
+                        break;
+                    }
+                    try {
+                        mcPack.pack(command.args.get(1), command.args.get(0));
+                    } catch (Exception e) {
+                        connect.sendResponse("2");
+                        break;
+                    }
+                    connect.sendResponse("0");
+                    break;
+                case "unpack":
+                    File zip = new File(command.args.get(0));
+                    File to = new File(command.args.get(1));
+                    if (!zip.exists() || !zip.isFile() || !to.exists() || !to.isDirectory()) {
+                        connect.sendResponse("1");
+                        break;
+                    }
+                    try {
+                        mcPack.unpack(command.args.get(0), command.args.get(1));
+                    } catch (Exception e) {
+                        connect.sendResponse("2");
+                        break;
+                    }
+                    connect.sendResponse("0");
+                    break;
+                case "close":
+                    System.exit(0);
+                    break;
+                case "minimize":
+                    launcherUI_JavaFX.primaryStage.setIconified(true);
             }
         }
     }
@@ -109,7 +148,7 @@ public class launcherUI_Controller {
             System.out.println("无法读取端口.......");
             System.exit(0);
         }
-        String ans = t.substring(t.lastIndexOf("data:")+6,t.lastIndexOf("}"));
+        String ans = t.substring(t.lastIndexOf("data:") + 6, t.lastIndexOf("}"));
         System.out.println(ans);
         return ans;
     }

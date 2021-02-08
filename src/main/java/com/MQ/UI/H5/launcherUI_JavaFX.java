@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class launcherUI_JavaFX extends Application {
     public static launcherUI_Controller_JavaFX controller;
-    private static Stage primaryStage;
+    protected static Stage primaryStage;
 
     public static void main(String[] args) {
         Application.launch(launcherUI_JavaFX.class, args);
