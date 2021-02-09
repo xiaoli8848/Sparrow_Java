@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UI_H5:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/UI_H5_jar</output-path>
+    <root id="archive" name="UI_H5.jar">
+      <element id="module-output" name="UI_H5" />
+      <element id="module-output" name="Launcher" />
+      <element id="module-output" name="UI_JavaFX" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/tukaani/xz/1.5/xz-1.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc/2.4/jmccc-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/11.0.3/controlsfx-11.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-yggdrasil-authenticator/2.4/jmccc-yggdrasil-authenticator-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-mcdownloader/2.4/jmccc-mcdownloader-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20140107/json-20140107.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

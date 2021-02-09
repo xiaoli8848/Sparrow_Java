@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="withUI_JavaFX" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="15" />
-    <option name="MAIN_CLASS_NAME" value="com.MQ.UI.JavaFX.launcherUI" />
+    <option name="MAIN_CLASS_NAME" value="UI.JavaFX.launcherUI" />
     <module name="MQ" />
     <method v="2">
       <option name="Make" enabled="true" />

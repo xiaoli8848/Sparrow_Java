@@ -6,14 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="MQ" />
+        <module name="UI_JavaFX" />
+        <module name="UI_H5" />
+        <module name="Launcher" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Launcher" options="" />
       <module name="MQ" options="" />
+      <module name="UI_H5" options="" />
+      <module name="UI_JavaFX" options="" />
     </option>
   </component>
 </project>

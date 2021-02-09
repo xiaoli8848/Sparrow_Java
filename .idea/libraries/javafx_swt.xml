@@ -20,8 +20,6 @@
       <root url="jar://$PROJECT_DIR$/../../../JavaFX/javafx-sdk-15.0.1/lib/src.zip!/javafx.media" />
       <root url="jar://$PROJECT_DIR$/../../../JavaFX/javafx-sdk-15.0.1/lib/src.zip!/javafx.swing" />
       <root url="jar://$PROJECT_DIR$/../../../JavaFX/javafx-sdk-15.0.1/lib/src.zip!/javafx.web" />
-      <root url="file://$PROJECT_DIR$/src/main/java" />
-      <root url="file://$PROJECT_DIR$/src/test/java" />
     </SOURCES>
   </library>
 </component>
