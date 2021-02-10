@@ -1,0 +1,9 @@
+.Pane_white{
+    -fx-background-color: rgb(179,229,252);
+    -fx-background-radius: 10px;
+}
+
+.Pane_gray{
+    -fx-background-color:  linear-gradient(to bottom, rgba(254,255,255,1) 0%,rgba(221,241,249,1) 35%,rgba(160,216,239,1) 100%);
+    -fx-background-radius: 10px;
+}
