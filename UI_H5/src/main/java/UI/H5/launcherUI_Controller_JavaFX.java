@@ -1,16 +1,35 @@
 package UI.H5;
 
-import javafx.fxml.FXML;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import com.teamdev.jxbrowser.browser.Browser;
+import com.teamdev.jxbrowser.engine.Engine;
+import com.teamdev.jxbrowser.engine.EngineOptions;
+import com.teamdev.jxbrowser.view.javafx.BrowserView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
 
 public class launcherUI_Controller_JavaFX {
-    @FXML
-    private WebView browser;
+    Browser browser;
+    BrowserView browserView;
+    Engine engine;
 
-    public void install() {
-        WebEngine browser_eng = browser.getEngine();
-        browser_eng.load("https://cornw-ae0f8d7a.localhost.run");
+    public Pane install() {
+        engine = Engine.newInstance(
+                EngineOptions.newBuilder(HARDWARE_ACCELERATED)
+                        .licenseKey("1BNDHFSC1FY6AHSUNT5JUVTKW268OB84XTYQOEPO86FROYQT6TJ3KK11TAPP731KD6KFS8")
+                        .build());
+        browser = engine.newBrowser();
+        browserView = BrowserView.newInstance(browser);
+        Pane pane = new AnchorPane();
+        pane.setPrefWidth(1000);
+        pane.setPrefHeight(850);
+        pane.getChildren().add(browserView);
+        return pane;
+    }
+
+    public void loadURL(String url) {
+        browser.mainFrame().ifPresent(frame -> frame.loadUrl(url));
     }
 
     public void minimize() {

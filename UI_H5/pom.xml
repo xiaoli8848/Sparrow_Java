@@ -4,18 +4,52 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <packaging>jar</packaging>
     <parent>
-        <artifactId>MQ</artifactId>
         <groupId>com.MQ</groupId>
         <version>1.0-SNAPSHOT</version>
+        <artifactId>MQ</artifactId>
     </parent>
+    <dependencies>
+        <dependency>
+            <groupId>com.teamdev</groupId>
+            <artifactId>jxbrowser</artifactId>
+            <version>7.12.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxbrowser-7.12.2.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.teamdev</groupId>
+            <artifactId>jxbrowser</artifactId>
+            <version>win64-7.12.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jxbrowser-win64-7.12.2.jar</systemPath>
+        </dependency>
+    </dependencies>
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.MQ</groupId>
     <artifactId>UI_H5</artifactId>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>UI.H5.launcherUI</mainClass> <!-- 你的主类名 -->
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
 </project>

@@ -11,6 +11,7 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-yggdrasil-authenticator/2.4/jmccc-yggdrasil-authenticator-2.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc-mcdownloader/2.4/jmccc-mcdownloader-2.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20140107/json-20140107.jar" path-in-jar="/" />
+      <element id="library" level="application" name="javafx-swt" />
     </root>
   </artifact>
 </component>

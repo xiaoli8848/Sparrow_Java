@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="javafx-swt">
+  <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/UI_H5/lib" />
     </CLASSES>

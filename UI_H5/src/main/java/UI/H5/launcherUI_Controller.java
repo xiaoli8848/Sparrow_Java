@@ -19,12 +19,12 @@ public class launcherUI_Controller {
 
     //构造方法
     public launcherUI_Controller(int port) {
-        System.out.println("服务器代理正在监听，端口：" + port);
         try {
             serverSkt = new ServerSocket(port);
         } catch (IOException e) {
             System.out.println("监听端口" + port + "失败！");
         }
+        System.out.println("服务器代理正在监听，端口：" + port);
     }
 
     public static void main(String[] args) {
@@ -150,7 +150,7 @@ public class launcherUI_Controller {
                     break;
                 case "minimize":
 
-                    launcherUI_JavaFX.controller.minimize();
+                    launcherUI_JavaFX.primaryStage.toBack();
                     connect.sendResponse("HTTP/1.0 200 OK");
                     break;
                 case "appendProperties":

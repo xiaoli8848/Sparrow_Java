@@ -12,7 +12,9 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 
 ## 指令枚举
 
-### verify [gamePath]
+### 启动&环境
+
+#### verify [gamePath]
 
 检查给定的gamePath路径是否为Minecraft游戏路径。
 
@@ -22,7 +24,7 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 
 ```json
 [
-    {
+  {
         "corePath":"GameJarPath",
         "setting":"independent/global",
         "independentSettings":{IndependentSettings},
@@ -56,21 +58,7 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 ]
 ```
 
-### appendProperties [rootDir, version, key, value]
-
-向对应的游戏版本加入对应的配置信息。如果已存在，则更新其值。
-
-***rootDir***：要加入的游戏版本对应的".minecraft"文件夹。
-
-***version***：要加入的游戏版本的版本号。
-
-***key***：要加入的配置信息的键。
-
-***value***：要加入的配置信息的值。
-
-**返回**：如果成功则返回0，否则返回1。
-
-### launch_offline [rootDir, version, playerName, nativesFC, minMemory, maxMemory, windowWidth, windowHeight, serverURL]
+#### launch_offline [rootDir, version, playerName, nativesFC, minMemory, maxMemory, windowWidth, windowHeight, serverURL]
 
 使用给定的参数离线启动游戏。
 
@@ -90,7 +78,7 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 
 **返回**：如果启动正常，则返回0；否则返回1。
 
-### launch_online [rootDir, version, debugPrint, nativesFC, minMemory, maxMemory, windowWidth, windowHeight, serverURL]
+#### launch_online [rootDir, version, debugPrint, nativesFC, minMemory, maxMemory, windowWidth, windowHeight, serverURL]
 
 ```java
 /**
@@ -106,7 +94,23 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
  */
 ```
 
-### packGame [gamePath, zipPath]
+#### appendProperties [rootDir, version, key, value]
+
+向对应的游戏版本加入对应的配置信息。如果已存在，则更新其值。
+
+***rootDir***：要加入的游戏版本对应的".minecraft"文件夹。
+
+***version***：要加入的游戏版本的版本号。
+
+***key***：要加入的配置信息的键。
+
+***value***：要加入的配置信息的值。
+
+**返回**：如果成功则返回0，否则返回1。
+
+### 实用功能
+
+#### packGame [gamePath, zipPath]
 
 打包指定目录下的游戏到指定的zip文件。
 
@@ -116,7 +120,7 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 
 **返回**：如果打包成功则返回0；否则如果要打包的游戏的路径无效，则返回1，否则返回2。
 
-### unpackGame [zipPath, toPath]
+#### unpackGame [zipPath, toPath]
 
 解压指定的游戏zip包到指定目录。
 
@@ -126,10 +130,12 @@ HTML5 UI中，Java端会扮演本地web服务器处理来自UI的post（websocke
 
 **返回**：如果解压成功则返回0；否则如果要解压的zip包路径或要解压到的路径无效，则返回1，否则返回2。
 
-### close
+### 窗体
+
+#### close
 
 关闭程序。
 
-### minimize
+#### minimize
 
 最小化窗体。
