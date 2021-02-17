@@ -1,7 +1,5 @@
 package UI.H5;
 
-import com.teamdev.jxbrowser.chromium.Browser;
-import com.teamdev.jxbrowser.chromium.javafx.BrowserView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -45,13 +43,10 @@ public class launcherUI_JavaFX extends Application {
         primaryStage.setTitle("MQ");
         //Parent root = FXMLLoader.load(com.MQ.launcher.class.getResource("launcherUI_h5.fxml"));
         controller = new launcherUI_Controller_JavaFX();
-        Browser browser;
-        BrowserView browserView = new BrowserView();
-        browser = browserView.getBrowser();
-        Scene scene = new Scene(browserView, 1000, 850);
+        Scene scene = new Scene(controller.browserView, 1000, 850);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
-        browser.loadURL(getClass().getClassLoader().getResource("UI/H5/webapp/index.html").toString());
+        controller.loadURL(getClass().getClassLoader().getResource("UI/H5/webapp/index.html").toString());
     }
 }

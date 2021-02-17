@@ -1,3 +1,7 @@
+html {
+    overflow: hidden;
+}
+
 body ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -23,7 +27,7 @@ body ::-webkit-scrollbar-thumb {
     /*filter: blur(2px);*/
     position: absolute;
     width: 1000px;
-    height: 950px;
+    height: 850px;
     z-index: 500;
 }
 .main_panel {
@@ -55,7 +59,7 @@ body ::-webkit-scrollbar-thumb {
     height: 690px;
 }
 .windows-bar {
-    width: 980px;
+    width: 1000px;
     height: 18px;
     font-size: 4px;
     padding-left: 14px;

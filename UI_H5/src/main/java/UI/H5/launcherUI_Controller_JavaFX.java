@@ -9,14 +9,9 @@ public class launcherUI_Controller_JavaFX {
     Browser browser;
     BrowserView browserView;
 
-    public Pane install() {
-        browserView = new BrowserView();
-        browser = browserView.getBrowser();
-        Pane pane = new AnchorPane();
-        pane.setPrefWidth(1000);
-        pane.setPrefHeight(850);
-        pane.getChildren().add(browserView);
-        return pane;
+    public launcherUI_Controller_JavaFX() {
+        this.browserView = new BrowserView();
+        this.browser = this.browserView.getBrowser();
     }
 
     public void loadURL(String url) {
