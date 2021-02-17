@@ -22,14 +22,14 @@ body ::-webkit-scrollbar-thumb {
     opacity: 0.5;
     /*filter: blur(2px);*/
     position: absolute;
-    width: 980px;
-    height: 840px;
+    width: 1000px;
+    height: 950px;
     z-index: 500;
 }
 .main_panel {
     margin: 10px 10px 5px 15px;
-    height: 800px;
-    width: 950px;
+    height: 830px;
+    width: 970px;
     position: relative;
     z-index: 600;
 }

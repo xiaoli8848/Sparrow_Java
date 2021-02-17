@@ -10,60 +10,65 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="body">
-        <div class="main_panel_cover"></div>
-        <div class="windows-bar">
-            <div class="float-end">
-                <div><a id="window-minimize" class="window-btn" href="#">-</a></div>
-                <div><a id="window-maximize" class="window-btn disabled">□</a></div>
-                <div><a id="window-close" class="window-btn" href="#">×</a></div>
-            </div>
+<div class="body">
+    <div class="main_panel_cover"></div>
+    <div class="windows-bar">
+        <div class="float-end">
+            <div><a id="window-minimize" class="window-btn" href="#">-</a></div>
+            <div><a id="window-maximize" class="window-btn disabled">□</a></div>
+            <div><a id="window-close" class="window-btn" href="#">×</a></div>
         </div>
-        <div class="main_panel">
-            <div>
-                <ul class="nav nav-pills mb-3 nav-justified" id="mainTabList" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active" id="pills-launch-tab" data-bs-toggle="tab" href="#launch" role="tab" aria-controls="launch" aria-selected="true">启动</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="pills-settings-tab" data-bs-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">设置</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="pills-shop-tab" data-bs-toggle="tab" href="#shop" role="tab" aria-controls="shop" aria-selected="false">商店</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="mainTabListContent">
-                    <div class="tab-pane fade show in active" id="launch" role="tabpanel" aria-labelledby="launch-tab">
-                        <div class="row row-cols-2">
-                            <div class="col-3">
-                                <div class="version-list-cover">
-                                    <div class="list-group list-group-flush version-list" id="launcher-version-list">
-                                    </div>
+    </div>
+    <div class="main_panel">
+        <div>
+            <ul class="nav nav-pills mb-3 nav-justified" id="mainTabList" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pills-launch-tab" data-bs-toggle="tab" href="#launch" role="tab"
+                       aria-controls="launch" aria-selected="true">启动</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-settings-tab" data-bs-toggle="tab" href="#settings" role="tab"
+                       aria-controls="settings" aria-selected="false">设置</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-shop-tab" data-bs-toggle="tab" href="#shop" role="tab"
+                       aria-controls="shop" aria-selected="false">商店</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="mainTabListContent">
+                <div class="tab-pane fade show in active" id="launch" role="tabpanel" aria-labelledby="launch-tab">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            <div class="version-list-cover">
+                                <div class="list-group list-group-flush version-list" id="launcher-version-list">
                                 </div>
                             </div>
-                            <div class="col-9" style="padding-left: inherit;">
-                                <div class="card launch-panel-cover" id="launch-panel">
-                                    <div class="card-body">
-                                        <h5 class="card-title" id="launch-panel-version-name">等待选中</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted" id="launch-panel-version">等待选中</h6>
-                                        <div class="list-group list-group-flush">
-                                            <div class="list-group-item">
-                                                <div class="d-flex align-items-center">
-                                                    <strong>正在检查设置...</strong>
-                                                    <div class="spinner-grow spinner-grow-sm text-info ms-auto" role="status" aria-hidden="true"></div>
-                                                </div>
+                        </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="launch-panel">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="launch-panel-version-name">等待选中</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted" id="launch-panel-version">等待选中</h6>
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在检查设置...</strong>
+                                                <div class="spinner-grow spinner-grow-sm text-info ms-auto"
+                                                     role="status" aria-hidden="true"></div>
                                             </div>
-                                            <div class="list-group-item">
-                                                <div class="d-flex align-items-center">
-                                                    <strong>正在下载依赖库...</strong>
-                                                    <div class="spinner-grow spinner-grow-sm text-danger ms-auto" role="status" aria-hidden="true"></div>
-                                                </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在下载依赖库...</strong>
+                                                <div class="spinner-grow spinner-grow-sm text-danger ms-auto"
+                                                     role="status" aria-hidden="true"></div>
                                             </div>
-                                            <div class="list-group-item">
-                                                <div class="d-flex align-items-center">
-                                                    <strong>正在进行正版登录...</strong>
-                                                    <div class="spinner-grow spinner-grow-sm text-dark ms-auto" role="status" aria-hidden="true"></div>
-                                                </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在进行正版登录...</strong>
+                                                <div class="spinner-grow spinner-grow-sm text-dark ms-auto"
+                                                     role="status" aria-hidden="true"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -71,76 +76,77 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                        <div class="row row-cols-2">
-                            <div class="col-3">
-                                <div class="version-list-cover">
-                                    <div class="list-group list-group-flush version-list" id="setting-version-list">
-
-    <label style
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-9" style="padding-left: inherit;">
-                        <div class="card launch-panel-cover" id="setting-panel">
-
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="tab-pane fade" id="shop" role="tabpanel" aria-labelledby="shop-tab">
-                <div class="row row-cols-2">
-                    <div class="col-3">
-                        ="width: 100%">
-                                    <select class="form-select mt-2" id="selectToastPlacement">
-                                        <option value="FW" selected="">官方下载源 - Mojang</option>
-<!--                                        <option value="BMCL">bang - BMCL</option>-->
-<!--                                        <option value="MCBBS">我的世界官方论坛 - MCBBS.NET</option>-->
-                                    </select>
-                                </label>
-                                <div class="version-list-cover all-version-list-cover">
-                                    <div class="list-group list-group-flush allversion-list" id="shop-version-list">
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            <div class="version-list-cover">
+                                <div class="list-group list-group-flush version-list" id="setting-version-list">
 
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-9" style="padding-left: inherit;">
-                                <div class="card launch-panel-cover" id="shop-panel">
 
                                 </div>
                             </div>
                         </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="setting-panel">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="shop" role="tabpanel" aria-labelledby="shop-tab">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            <label style="width: 100%">
+                                <select class="form-select mt-2" id="selectToastPlacement">
+                                    <option value="FW" selected="">官方下载源 - Mojang</option>
+                                    <!--                                        <option value="BMCL">bang - BMCL</option>-->
+                                    <!--                                        <option value="MCBBS">我的世界官方论坛 - MCBBS.NET</option>-->
+                                </select>
+                            </label>
+                            <div class="version-list-cover all-version-list-cover">
+                                <div class="list-group list-group-flush allversion-list" id="shop-version-list">
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="shop-panel">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <nav class="main-nav navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
-                        MCLauncher
-                    </a>
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">项目主页</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-danger" href="https://github.com/xiaoli8848/MQ">Github</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-warning" href="#"><strong>捐助</strong></a>
-                        </li>
-                    </ul>
-                    <div class="d-flex">
-                        <a class="btn btn-outline-success">启动</a>
-                    </div>
-                </div>
-            </nav>
         </div>
+        <nav class="main-nav navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    MCLauncher
+                </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">项目主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="https://github.com/xiaoli8848/MQ">Github</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="#"><strong>捐助</strong></a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-outline-success">启动</a>
+                </div>
+            </div>
+        </nav>
     </div>
-    <script type="application/x-javascript" src="js/bootstrap.min.js"></script>
-    <script type="application/x-javascript" src="js/jquery.min.js"></script>
-    <script type="application/x-javascript" src="js/jquery.base64.js"></script>
-    <script type="application/x-javascript" src="js/main.js" defer="defer"></script>
+</div>
+<script type="application/x-javascript" src="js/bootstrap.min.js"></script>
+<script type="application/x-javascript" src="js/jquery.min.js"></script>
+<script type="application/x-javascript" src="js/jquery.base64.js"></script>
+<script type="application/x-javascript" src="js/main.js" defer="defer"></script>
 </body>
 </html>
 

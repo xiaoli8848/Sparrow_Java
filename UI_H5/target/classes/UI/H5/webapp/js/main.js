@@ -1,4 +1,4 @@
-var rmUrl="http://127.0.0.1:8080";
+var rmUrl="http://127.0.0.1:8080/";
 
 function initVersionList(dataList) {
     let htmlTmp="";

@@ -2,6 +2,7 @@ package UI.H5;
 
 import com.MQ.Tools.pack.mcPack;
 import com.MQ.launcher;
+import javafx.application.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
@@ -149,8 +150,12 @@ public class launcherUI_Controller {
                     System.exit(0);
                     break;
                 case "minimize":
-
-                    launcherUI_JavaFX.primaryStage.toBack();
+                    Platform.runLater(new Thread(){
+                        @Override
+                        public void run() {
+                            launcherUI_JavaFX.controller.minimize();
+                        }
+                    });
                     connect.sendResponse("HTTP/1.0 200 OK");
                     break;
                 case "appendProperties":
