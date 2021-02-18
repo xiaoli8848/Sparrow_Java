@@ -7,9 +7,10 @@
 ## 协议 & 许可
 
 本项目采用[LGPL](../LICENSE.txt)协议。
+_声明：本项目为完全免费开源项目，所使用的任何插件、依赖等，均为学习研究用途。_
 
 ## （构建）环境
-本项目为主要使用IDEA（最旧版本为2020.1，推荐版本为2020.3）开发的Java项目，使用Maven进行依赖管理。  
+本项目为主要使用IDEA（2020.1及以上）开发的Java项目，使用Maven进行依赖管理。  
 
 请下载（克隆）整个仓库，并使用IDEA打开。然后使用Maven工具下载依赖。
 
@@ -28,14 +29,16 @@
 
 然后，你就可以选择相应的配置构建项目了。
 
-## 类结构
+## 类&包
 
 com.MQ为本项目包根路径。
 
-- com.MQ.launcher 声明了启动器的快速启动游戏的方法。
-- com.MQ.Minecraft  定义了一个类，包含Minecraft游戏路径和封装自 com.MQ.launcher 的启动方法和其它工具方法。
+- com.MQ.launcher（类） 声明了启动器的快速启动游戏的方法。
+- com.MQ.Minecraft（类）  定义了一个类，包含Minecraft游戏路径和封装自 com.MQ.launcher 的启动方法和其它工具方法。
 - com.MQ.Tools 存储了各工具类。
+  - com.MQ.Tools.dialog 各类对话框（JavaFX实现）。
+  - com.MQ.Tools.Download 封装JMCCC中的下载功能。
+  - com.MQ.Tools.pack 打包、导出整合包（即游戏目录的zip压缩包）。
+  - com.MQ.Tools.SystemPlatform 用于与系统组件交互（如发出消息通知，打开文件）。
 - com.MQ.UI 存储了程序GUI。
-  - 其下的每个包都是一个平台的GUI。com.MQ.UI.JavaFX
-  - 
-
+  - 其下的每个包都是一个平台的GUI。并且，默认地，每个包下都会有 launcherUI 类，这其中包含程序主类，用于启动该包下的GUI平台。

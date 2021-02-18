@@ -2,7 +2,6 @@ package UI.JavaFX;
 
 import com.MQ.Minecraft;
 import com.MQ.Tools.Download.Download;
-import com.MQ.Tools.IO;
 import com.MQ.Tools.SystemPlatform;
 import com.MQ.Tools.dialog.errDialog;
 import com.MQ.Tools.dialog.expDialog;
@@ -671,7 +670,7 @@ class minecraftCell extends ListCell<Minecraft> {
             path.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, FontPosture.ITALIC, 14));
             path.setOnAction(event -> {
                 try {
-                    IO.browseFile(path.getText());
+                    SystemPlatform.browseFile(path.getText());
                 } catch (Exception e) {
                     new expDialog().apply("打开路径失败", null, "不好意思，打开游戏版本所在路径失败。", e);
                 }
