@@ -2,6 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/UI_H5/src/main/resources/UI/H5/webapp" vcs="Git" />
   </component>
 </project>

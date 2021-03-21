@@ -19,7 +19,7 @@
 
         
         <dependency>
-            <groupId>com.MQ</groupId>
+            <groupId>com.Sparrow</groupId>
             <artifactId>Launcher</artifactId>
         </dependency>
     </dependencies>
@@ -30,7 +30,7 @@
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.MQ</groupId>
-    <artifactId>MQ</artifactId>
+    <groupId>com.Sparrow</groupId>
+    <artifactId>Sparrow</artifactId>
     <version>1.0-SNAPSHOT</version>
 </project>

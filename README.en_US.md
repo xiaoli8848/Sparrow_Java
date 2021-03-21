@@ -13,7 +13,7 @@ MQ is licensed under [the LGPL](LICENSE.txt).
 
 - Launch all versions of Minecraft
 - Downloads all versions of Minecraft
-- Uses the UI by JavaFX to launch (or download) the different versions of Minecraft.
+- Uses the com.Sparrow.UI by JavaFX to launch (or download) the different versions of Minecraft.
 
 ## Postscript
 

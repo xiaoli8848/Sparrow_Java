@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="webkit" name="renderer">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+    <title>Title</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="body">
+    <div class="main_panel_cover"></div>
+    <div class="windows-bar">
+        <div class="float-end">
+            <div><a class="window-btn" href="#" id="window-minimize">-</a></div>
+            <div><a class="window-btn disabled" id="window-maximize">□</a></div>
+            <div><a class="window-btn" href="#" id="window-close">×</a></div>
+        </div>
+    </div>
+    <div class="main_panel">
+        <div>
+            <ul class="nav nav-pills mb-3 nav-justified" id="mainTabList" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a aria-controls="launch" aria-selected="true" class="nav-link active" data-bs-toggle="tab"
+                       href="#launch" id="pills-launch-tab" role="tab">启动</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a aria-controls="settings" aria-selected="false" class="nav-link" data-bs-toggle="tab"
+                       href="#settings" id="pills-settings-tab" role="tab">设置</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a aria-controls="shop" aria-selected="false" class="nav-link" data-bs-toggle="tab" href="#shop"
+                       id="pills-shop-tab" role="tab">商店</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="mainTabListContent">
+                <div aria-labelledby="launch-tab" class="tab-pane fade show in active" id="launch" role="tabpanel">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            <div class="version-list-cover">
+                                <div class="list-group list-group-flush version-list" id="launcher-version-list">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="launch-panel">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="launch-panel-version-name">等待选中</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted" id="launch-panel-version">等待选中</h6>
+                                    <div class="list-group list-group-flush">
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在检查设置...</strong>
+                                                <div aria-hidden="true"
+                                                     class="spinner-grow spinner-grow-sm text-info ms-auto"
+                                                     role="status"></div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在下载依赖库...</strong>
+                                                <div aria-hidden="true"
+                                                     class="spinner-grow spinner-grow-sm text-danger ms-auto"
+                                                     role="status"></div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item">
+                                            <div class="d-flex align-items-center">
+                                                <strong>正在进行正版登录...</strong>
+                                                <div aria-hidden="true"
+                                                     class="spinner-grow spinner-grow-sm text-dark ms-auto"
+                                                     role="status"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div aria-labelledby="settings-tab" class="tab-pane fade" id="settings" role="tabpanel">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            <div class="version-list-cover">
+                                <div class="list-group list-group-flush version-list" id="setting-version-list">
+
+                                    <label style
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="setting-panel">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div aria-labelledby="shop-tab" class="tab-pane fade" id="shop" role="tabpanel">
+                    <div class="row row-cols-2">
+                        <div class="col-3">
+                            ="width: 100%">
+                            <select class="form-select mt-2" id="selectToastPlacement">
+                                <option selected="" value="FW">官方下载源 - Mojang</option>
+                                <!--                                        <option value="BMCL">bang - BMCL</option>-->
+                                <!--                                        <option value="MCBBS">我的世界官方论坛 - MCBBS.NET</option>-->
+                            </select>
+                            </label>
+                            <div class="version-list-cover all-version-list-cover">
+                                <div class="list-group list-group-flush allversion-list" id="shop-version-list">
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-9" style="padding-left: inherit;">
+                            <div class="card launch-panel-cover" id="shop-panel">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="main-nav navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    MCLauncher
+                </a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">项目主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="https://github.com/xiaoli8848/MQ">Github</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="#"><strong>捐助</strong></a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a class="btn btn-outline-success">启动</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<script src="js/bootstrap.min.js" type="application/x-javascript"></script>
+<script src="js/jquery.min.js" type="application/x-javascript"></script>
+<script src="js/jquery.base64.js" type="application/x-javascript"></script>
+<script defer="defer" src="js/main.js" type="application/x-javascript"></script>
+</body>
+</html>
+

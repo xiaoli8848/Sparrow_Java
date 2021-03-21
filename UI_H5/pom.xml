@@ -3,12 +3,13 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <packaging>jar</packaging>
-    <parent>
-        <groupId>com.MQ</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <artifactId>MQ</artifactId>
-    </parent>
+
     <dependencies>
+        <dependency>
+            <groupId>com.Sparrow</groupId>
+            <artifactId>Launcher</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.teamdev</groupId>
             <artifactId>jxbrowser</artifactId>
@@ -27,8 +28,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.MQ</groupId>
+    <groupId>com.Sparrow</groupId>
     <artifactId>UI_H5</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <build>
         <plugins>
@@ -39,7 +41,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>UI.H5.launcherUI</mainClass> <!-- 你的主类名 -->
+                            <mainClass>com.Sparrow.UI.H5.launcherUI</mainClass> <!-- 你的主类名 -->
                             <addMavenDescriptor>false</addMavenDescriptor>
                         </manifest>
                     </archive>

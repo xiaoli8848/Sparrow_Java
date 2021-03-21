@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: UI.H5.launcherUI
+Main-Class: com.Sparrow.UI.H5.launcherUI
 

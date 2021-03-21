@@ -5,7 +5,7 @@
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.MQ</groupId>
+    <groupId>com.Sparrow</groupId>
     <artifactId>UI_JavaFX</artifactId>
 
     <properties>

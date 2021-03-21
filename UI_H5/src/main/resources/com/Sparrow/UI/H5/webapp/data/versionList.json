@@ -1,0 +1,17 @@
+[
+  {
+    "versionName": "qw",
+    "version": "1.12.2",
+    "corePath": "D:/minecraft/.minecraft/versions/1.12.2/1.12.2.jar",
+    "setting": "independent",
+    "independentSettings": {
+      "maxMemoryLimit": 4096
+    }
+  },
+  {
+    "versionName": "awa",
+    "version": "1.16.5",
+    "corePath": "D:/minecraft/.minecraft/versions/awa/awa.jar",
+    "setting": "global"
+  }
+]
