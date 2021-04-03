@@ -1,11 +1,11 @@
-# MQ
+# Sparrow
 基于 [JMCCC](https://github.com/to2mbn/JMCCC) 的Minecraft启动器
 
 ## License
 
 本项目采用协议 [LGPL](LICENSE.txt).
 
-( JMCCC使用协议 [MIT license](https://to2mbn.github.io/jmccc/LICENSE.txt))
+（JMCCC使用协议 [MIT license](https://to2mbn.github.io/jmccc/LICENSE.txt)）
 
 ## Features
 
