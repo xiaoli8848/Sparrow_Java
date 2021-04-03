@@ -5,9 +5,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>UI_JavaFX</module>
         <module>Launcher</module>
         <module>UI_H5</module>
+        <module>UI_JavaFX</module>
+        <module>UI_JavaFX</module>
     </modules>
 
     <dependencies>

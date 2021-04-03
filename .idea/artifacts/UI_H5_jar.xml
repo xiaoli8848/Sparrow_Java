@@ -4,7 +4,7 @@
     <root id="archive" name="UI_H5.jar">
       <element id="module-output" name="UI_H5" />
       <element id="module-output" name="Launcher" />
-      <element id="module-output" name="UI_JavaFX" />
+      <element id="module-output" name="UI_JavaFX_Old" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/tukaani/xz/1.5/xz-1.5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/to2mbn/jmccc/2.4/jmccc-2.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/controlsfx/controlsfx/11.0.3/controlsfx-11.0.3.jar" path-in-jar="/" />
