@@ -26,6 +26,7 @@ public class launcherUI_JavaFX extends Application {
         fxmlLoader.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/mainFrame.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        scene.setFill(null);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         this.primaryStage = primaryStage;

@@ -3,21 +3,20 @@ package com.Sparrow.UI.JavaFX;
 import com.Sparrow.Minecraft;
 import com.Sparrow.Tools.SystemPlatform;
 import com.Sparrow.Tools.dialog.expDialog;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class launcherUI_JavaFX_Controller {
     @FXML
@@ -40,7 +39,33 @@ public class launcherUI_JavaFX_Controller {
             Init(rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage).toString());
         });
         versionList_ContextMenu.getItems().addAll(inputGame);
-        versionList.setContextMenu(versionList_ContextMenu);
+//        versionList.setContextMenu(versionList_ContextMenu);
+        versionList.setOnContextMenuRequested(event -> {
+            if(!versionList.getSelectionModel().isEmpty()){
+                ContextMenu temp = new ContextMenu();
+
+                MenuItem inputer = new MenuItem("导入游戏");
+                inputer.setOnAction(event1 -> {
+                    DirectoryChooser rootDirChooser = new DirectoryChooser();
+                    rootDirChooser.setTitle("请选择游戏“.minecraft”文件夹。");
+                    Init(rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage).toString());
+                });
+
+                MenuItem versionList_MenuItem_OpenRootDir = new MenuItem("打开所选游戏路径");
+                versionList_MenuItem_OpenRootDir.setOnAction(e -> {
+                    try {
+                        SystemPlatform.browseFile(versionList.getSelectionModel().getSelectedItem().rootPath);
+                    } catch (IOException ioException) {
+                        new expDialog().apply("打开路径错误", null, "打开游戏路径发生错误。可能游戏路径已被移动或删除。", ioException);
+                    }
+                });
+                temp.getItems().addAll(inputer, versionList_MenuItem_OpenRootDir);
+
+                temp.show(versionList, Side.RIGHT, 0, 0);
+            }else {
+                versionList_ContextMenu.show(versionList, Side.RIGHT, 0, 0);
+            }
+        });
     }
 
     public void Init(String rootDir) {
@@ -58,7 +83,6 @@ public class launcherUI_JavaFX_Controller {
 
 
 class minecraftCell extends ListCell<Minecraft> {
-
     @Override
     public void updateItem(Minecraft item, boolean empty) {
         super.updateItem(item, empty);
@@ -68,24 +92,11 @@ class minecraftCell extends ListCell<Minecraft> {
             Text version = new Text(item.version);
             version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 20));
 
-            ContextMenu versionList_OpenRootDir = new ContextMenu();
-            MenuItem inputGame = new MenuItem("打开游戏路径");
-            inputGame.setOnAction(event -> {
-                try {
-                    SystemPlatform.browseFile(item.rootPath);
-                } catch (Exception e) {
-                    new expDialog().apply("打开路径失败", null, "不好意思，打开游戏版本所在路径失败。", e);
-                }
-            });
-            versionList_OpenRootDir.getItems().addAll(inputGame);
 
             ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/mc_icon.png").toString());
 
             cell.setCenter(version);
             cell.setLeft(icon);
-            cell.setOnContextMenuRequested(event -> {
-                versionList_OpenRootDir.show(cell, Side.BOTTOM,0,0);
-            });
 
             setGraphic(cell);
         } else if (empty) {

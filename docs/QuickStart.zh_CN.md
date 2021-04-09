@@ -39,6 +39,5 @@ com.MQ为本项目包根路径。
   - com.Sparrow.Tools.dialog 各类对话框（JavaFX实现）。
   - com.Sparrow.Tools.Download 封装JMCCC中的下载功能。
   - com.Sparrow.Tools.pack 打包、导出整合包（即游戏目录的zip压缩包）。
-  - com.Sparrow.Tools.SystemPlatform 用于与系统组件交互（如发出消息通知，打开文件）。
 - com.Sparrow.com.Sparrow.UI 存储了程序GUI。
   - 其下的每个包都是一个平台的GUI。并且，默认地，每个包下都会有 launcherUI 类，这其中包含程序主类，用于启动该包下的GUI平台。

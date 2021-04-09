@@ -12,7 +12,7 @@ public class Minecraft {
     public String version;
     public String rootPath;
 
-    private Minecraft() {
+    protected Minecraft() {
     }
 
     private static Stack<String> getMinecraftVersions(MinecraftDirectory dir) {

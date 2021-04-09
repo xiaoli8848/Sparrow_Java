@@ -43,7 +43,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
   <children>
       <Pane prefHeight="26.0" prefWidth="900.0">
          <children>
@@ -54,7 +54,7 @@
             </Label>
          </children>
       </Pane>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
             <ListView fx:id="versionList" prefHeight="200.0" prefWidth="200.0" />
       <AnchorPane id="Content" fx:id="launchPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0" />
