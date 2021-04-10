@@ -54,4 +54,8 @@ public class Minecraft {
     public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
         launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
     }
+
+    public MinecraftDirectory toMinecraftDirectory(){
+        return new MinecraftDirectory(this.rootPath);
+    }
 }

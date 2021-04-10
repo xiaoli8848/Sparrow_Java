@@ -63,7 +63,7 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="待命。" HBox.hgrow="ALWAYS">
+        <Label fx:id="State" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="待命。" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>
@@ -72,7 +72,7 @@
           </textFill>
         </Label>
         <Pane prefWidth="652.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Sparrow Beta-0.1.0" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label fx:id="Version" font="$x3" maxWidth="-1.0" text="Sparrow Beta-0.1.0" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
