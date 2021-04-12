@@ -17,11 +17,11 @@
             <artifactId>ant</artifactId>
             <version>1.9.4</version>
         </dependency>
-
         
         <dependency>
             <groupId>com.Sparrow</groupId>
             <artifactId>Launcher</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -34,4 +34,18 @@
     <groupId>com.Sparrow</groupId>
     <artifactId>Sparrow</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>Maven Aliyun Mirror</name>
+            <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

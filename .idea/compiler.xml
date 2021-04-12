@@ -11,13 +11,11 @@
         <module name="Launcher" />
       </profile>
     </annotationProcessing>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Launcher" options="" />
-      <module name="UI_H5" options="" />
-      <module name="UI_JavaFX" options="" />
-    </option>
+    <bytecodeTargetLevel>
+      <module name="Launcher" target="8" />
+      <module name="Sparrow" target="8" />
+      <module name="UI_H5" target="8" />
+      <module name="UI_JavaFX" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
