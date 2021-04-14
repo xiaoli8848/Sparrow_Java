@@ -32,25 +32,14 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
     <children>
         <Pane prefHeight="26.0" prefWidth="900.0">
             <children>
@@ -73,24 +62,28 @@
         </Pane>
         <SplitPane dividerPositions="0.25, 0.75" VBox.vgrow="ALWAYS">
             <ListView fx:id="versionList" prefHeight="200.0" prefWidth="200.0" />
-            <AnchorPane id="Content" fx:id="launchPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
             <children>
-               <BorderPane fx:id="launchButton" layoutX="277.0" layoutY="487.0" onMouseClicked="#launch" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #5cb85c; -fx-background-radius: 10px;">
-                  <top>
-                     <Label text="启动游戏" textFill="WHITE" BorderPane.alignment="CENTER">
-                        <font>
-                           <Font name="Microsoft YaHei" size="16.0" />
-                        </font>
-                     </Label>
-                  </top>
-                  <center>
-                     <Label fx:id="versionText" textFill="WHITE" BorderPane.alignment="CENTER">
-                        <font>
-                           <Font name="Microsoft YaHei" size="15.0" />
-                        </font>
-                     </Label>
-                  </center>
-               </BorderPane>
+               <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
+                  <children>
+                     <BorderPane fx:id="launchButton" layoutX="277.0" layoutY="487.0" onMouseClicked="#launch" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #5cb85c; -fx-background-radius: 10px;">
+                        <top>
+                           <Label text="启动游戏" textFill="WHITE" BorderPane.alignment="CENTER">
+                              <font>
+                                 <Font name="Microsoft YaHei" size="16.0" />
+                              </font>
+                           </Label>
+                        </top>
+                        <center>
+                           <Label fx:id="versionText" textFill="WHITE" BorderPane.alignment="CENTER">
+                              <font>
+                                 <Font name="Microsoft YaHei" size="15.0" />
+                              </font>
+                           </Label>
+                        </center>
+                     </BorderPane>
+                  </children>
+               </Pane>
             </children></AnchorPane>
             <TabPane fx:id="versionSummary" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                 <Tab text="游戏文件">
@@ -115,7 +108,7 @@
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <ListView fx:id="gameMods" layoutX="14.0" layoutY="13.0" prefHeight="155.0" prefWidth="170.0" />
+                                          <ListView fx:id="gameMods" layoutX="-1.0" prefHeight="180.0" prefWidth="200.0" />
                                        </children>
                                     </AnchorPane>
                               </content>

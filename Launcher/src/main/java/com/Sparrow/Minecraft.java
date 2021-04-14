@@ -3,9 +3,9 @@ package com.Sparrow;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.jar.JarFile;
 
 /**
  * 游戏版本类，表示 {@code .minecraft/versions/} 下的所有游戏版本。
@@ -16,6 +16,7 @@ public class Minecraft {
     public String version;
     public String rootPath;
     public ArrayList<save> saves;
+    public ArrayList<mod> mods;
 
     /**
      * 为本类工厂方法和子类等提供私有无参构造函数，一般为private或protected。
@@ -25,6 +26,7 @@ public class Minecraft {
 
     /**
      * 获取游戏目录下所有版本的版本号。
+     *
      * @param dir 游戏根目录
      * @return {@link ArrayList<String>}，含有所有版本的版本号。
      */
@@ -44,8 +46,9 @@ public class Minecraft {
 
     /**
      * 检测游戏目录下是否有指定版本。
+     *
      * @param minecraftDir 游戏目录
-     * @param version 游戏版本
+     * @param version      游戏版本
      * @return boolean，目录下是否有指定版本。
      */
     public static boolean doesVersionExist(MinecraftDirectory minecraftDir, String version) {
@@ -54,18 +57,20 @@ public class Minecraft {
 
     /**
      * 获取游戏根目录下所有游戏版本。
+     *
      * @param dir 游戏根目录
      * @return 一个 {@link Minecraft} 类型的数组，表示游戏根目录下所有的游戏版本。
      */
     public static Minecraft[] getMinecrafts(MinecraftDirectory dir) {
-        List<String> versions = new ArrayList<>(getMinecraftVersions(dir));
+        ArrayList<String> versions = new ArrayList<>(getMinecraftVersions(dir));
         ArrayList<Minecraft> result = new ArrayList<>();
         for (String s : versions) {
             Minecraft temp = new Minecraft();
             temp.version = s;
             temp.path = dir.getRoot().toString() + "/versions/" + s + "/";
             temp.rootPath = dir.getRoot().getPath();
-            temp.saves = temp.getSaves(dir.toString());
+            temp.saves = temp.getSaves(temp.rootPath);
+            temp.mods = temp.getMods(temp.rootPath);
             result.add(temp);
         }
         return result.toArray(new Minecraft[versions.size()]);
@@ -80,33 +85,61 @@ public class Minecraft {
         launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
     }
 
-    public MinecraftDirectory toMinecraftDirectory(){
+    public MinecraftDirectory toMinecraftDirectory() {
         return new MinecraftDirectory(this.rootPath);
     }
 
     /**
      * 存档类，表示 {@code .minecraft/saves/}下的存档。
      */
-    public class save{
+    public class save extends File {
         public String name;
         public File image;
-        public String path;
 
-        private save(){
-
+        private save(String path) {
+            super(path);
         }
     }
 
-    protected ArrayList<save> getSaves(String rootDir){
-        File[] saves = new File(rootDir+"/saves/").listFiles();
+    protected ArrayList<save> getSaves(String rootDir) {
+        File[] saves = new File(rootDir + File.separator + "saves" + File.separator).listFiles();
         ArrayList<save> temp = new ArrayList<>();
-        assert saves != null;
+        if(saves == null){
+            return new ArrayList<>();
+        }
         for (File save : saves) {
-            save t = new save();
+            save t = new save(save.toString());
             t.name = save.getName();
-            t.image = new File(save.toString() + "/icon.png");
-            t.path = save.toString();
+            t.image = new File(save.toString() + File.separator + "icon.png");
             temp.add(t);
+        }
+        return temp;
+    }
+
+    public class mod extends JarFile {
+        public String name;
+
+        private mod(String jarPath) throws IOException {
+            super(jarPath);
+            this.name = this.getName().substring(0, this.getName().lastIndexOf(".jar"));
+        }
+    }
+
+    protected ArrayList<mod> getMods(String rootDir) {
+        File[] mods = new File(rootDir + File.separator + "mods" + File.separator).listFiles();
+        ArrayList<mod> temp = new ArrayList<>();
+        if(mods == null){
+            return new ArrayList<>();
+        }
+        for (File mod : mods) {
+            mod t = null;
+            try {
+                t = new mod(mod.toString());
+                if (t != null)
+                    temp.add(t);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return temp;
     }

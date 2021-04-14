@@ -35,7 +35,7 @@ public class launcherUI_JavaFX_Controller {
     private ListView<Minecraft.save> gameSaves;
 
     @FXML
-    private ListView<?> gameMods;
+    private ListView<Minecraft.mod> gameMods;
 
     @FXML
     private ListView<?> gameResPacks;
@@ -63,6 +63,7 @@ public class launcherUI_JavaFX_Controller {
         //设置ListView视图模板类
         versionList.setCellFactory(param -> new minecraftCell());
         gameSaves.setCellFactory(param -> new savesCell());
+        gameMods.setCellFactory(param -> new modsCell());
 
         //设置右键菜单
         ContextMenu versionList_ContextMenu = new ContextMenu();
@@ -119,10 +120,13 @@ public class launcherUI_JavaFX_Controller {
                     try {
                         gameSaves.getItems().remove(0, gameSaves.getItems().size() - 1);
                         gameSaves.getItems().remove(0);
+                        gameMods.getItems().remove(0, gameSaves.getItems().size() - 1);
+                        gameMods.getItems().remove(0);
                     }catch (java.lang.IndexOutOfBoundsException e){
 
                     }
                     gameSaves.getItems().addAll(newValue.saves);
+                    gameMods.getItems().addAll(newValue.mods);
                 }
         );
 
@@ -231,12 +235,34 @@ class savesCell extends ListCell<Minecraft.save> {
             VBox textBox = new VBox(2);
             Label saveName = new Label(item.name);
             saveName.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 14));
-            Label modDate = new Label(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.path).lastModified()));
+            Label modDate = new Label(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.toString()).lastModified()));
             modDate.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, 8));
             textBox.getChildren().addAll(saveName, modDate);
 
             cell.setCenter(textBox);
             cell.setLeft(imageBox);
+
+            setGraphic(cell);
+        } else if (empty) {
+            setText(null);
+            setGraphic(null);
+        }
+    }
+}
+
+class modsCell extends ListCell<Minecraft.mod>{
+    @Override
+    public void updateItem(Minecraft.mod item, boolean empty) {
+        super.updateItem(item, empty);
+        if (!empty && item != null) {
+            BorderPane cell = new BorderPane();
+            Label title = new Label(item.name);
+
+            Label modDate = new Label(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.toString()).lastModified()));
+            modDate.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, 8));
+
+            cell.setTop(title);
+            cell.setLeft(modDate);
 
             setGraphic(cell);
         } else if (empty) {
