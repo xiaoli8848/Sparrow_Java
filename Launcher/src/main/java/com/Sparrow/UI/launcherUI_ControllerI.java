@@ -18,7 +18,7 @@ public interface launcherUI_ControllerI {
      *
      * @param rootDir 要导入的游戏的.minecraft文件夹的路径
      */
-    void Init(String rootDir);
+    void Init(String rootDir) throws Exception;
 
     /**
      * 获取预设的游戏窗口宽度

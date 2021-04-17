@@ -13,6 +13,7 @@ public class launcherUI_JavaFX extends Application {
     public static Stage primaryStage;
     public static launcherUI_JavaFX_Controller controller;
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final String VERSION_UI = "Sparrow Beta-V0.4.0";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,7 +26,7 @@ public class launcherUI_JavaFX extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         launcherUI_JavaFX.primaryStage = primaryStage;
         controller = fxmlLoader.getController();
-        controller.install();
         primaryStage.show();
+        controller.install();
     }
 }

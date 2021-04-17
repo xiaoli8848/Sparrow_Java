@@ -2,6 +2,7 @@ package com.Sparrow.UI.JavaFX;
 
 import com.Sparrow.Minecraft;
 import com.Sparrow.Tools.SystemPlatform;
+import com.Sparrow.Tools.dialog.errDialog;
 import com.Sparrow.Tools.dialog.expDialog;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -10,18 +11,31 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import org.to2mbn.jmccc.auth.AuthenticationException;
+import org.to2mbn.jmccc.launch.LaunchException;
+import org.to2mbn.jmccc.launch.LauncherBuilder;
+import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
+import org.to2mbn.jmccc.option.WindowSize;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.Sparrow.launcher.gameProcessListener;
+
 public class launcherUI_JavaFX_Controller {
+    private static final String SEPA = File.separator;
+    public static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
     @FXML
     private ListView<Minecraft> versionList;
 
@@ -58,7 +72,39 @@ public class launcherUI_JavaFX_Controller {
     @FXML
     private Label versionText;
 
+    @FXML
+    private VBox offlinePane;
+
+    @FXML
+    private TextField nickName;
+
+    @FXML
+    private VBox onlinePane;
+
+    @FXML
+    private TextField userName;
+
+    @FXML
+    private PasswordField password;
+
+    private int pointer_StateCreator = 0;
+
+    private ArrayList<launcherState> states = new ArrayList<>();
+
+    protected File TempPath = new File(ROOTDIR + ".Sparrow" + SEPA);
+
+    @FXML
+    private ToggleButton offlineSign;
+
+    @FXML
+    private ToggleButton onlineSign;
+
+    private ToggleGroup signWay = new ToggleGroup();
+
+    private signWays sw = signWays.Offline;
+
     public void install() {
+        Version.setText(launcherUI_JavaFX.VERSION_UI);
         launchPane.setVisible(false);
         //设置ListView视图模板类
         versionList.setCellFactory(param -> new minecraftCell());
@@ -122,33 +168,106 @@ public class launcherUI_JavaFX_Controller {
                         gameSaves.getItems().remove(0);
                         gameMods.getItems().remove(0, gameSaves.getItems().size() - 1);
                         gameMods.getItems().remove(0);
-                    }catch (java.lang.IndexOutOfBoundsException e){
+                    } catch (java.lang.IndexOutOfBoundsException e) {
 
                     }
                     gameSaves.getItems().addAll(newValue.saves);
                     gameMods.getItems().addAll(newValue.mods);
+                    signWay.selectToggle(signWay.getToggles().get(0));
+                    sw = signWays.Offline;
                 }
         );
+        signWay.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
+            if (new_toggle == offlineSign) {
+                offlinePane.setDisable(false);
+                onlinePane.setDisable(true);
+                sw = signWays.Offline;
+            } else {
+                offlinePane.setDisable(true);
+                onlinePane.setDisable(false);
+                sw = signWays.Online;
+            }
+        });
+
+        //设置ToggleGroup
+        offlineSign.setToggleGroup(signWay);
+        onlineSign.setToggleGroup(signWay);
+
 
         //自动导入程序目录下的游戏
         try {
-            Init(System.getProperty("user.dir") + ".minecraft");
+            Init(ROOTDIR + ".minecraft");
         } catch (Exception e) {
 
         }
+
+        if (!TempPath.exists()) {
+            TempPath.mkdir();
+        }
+
+    }
+
+    //定义在线或离线的登录方式
+    enum signWays {
+        Offline,
+        Online
     }
 
     public void Init(String rootDir) throws Exception {
+        launcherState state_import = new launcherState(com.Sparrow.UI.JavaFX.launcherState.IMPORTING);
+        addState(state_import);
         final File test = new File(rootDir);
         if (!test.exists() || !test.isDirectory()) {
+            deleteState(state_import);
             return;
         }
         Minecraft[] minecrafts = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
         versionList.getItems().addAll(minecrafts);
+        deleteState(state_import);
     }
 
-    public void changeState(launcherState state) {
-        State.setText(state.getStateString() + "。"); //TODO 使用栈或队列实现多状态显示
+    public String getNickName() {
+        return nickName.getText();
+    }
+
+    public String getUserName() {
+        return userName.getText();
+    }
+
+    public String getPassword() {
+        return password.getText();
+    }
+
+    public void addState(launcherState state) {
+        states.add(state);
+        refreshState();
+    }
+
+    public void deleteState(launcherState state) {
+        deleteState(state.serialNumber);
+    }
+
+    public void deleteState(int serialNumber) {
+        for (int i = 0; i < states.size(); i++) {
+            if (states.get(i).serialNumber == serialNumber) {
+                states.remove(i);
+                refreshState();
+                return;
+            }
+        }
+    }
+
+    private void refreshState() {
+        if (states.size() != 0) {
+            String result = "";
+            for (launcherState state : states) {
+                result += state.toString() + "；";
+            }
+            result = result.substring(0, result.length() - 1) + "。";
+            State.setText(result);
+        } else {
+            State.setText(com.Sparrow.UI.JavaFX.launcherState.STANDBY.toString());
+        }
     }
 
     @FXML
@@ -176,7 +295,68 @@ public class launcherUI_JavaFX_Controller {
     @FXML
     void launch(MouseEvent event) {
         //TODO 实现在线启动
-        versionList.getSelectionModel().getSelectedItem().launchOffline("xiaoli8848",true,true,0,0,1000,800,"");
+        if (sw == signWays.Offline)
+            versionList.getSelectionModel().getSelectedItem().launchOffline(nickName.getText(), true, true, 0, 0, 1000, 800, "");
+        else {
+            if (userName.getText() != "") {
+                if (password.getText() != "") {
+                    try {
+                        YggdrasilAuthenticator_JavaFX onlineAuth = YggdrasilAuthenticator_JavaFX.password(userName.getText(), password.getText());
+                        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
+                                .setDebugPrintCommandline(false)
+                                .setNativeFastCheck(true)
+                                .build();
+
+                        LaunchOption option = null;
+                        try {
+                            option = new LaunchOption(
+                                    versionList.getSelectionModel().getSelectedItem().version, // 游戏版本
+                                    onlineAuth, // 使用在线验证
+                                    new MinecraftDirectory(versionList.getSelectionModel().getSelectedItem().rootPath));
+                            option.setMaxMemory(0);
+                            option.setMinMemory(0);
+                            option.setWindowSize(WindowSize.window(0, 0));
+                            /*
+                            if (serverURL != null && !Objects.equals(serverURL, "")) {
+                                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
+                            }
+                            */
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        // 启动游戏
+                        try {
+                            launcher.launch(option, gameProcessListener);
+                        } catch (LaunchException e) {
+                            e.printStackTrace();
+                        }
+                    } catch (AuthenticationException e) {
+                        new errDialog().apply("在线登陆失败", null, "非常不好意思，但是我们在尝试在线登录时出现错误。启动意外失败了。你可以检查一下你的用户名和密码是否输入正确。");
+                        return;
+                    }
+                } else {
+                    new errDialog().apply("参数错误", null, "不好意思，你需要填写密码才能在线登录");
+                }
+            } else {
+                new errDialog().apply("参数错误", null, "不好意思，你需要填写用户名（邮箱）才能在线登录。");
+            }
+        }
+    }
+
+    public class launcherState {
+        private com.Sparrow.UI.JavaFX.launcherState state;
+        public int serialNumber;
+
+        public launcherState(com.Sparrow.UI.JavaFX.launcherState state) {
+            this.state = state;
+            this.serialNumber = pointer_StateCreator++;
+        }
+
+        @Override
+        public String toString() {
+            return state.toString();
+        }
     }
 }
 
@@ -226,7 +406,7 @@ class savesCell extends ListCell<Minecraft.save> {
         super.updateItem(item, empty);
         if (!empty && item != null) {
             BorderPane cell = new BorderPane();
-            ImageView imageView = new ImageView(new Image("file:"+File.separator+item.image.toString()));
+            ImageView imageView = new ImageView(new Image("file:" + File.separator + item.image.toString()));
             HBox imageBox = new HBox(2);
             Pane space = new Pane();
             space.setPrefWidth(10);
@@ -250,7 +430,7 @@ class savesCell extends ListCell<Minecraft.save> {
     }
 }
 
-class modsCell extends ListCell<Minecraft.mod>{
+class modsCell extends ListCell<Minecraft.mod> {
     @Override
     public void updateItem(Minecraft.mod item, boolean empty) {
         super.updateItem(item, empty);
