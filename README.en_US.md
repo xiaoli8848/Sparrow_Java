@@ -17,6 +17,11 @@ MQ is licensed under [the LGPL](LICENSE.txt).
 
 ## Postscript
 
-Here are very few core developers on this project, but the amount of work is not small, so we really hope that you can contribute to this project at any time, such as developing some FEAT and then creating Pull Request after fork.
+A I'm interested in this project is based on the interface of the [JMCCC] (https://github.com/to2mbn/JMCCC), made of Minecraft game launcher, mainly study the purpose, in the production process of trial and error on the Java GUI implementation, project management.
 
-![Screenshot](docs/Screenshot.png)
+If you are interested in this project, you are most welcome to provide some valuable guidance and suggestions.
+You are free to play around with the project as long as you comply with its open source license.
+
+The authors don't have a lot of time, and they do it once or twice a week, so don't be surprised.
+
+![Screenshot](docs/Screenshot_JavaFX.png)
