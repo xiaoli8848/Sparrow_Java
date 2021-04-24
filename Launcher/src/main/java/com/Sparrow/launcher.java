@@ -1,6 +1,8 @@
 package com.Sparrow;
 
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
+import org.to2mbn.jmccc.auth.yggdrasil.core.ProfileService;
+import org.to2mbn.jmccc.auth.yggdrasil.core.yggdrasil.YggdrasilServiceBuilder;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
@@ -19,11 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.Sparrow.Tools.Download.Download.downloadGame;
+import static com.Sparrow.Utils.Download.Download.downloadGame;
 
 public class launcher {
     public static final String LAUNCHER_VERSION = "V0.3.0";
     public static final String projectURL = "https://github.com/xiaoli8848/MQ";
+    public static final ProfileService profileService = YggdrasilServiceBuilder.defaultProfileService();
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {

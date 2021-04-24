@@ -30,5 +30,8 @@
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.6" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.76" level="project" />
+    <orderEntry type="library" name="Maven: com.jfoenix:jfoenix:9.0.1" level="project" />
   </component>
 </module>

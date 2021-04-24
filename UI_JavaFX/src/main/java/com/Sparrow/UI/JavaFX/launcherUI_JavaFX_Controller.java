@@ -1,9 +1,13 @@
 package com.Sparrow.UI.JavaFX;
 
 import com.Sparrow.Minecraft;
-import com.Sparrow.Tools.SystemPlatform;
-import com.Sparrow.Tools.dialog.errDialog;
-import com.Sparrow.Tools.dialog.expDialog;
+import com.Sparrow.Utils.SystemPlatform;
+import com.Sparrow.Utils.dialog.errDialog;
+import com.Sparrow.Utils.dialog.expDialog;
+import com.jfoenix.controls.JFXListCell;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
@@ -36,69 +40,45 @@ import static com.Sparrow.launcher.gameProcessListener;
 public class launcherUI_JavaFX_Controller {
     private static final String SEPA = File.separator;
     public static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
-    @FXML
-    private ListView<Minecraft> versionList;
-
-    @FXML
-    private Pane launchPane;
-
-    @FXML
-    private TabPane versionSummary;
-
-    @FXML
-    private ListView<Minecraft.save> gameSaves;
-
-    @FXML
-    private ListView<Minecraft.mod> gameMods;
-
-    @FXML
-    private ListView<?> gameResPacks;
-
+    protected File TempPath = new File(ROOTDIR + ".Sparrow" + SEPA);
     @FXML
     private ImageView closeButton;
-
     @FXML
     private ImageView minisizeButton;
-
     @FXML
-    private Label State;
-
+    private JFXListView<Minecraft> versionList;
     @FXML
-    private Label Version;
-
+    private Pane launchPane;
     @FXML
     private BorderPane launchButton;
-
     @FXML
     private Label versionText;
-
-    @FXML
-    private VBox offlinePane;
-
-    @FXML
-    private TextField nickName;
-
-    @FXML
-    private VBox onlinePane;
-
-    @FXML
-    private TextField userName;
-
-    @FXML
-    private PasswordField password;
-
-    private int pointer_StateCreator = 0;
-
-    private ArrayList<launcherState> states = new ArrayList<>();
-
-    protected File TempPath = new File(ROOTDIR + ".Sparrow" + SEPA);
-
     @FXML
     private ToggleButton offlineSign;
-
     @FXML
     private ToggleButton onlineSign;
-
+    @FXML
+    private VBox offlinePane;
+    @FXML
+    private JFXTextField nickName;
+    @FXML
+    private VBox onlinePane;
+    @FXML
+    private JFXTextField userName;
+    @FXML
+    private JFXPasswordField password;
+    @FXML
+    private TabPane versionSummary;
+    @FXML
+    private JFXListView<Minecraft.save> gameSaves;
+    @FXML
+    private JFXListView<Minecraft.mod> gameMods;
+    @FXML
+    private Label State;
+    @FXML
+    private Label Version;
+    private int pointer_StateCreator = 0;
+    private ArrayList<launcherState> states = new ArrayList<>();
     private ToggleGroup signWay = new ToggleGroup();
 
     private signWays sw = signWays.Offline;
@@ -205,12 +185,6 @@ public class launcherUI_JavaFX_Controller {
             TempPath.mkdir();
         }
 
-    }
-
-    //定义在线或离线的登录方式
-    enum signWays {
-        Offline,
-        Online
     }
 
     public void Init(String rootDir) throws Exception {
@@ -344,9 +318,15 @@ public class launcherUI_JavaFX_Controller {
         }
     }
 
+    //定义在线或离线的登录方式
+    enum signWays {
+        Offline,
+        Online
+    }
+
     public class launcherState {
-        private com.Sparrow.UI.JavaFX.launcherState state;
         public int serialNumber;
+        private com.Sparrow.UI.JavaFX.launcherState state;
 
         public launcherState(com.Sparrow.UI.JavaFX.launcherState state) {
             this.state = state;
@@ -361,7 +341,7 @@ public class launcherUI_JavaFX_Controller {
 }
 
 
-class minecraftCell extends ListCell<Minecraft> {
+class minecraftCell extends JFXListCell<Minecraft> {
 
     private static boolean judgeContainsLetters(String cardNum) {
         String regex = ".*[a-zA-Z]+.*";
@@ -372,6 +352,7 @@ class minecraftCell extends ListCell<Minecraft> {
     @Override
     public void updateItem(Minecraft item, boolean empty) {
         super.updateItem(item, empty);
+        setText("");
         if (!empty && item != null) {
             BorderPane cell = new BorderPane();
 
@@ -400,11 +381,19 @@ class minecraftCell extends ListCell<Minecraft> {
     }
 }
 
-class savesCell extends ListCell<Minecraft.save> {
+class savesCell extends JFXListCell<Minecraft.save> {
     @Override
     public void updateItem(Minecraft.save item, boolean empty) {
         super.updateItem(item, empty);
-        if (!empty && item != null) {
+        setText("");
+        if (empty) {
+            setText(null);
+            setGraphic(null);
+            setMouseTransparent(true);
+            setStyle("-fx-background-color:TRANSPARENT;");
+        } else {
+            setMouseTransparent(false);
+            setStyle(null);
             BorderPane cell = new BorderPane();
             ImageView imageView = new ImageView(new Image("file:" + File.separator + item.image.toString()));
             HBox imageBox = new HBox(2);
@@ -423,17 +412,15 @@ class savesCell extends ListCell<Minecraft.save> {
             cell.setLeft(imageBox);
 
             setGraphic(cell);
-        } else if (empty) {
-            setText(null);
-            setGraphic(null);
         }
     }
 }
 
-class modsCell extends ListCell<Minecraft.mod> {
+class modsCell extends JFXListCell<Minecraft.mod> {
     @Override
     public void updateItem(Minecraft.mod item, boolean empty) {
         super.updateItem(item, empty);
+        setText("");
         if (!empty && item != null) {
             BorderPane cell = new BorderPane();
             Label title = new Label(item.name);

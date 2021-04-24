@@ -14,7 +14,7 @@ public class YggdrasilAuthenticator_JavaFX extends YggdrasilAuthenticator {
     private String password_temp;
 
     public static YggdrasilAuthenticator_JavaFX password(String username, String password) throws AuthenticationException {
-        YggdrasilAuthenticator_JavaFX temp = password((String)username, (String)password, (CharacterSelector)null);
+        YggdrasilAuthenticator_JavaFX temp = password(username, password, null);
         temp.username_temp = username;
         temp.password_temp = password;
         return temp;

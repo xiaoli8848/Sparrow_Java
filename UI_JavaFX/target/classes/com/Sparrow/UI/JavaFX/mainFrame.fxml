@@ -32,167 +32,180 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
-
-<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXListView?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;"
+      stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16"
+      fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
     <children>
         <Pane prefHeight="26.0" prefWidth="900.0">
             <children>
                 <Label alignment="CENTER" layoutX="423.0" layoutY="3.0" text="Sparrow" textAlignment="CENTER">
                     <font>
-                        <Font size="15.0" />
+                        <Font name="Microsoft YaHei" size="15.0"/>
                     </font>
                 </Label>
-            <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="880.0" layoutY="6.0" onMouseClicked="#closeWindow" onMouseEntered="#windowButtonActive" onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgs/WindowCloseButton.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="minisizeButton" fitHeight="15.0" fitWidth="15.0" layoutX="855.0" layoutY="6.0" onMouseClicked="#minsizeWindow" onMouseEntered="#windowButtonActive" onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgs/WindowMinsizeButton.png" />
-               </image>
-            </ImageView>
+                <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="880.0" layoutY="6.0"
+                           onMouseClicked="#closeWindow" onMouseEntered="#windowButtonActive"
+                           onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgs/WindowCloseButton.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="minisizeButton" fitHeight="15.0" fitWidth="15.0" layoutX="855.0" layoutY="6.0"
+                           onMouseClicked="#minsizeWindow" onMouseEntered="#windowButtonActive"
+                           onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgs/WindowMinsizeButton.png"/>
+                    </image>
+                </ImageView>
             </children>
         </Pane>
         <SplitPane dividerPositions="0.25, 0.75" VBox.vgrow="ALWAYS">
-            <ListView fx:id="versionList" prefHeight="200.0" prefWidth="200.0" />
+            <JFXListView fx:id="versionList" prefHeight="200.0" prefWidth="200.0" style="-fx-fixed-cell-size: 55px;"/>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
-            <children>
-               <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
-                  <children>
-                     <BorderPane fx:id="launchButton" layoutX="277.0" layoutY="487.0" onMouseClicked="#launch" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #5cb85c; -fx-background-radius: 10px;">
-                        <top>
-                           <Label text="启动游戏" textFill="WHITE" BorderPane.alignment="CENTER">
-                              <font>
-                                 <Font name="Microsoft YaHei" size="16.0" />
-                              </font>
-                           </Label>
-                        </top>
-                        <center>
-                           <Label fx:id="versionText" textFill="WHITE" BorderPane.alignment="CENTER">
-                              <font>
-                                 <Font name="Microsoft YaHei" size="15.0" />
-                              </font>
-                           </Label>
-                        </center>
-                     </BorderPane>
-                     <HBox layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="153.0">
+                <children>
+                    <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
                         <children>
-                           <ToggleButton fx:id="offlineSign" mnemonicParsing="false" styleClass="first" text="离线登录" />
-                           <ToggleButton fx:id="onlineSign" mnemonicParsing="false" styleClass="last" text="在线登录" />
+                            <BorderPane fx:id="launchButton" layoutX="277.0" layoutY="487.0" onMouseClicked="#launch"
+                                        prefHeight="50.0" prefWidth="150.0"
+                                        style="-fx-background-color: #5cb85c; -fx-background-radius: 10px;">
+                                <top>
+                                    <Label text="启动游戏" textFill="WHITE" BorderPane.alignment="CENTER">
+                                        <font>
+                                            <Font name="Microsoft YaHei" size="16.0"/>
+                                        </font>
+                                    </Label>
+                                </top>
+                                <center>
+                                    <Label fx:id="versionText" textFill="WHITE" BorderPane.alignment="CENTER">
+                                        <font>
+                                            <Font name="Microsoft YaHei" size="15.0"/>
+                                        </font>
+                                    </Label>
+                                </center>
+                            </BorderPane>
+                            <HBox layoutX="14.0" layoutY="14.0" prefHeight="30.0" prefWidth="153.0">
+                                <children>
+                                    <ToggleButton fx:id="offlineSign" mnemonicParsing="false" styleClass="first"
+                                                     text="离线登录"/>
+                                    <ToggleButton fx:id="onlineSign" mnemonicParsing="false" styleClass="last"
+                                                     text="在线登录"/>
+                                </children>
+                            </HBox>
+                            <HBox layoutX="21.0" layoutY="60.0" prefHeight="109.0" prefWidth="400.0">
+                                <children>
+                                    <VBox fx:id="offlinePane" prefHeight="400.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Label alignment="CENTER" prefHeight="27.0" prefWidth="200.0" text="离线登录">
+                                                <font>
+                                                    <Font name="Microsoft YaHei" size="17.0"/>
+                                                </font>
+                                            </Label>
+                                            <HBox prefHeight="30.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label alignment="CENTER" prefHeight="38.0" prefWidth="50.0"
+                                                           text="昵称：" textAlignment="CENTER"
+                                                           textOverrun="CENTER_ELLIPSIS"/>
+                                                    <JFXTextField fx:id="nickName"/>
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                    </VBox>
+                                    <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="10.0"/>
+                                    <VBox fx:id="onlinePane" prefHeight="400.0" prefWidth="200.0" spacing="5.0">
+                                        <children>
+                                            <Label alignment="CENTER" prefHeight="27.0" prefWidth="200.0" text="在线登录">
+                                                <font>
+                                                    <Font name="Microsoft YaHei" size="17.0"/>
+                                                </font>
+                                            </Label>
+                                            <HBox prefHeight="30.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0"
+                                                           text="用户名：" textAlignment="CENTER"
+                                                           textOverrun="CENTER_ELLIPSIS"/>
+                                                    <JFXTextField fx:id="userName" prefWidth="150.0"/>
+                                                </children>
+                                            </HBox>
+                                            <HBox prefHeight="30.0" prefWidth="200.0">
+                                                <children>
+                                                    <Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0"
+                                                           text="密码：" textAlignment="CENTER"
+                                                           textOverrun="CENTER_ELLIPSIS"/>
+                                                    <JFXPasswordField fx:id="password" prefHeight="20.0"
+                                                                      prefWidth="150.0"/>
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                        <opaqueInsets>
+                                            <Insets/>
+                                        </opaqueInsets>
+                                        <HBox.margin>
+                                            <Insets/>
+                                        </HBox.margin>
+                                    </VBox>
+                                </children>
+                            </HBox>
                         </children>
-                     </HBox>
-                     <HBox layoutX="21.0" layoutY="60.0" prefHeight="400.0" prefWidth="400.0">
-                        <children>
-                           <VBox fx:id="offlinePane" prefHeight="400.0" prefWidth="200.0" spacing="5.0">
-                              <children>
-                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="200.0" text="离线登录">
-                                    <font>
-                                       <Font name="Microsoft YaHei" size="17.0" />
-                                    </font>
-                                 </Label>
-                                 <HBox prefHeight="30.0" prefWidth="200.0">
-                                    <children>
-                                       <Label alignment="CENTER" prefHeight="38.0" prefWidth="50.0" text="昵称：" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-                                       <TextField fx:id="nickName" />
-                                    </children>
-                                 </HBox>
-                              </children>
-                           </VBox>
-                           <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="10.0" />
-                           <VBox fx:id="onlinePane" prefHeight="400.0" prefWidth="200.0" spacing="5.0">
-                              <children>
-                                 <Label alignment="CENTER" prefHeight="27.0" prefWidth="200.0" text="在线登录">
-                                    <font>
-                                       <Font name="Microsoft YaHei" size="17.0" />
-                                    </font>
-                                 </Label>
-                                 <HBox prefHeight="30.0" prefWidth="200.0">
-                                    <children>
-                                       <Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="用户名：" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-                                       <TextField fx:id="userName" prefWidth="150.0" />
-                                    </children>
-                                 </HBox>
-                                 <HBox prefHeight="30.0" prefWidth="200.0">
-                                    <children>
-                                       <Label alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="密码：" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-                                       <PasswordField fx:id="password" prefHeight="20.0" prefWidth="150.0" />
-                                    </children>
-                                 </HBox>
-                              </children>
-                              <opaqueInsets>
-                                 <Insets />
-                              </opaqueInsets>
-                              <HBox.margin>
-                                 <Insets />
-                              </HBox.margin>
-                           </VBox>
-                        </children>
-                     </HBox>
-                  </children>
-               </Pane>
-            </children></AnchorPane>
+                    </Pane>
+                </children>
+            </AnchorPane>
             <TabPane fx:id="versionSummary" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                 <Tab text="游戏文件">
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <VBox layoutX="10.0" layoutY="7.0" prefHeight="500.0" prefWidth="200.0">
                             <opaqueInsets>
-                                <Insets />
+                                <Insets/>
                             </opaqueInsets>
-                     <children>
-                        <Accordion>
-                          <panes>
-                            <TitledPane animated="false" text="存档">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="gameSaves" layoutX="-1.0" prefHeight="180.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" text="模组">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="gameMods" layoutX="-1.0" prefHeight="180.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                            <TitledPane animated="false" text="资源包">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="gameResPacks" layoutX="-1.0" prefHeight="180.0" prefWidth="200.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </TitledPane>
-                          </panes>
-                        </Accordion>
-                     </children>
+                            <children>
+                                <Accordion>
+                                    <panes>
+                                        <TitledPane animated="false" text="存档">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <JFXListView fx:id="gameSaves" layoutX="-1.0" prefHeight="180.0"
+                                                                     prefWidth="200.0" style="-fx-fixed-cell-size: 70px;"/>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="模组">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <JFXListView fx:id="gameMods" layoutX="-1.0" prefHeight="180.0"
+                                                                  prefWidth="200.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                        <TitledPane animated="false" text="资源包">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <JFXListView fx:id="gameResPacks" layoutX="-1.0" prefHeight="180.0"
+                                                                  prefWidth="200.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </TitledPane>
+                                    </panes>
+                                </Accordion>
+                            </children>
                         </VBox>
                     </AnchorPane>
                 </Tab>
@@ -200,18 +213,19 @@
         </SplitPane>
         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
             <padding>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
             </padding>
             <Label fx:id="State" maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="待命。" HBox.hgrow="ALWAYS">
                 <font>
-                    <Font size="11.0" fx:id="x3" />
+                    <Font size="11.0" fx:id="x3"/>
                 </font>
                 <textFill>
-                    <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+                    <Color red="0.625" green="0.625" blue="0.625" fx:id="x4"/>
                 </textFill>
             </Label>
-            <Pane prefWidth="652.0" HBox.hgrow="ALWAYS" />
-            <Label fx:id="Version" font="$x3" maxWidth="-1.0" text="Sparrow Beta-0.1.0" textFill="$x4" HBox.hgrow="NEVER" />
+            <Pane prefWidth="652.0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="Version" font="$x3" maxWidth="-1.0" text="Sparrow Beta-0.1.0" textFill="$x4"
+                   HBox.hgrow="NEVER"/>
         </HBox>
     </children>
 </VBox>

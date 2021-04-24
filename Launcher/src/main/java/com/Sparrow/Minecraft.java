@@ -67,7 +67,7 @@ public class Minecraft {
         for (String s : versions) {
             Minecraft temp = new Minecraft();
             temp.version = s;
-            temp.path = dir.getRoot().toString() + "/versions/" + s + "/";
+            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + s + File.separator;
             temp.rootPath = dir.getRoot().getPath();
             temp.saves = temp.getSaves(temp.rootPath);
             temp.mods = temp.getMods(temp.rootPath);
@@ -116,7 +116,7 @@ public class Minecraft {
         return temp;
     }
 
-    public class mod extends JarFile {
+    public class mod extends File {
         public String name;
 
         private mod(String jarPath) throws IOException {
@@ -132,11 +132,8 @@ public class Minecraft {
             return new ArrayList<>();
         }
         for (File mod : mods) {
-            mod t = null;
             try {
-                t = new mod(mod.toString());
-                if (t != null)
-                    temp.add(t);
+                temp.add(new mod(mod.toString()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
