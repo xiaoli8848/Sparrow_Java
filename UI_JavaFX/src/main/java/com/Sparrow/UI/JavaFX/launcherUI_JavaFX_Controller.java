@@ -1,13 +1,16 @@
 package com.Sparrow.UI.JavaFX;
 
-import com.Sparrow.Minecraft;
+import com.Sparrow.Utils.MinecraftJFX;
 import com.Sparrow.Utils.SystemPlatform;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.Utils.dialog.expDialog;
-import com.jfoenix.controls.JFXListCell;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.Sparrow.Utils.imageString;
+import com.Sparrow.Utils.user.libUser;
+import com.Sparrow.Utils.user.offlineUser;
+import com.Sparrow.Utils.user.onlineUser;
+import com.Sparrow.Utils.user.user;
+import com.jfoenix.controls.*;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
@@ -22,74 +25,107 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
-import org.to2mbn.jmccc.auth.AuthenticationException;
-import org.to2mbn.jmccc.launch.LaunchException;
-import org.to2mbn.jmccc.launch.LauncherBuilder;
-import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
-import org.to2mbn.jmccc.option.WindowSize;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.Sparrow.launcher.gameProcessListener;
-
 public class launcherUI_JavaFX_Controller {
     private static final String SEPA = File.separator;
     public static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
-    protected File TempPath = new File(ROOTDIR + ".Sparrow" + SEPA);
+    public File TempPath = new File(ROOTDIR + ".Sparrow");
+
     @FXML
     private ImageView closeButton;
+
     @FXML
     private ImageView minisizeButton;
+
     @FXML
-    private JFXListView<Minecraft> versionList;
+    private JFXListView<MinecraftJFX> versionList;
+
     @FXML
     private Pane launchPane;
+
     @FXML
-    private BorderPane launchButton;
+    private ImageView headTexture;
+
     @FXML
-    private Label versionText;
-    @FXML
-    private ToggleButton offlineSign;
-    @FXML
-    private ToggleButton onlineSign;
-    @FXML
-    private VBox offlinePane;
-    @FXML
-    private JFXTextField nickName;
-    @FXML
-    private VBox onlinePane;
-    @FXML
-    private JFXTextField userName;
-    @FXML
-    private JFXPasswordField password;
+    private JFXComboBox<user> characterChooser;
+
     @FXML
     private TabPane versionSummary;
+
     @FXML
-    private JFXListView<Minecraft.save> gameSaves;
+    private JFXListView<MinecraftJFX.save> gameSaves;
+
     @FXML
-    private JFXListView<Minecraft.mod> gameMods;
+    private JFXListView<MinecraftJFX.mod> gameMods;
+
+    @FXML
+    private ToggleButton offlineSign;
+
+    @FXML
+    private ToggleButton onlineSign;
+
+    @FXML
+    private ToggleButton libSign;
+
+    @FXML
+    private VBox offlinePane;
+
+    @FXML
+    private JFXTextField userName_Offline;
+
+    @FXML
+    private VBox onlinePane;
+
+    @FXML
+    private JFXTextField userName_Online;
+
+    @FXML
+    private JFXPasswordField password_Online;
+
+    @FXML
+    private VBox libPane;
+
+    @FXML
+    private JFXTextField userName_Lib;
+
+    @FXML
+    private JFXPasswordField password_Lib;
+
+    @FXML
+    private JFXTextField server_Lib;
+
     @FXML
     private Label State;
+
     @FXML
     private Label Version;
+
     private int pointer_StateCreator = 0;
     private ArrayList<launcherState> states = new ArrayList<>();
     private ToggleGroup signWay = new ToggleGroup();
 
-    private signWays sw = signWays.Offline;
-
     public void install() {
+        for(File fileTemp : TempPath.listFiles()){
+            fileTemp.delete();
+        }
         Version.setText(launcherUI_JavaFX.VERSION_UI);
         launchPane.setVisible(false);
         //设置ListView视图模板类
         versionList.setCellFactory(param -> new minecraftCell());
         gameSaves.setCellFactory(param -> new savesCell());
         gameMods.setCellFactory(param -> new modsCell());
+        characterChooser.setCellFactory(param -> new userCell());
+
+        headTexture.setImage(new Image(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/login.png").toString()));
 
         //设置右键菜单
         ContextMenu versionList_ContextMenu = new ContextMenu();
@@ -138,10 +174,10 @@ public class launcherUI_JavaFX_Controller {
 
         //设置控件事件
         versionList.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) -> {
+                (ObservableValue<? extends MinecraftJFX> observable, MinecraftJFX oldValue, MinecraftJFX newValue) -> {
                     launchPane.setVisible(true);
 
-                    versionText.setText(newValue.version);
+                    //versionText.setText(newValue.version);
 
                     try {
                         gameSaves.getItems().remove(0, gameSaves.getItems().size() - 1);
@@ -154,24 +190,34 @@ public class launcherUI_JavaFX_Controller {
                     gameSaves.getItems().addAll(newValue.saves);
                     gameMods.getItems().addAll(newValue.mods);
                     signWay.selectToggle(signWay.getToggles().get(0));
-                    sw = signWays.Offline;
                 }
         );
         signWay.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
             if (new_toggle == offlineSign) {
                 offlinePane.setDisable(false);
                 onlinePane.setDisable(true);
-                sw = signWays.Offline;
+                libPane.setDisable(true);
+            } else if (new_toggle == onlineSign) {
+                offlinePane.setDisable(true);
+                libPane.setDisable(true);
+                onlinePane.setDisable(false);
             } else {
                 offlinePane.setDisable(true);
-                onlinePane.setDisable(false);
-                sw = signWays.Online;
+                libPane.setDisable(false);
+                onlinePane.setDisable(true);
+            }
+        });
+        characterChooser.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<user>>() {
+            @Override
+            public void changed(ObservableValue<? extends SingleSelectionModel<user>> observableValue, SingleSelectionModel<user> userSingleSelectionModel, SingleSelectionModel<user> t1) {
+                headTexture.setImage(characterChooser.getSelectionModel().getSelectedItem().getTexture().getHeadTexture());
             }
         });
 
         //设置ToggleGroup
         offlineSign.setToggleGroup(signWay);
         onlineSign.setToggleGroup(signWay);
+        libSign.setToggleGroup(signWay);
 
 
         //自动导入程序目录下的游戏
@@ -195,21 +241,16 @@ public class launcherUI_JavaFX_Controller {
             deleteState(state_import);
             return;
         }
-        Minecraft[] minecrafts = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
+        MinecraftJFX[] minecrafts = MinecraftJFX.getMinecrafts(new MinecraftDirectory(rootDir));
         versionList.getItems().addAll(minecrafts);
+        for(MinecraftJFX minecraft : minecrafts){
+            if(minecraft.config.haveUsers()){
+                characterChooser.getItems().addAll(minecraft.config.getOnlineUsers());
+                characterChooser.getItems().addAll(minecraft.config.getOfflineUsers());
+                characterChooser.getItems().addAll(minecraft.config.getLibUsers());
+            }
+        }
         deleteState(state_import);
-    }
-
-    public String getNickName() {
-        return nickName.getText();
-    }
-
-    public String getUserName() {
-        return userName.getText();
-    }
-
-    public String getPassword() {
-        return password.getText();
     }
 
     public void addState(launcherState state) {
@@ -267,9 +308,9 @@ public class launcherUI_JavaFX_Controller {
     }
 
     @FXML
-    void launch(MouseEvent event) {
+    void launch() {
         //TODO 实现在线启动
-        if (sw == signWays.Offline)
+        /*if (sw == signWays.Offline)
             versionList.getSelectionModel().getSelectedItem().launchOffline(nickName.getText(), true, true, 0, 0, 1000, 800, "");
         else {
             if (userName.getText() != "") {
@@ -290,11 +331,11 @@ public class launcherUI_JavaFX_Controller {
                             option.setMaxMemory(0);
                             option.setMinMemory(0);
                             option.setWindowSize(WindowSize.window(0, 0));
-                            /*
+                            *//*
                             if (serverURL != null && !Objects.equals(serverURL, "")) {
                                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
                             }
-                            */
+                            *//*
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -310,10 +351,63 @@ public class launcherUI_JavaFX_Controller {
                         return;
                     }
                 } else {
-                    new errDialog().apply("参数错误", null, "不好意思，你需要填写密码才能在线登录");
+                    new errDialog().apply("参数错误", null, "不好意思，你需要填写密码才能在线登录。");
                 }
             } else {
                 new errDialog().apply("参数错误", null, "不好意思，你需要填写用户名（邮箱）才能在线登录。");
+            }
+        }*/
+        if (characterChooser.getSelectionModel().isEmpty()) {
+            new errDialog().apply("参数错误", null, "不好意思，你需要选择一个账户才能启动。");
+        } else if (versionList.getSelectionModel().isEmpty()) {
+            new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
+        } else {
+            user selectedUser = characterChooser.getSelectionModel().getSelectedItem();
+            if (selectedUser instanceof offlineUser) {
+                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+            } else if (selectedUser instanceof onlineUser) {
+                ((onlineUser) selectedUser).getInfo();
+                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+            } else if (selectedUser instanceof libUser) {
+                ((libUser) selectedUser).getInfo();
+                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+            }
+        }
+    }
+
+    @FXML
+    void addUser_Offline() {
+        if (userName_Offline.getText().length() > 0) {
+            characterChooser.getItems().add(new offlineUser(userName_Offline.getText()));
+            try {
+                versionList.getSelectionModel().getSelectedItem().config.putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
+                versionList.getSelectionModel().getSelectedItem().config.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void addUser_Online() {
+        if (userName_Online.getText().length() > 0 && password_Online.getText().length() > 0) {
+            onlineUser temp = new onlineUser(userName_Online.getText(), password_Online.getText());
+            if (temp.getInfo()) {
+                characterChooser.getItems().add(temp);
+            } else {
+                new errDialog().apply("参数错误", null, "不好意思，尝试创建在线账户时遇到错误。");
+            }
+        }
+    }
+
+    @FXML
+    void addUser_Lib() {
+        if (userName_Lib.getText().length() > 0 && password_Lib.getText().length() > 0 && server_Lib.getText().length() > 0) {
+            libUser temp = new libUser(userName_Lib.getText(), password_Lib.getText(), server_Lib.getText());
+            if (temp.getInfo()) {
+                characterChooser.getItems().add(temp);
+            } else {
+                new errDialog().apply("参数错误", null, "不好意思，尝试创建外置登录账户时遇到错误。");
             }
         }
     }
@@ -341,7 +435,7 @@ public class launcherUI_JavaFX_Controller {
 }
 
 
-class minecraftCell extends JFXListCell<Minecraft> {
+class minecraftCell extends JFXListCell<MinecraftJFX> {
 
     private static boolean judgeContainsLetters(String cardNum) {
         String regex = ".*[a-zA-Z]+.*";
@@ -350,7 +444,7 @@ class minecraftCell extends JFXListCell<Minecraft> {
     }
 
     @Override
-    public void updateItem(Minecraft item, boolean empty) {
+    public void updateItem(MinecraftJFX item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (!empty && item != null) {
@@ -359,7 +453,12 @@ class minecraftCell extends JFXListCell<Minecraft> {
             VBox textBox = new VBox(3);
             Text version = new Text(judgeContainsLetters(item.version) ? item.version + " - NotRelease" : item.version + " - Release"); //如果版本号含有字母则标记为NotRelease
             version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
-            Text info = new Text("详细信息：暂无");  //TODO 后期加入整合包信息或存档概览
+            Text info;
+            if(item.config.getPackName() == null) {
+                info = new Text("详细信息：暂无");  //TODO 后期加入整合包信息或存档概览
+            }else{
+                info = new Text("整合包 - " + item.config.getPackName());
+            }
             Text date = new Text(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.rootPath).lastModified()));
             date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.EXTRA_BOLD, 10));
             textBox.getChildren().addAll(version, info, date);
@@ -381,9 +480,9 @@ class minecraftCell extends JFXListCell<Minecraft> {
     }
 }
 
-class savesCell extends JFXListCell<Minecraft.save> {
+class savesCell extends JFXListCell<MinecraftJFX.save> {
     @Override
-    public void updateItem(Minecraft.save item, boolean empty) {
+    public void updateItem(MinecraftJFX.save item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (empty) {
@@ -416,9 +515,9 @@ class savesCell extends JFXListCell<Minecraft.save> {
     }
 }
 
-class modsCell extends JFXListCell<Minecraft.mod> {
+class modsCell extends JFXListCell<MinecraftJFX.mod> {
     @Override
-    public void updateItem(Minecraft.mod item, boolean empty) {
+    public void updateItem(MinecraftJFX.mod item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (!empty && item != null) {
@@ -430,6 +529,47 @@ class modsCell extends JFXListCell<Minecraft.mod> {
 
             cell.setTop(title);
             cell.setLeft(modDate);
+
+            setGraphic(cell);
+        } else if (empty) {
+            setText(null);
+            setGraphic(null);
+        }
+    }
+}
+
+class userCell extends JFXListCell<user> {
+    @Override
+    public void updateItem(user item, boolean empty) {
+        super.updateItem(item, empty);
+        setText("");
+        if (!empty && item != null) {
+            BorderPane cell = new BorderPane();
+
+            VBox textBox = new VBox(2);
+            Text version = new Text(item.getUserName()); //如果版本号含有字母则标记为NotRelease
+            version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
+            Text info = new Text(item instanceof offlineUser ? "离线登录" : item instanceof onlineUser ? "在线登录" : "外置登录");  //TODO 后期加入整合包信息或存档概览
+            textBox.getChildren().addAll(version, info);
+
+            HBox iconBox = new HBox(2);
+            ImageView icon = null;
+            try {
+                File temp = new File(launcherUI_JavaFX.controller.TempPath.toString() + File.separator + "headTexture_" + item.getUserName() + ".png");
+                temp.createNewFile();
+                ImageView icon1 = new ImageView(item.getTexture().getHeadTexture());
+                icon1.setFitWidth(40);
+                icon1.setFitHeight(40);
+                icon = icon1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Pane space = new Pane();
+            space.setPrefWidth(10);
+            iconBox.getChildren().addAll(icon, space);
+
+            cell.setCenter(textBox);
+            cell.setLeft(iconBox);
 
             setGraphic(cell);
         } else if (empty) {

@@ -1,6 +1,6 @@
 package com.Sparrow.UI;
 
-import com.Sparrow.Minecraft;
+import com.Sparrow.Utils.Minecraft;
 
 public abstract class launcherUI_Controller {
     public static int WIDTH;    //主界面宽度
@@ -72,7 +72,7 @@ public abstract class launcherUI_Controller {
     /**
      * 获取当前选中的将启动的游戏版本
      *
-     * @return {@link com.Sparrow.Minecraft}-游戏版本
+     * @return {@link Minecraft}-游戏版本
      */
     public abstract Minecraft getSelectMC();
 

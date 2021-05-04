@@ -1,6 +1,6 @@
 package com.Sparrow.UI;
 
-import com.Sparrow.Minecraft;
+import com.Sparrow.Utils.Minecraft;
 
 public interface launcherUI_ControllerI {
     int WIDTH = 1000;
@@ -70,7 +70,7 @@ public interface launcherUI_ControllerI {
     /**
      * 获取当前选中的将启动的游戏版本
      *
-     * @return {@link com.Sparrow.Minecraft}-游戏版本
+     * @return {@link Minecraft}-游戏版本
      */
     Minecraft getSelectMC();
 

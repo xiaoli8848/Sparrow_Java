@@ -196,7 +196,6 @@ public class launcher {
 
         LaunchOption option = null;
         try {
-            Object[] t = Versions.getVersions(new MinecraftDirectory(rootDir)).toArray();
             option = new LaunchOption(
                     version, // 游戏版本
                     new OfflineAuthenticator(playerName), // 使用离线验证

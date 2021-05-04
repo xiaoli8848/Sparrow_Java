@@ -43,7 +43,7 @@
 com.MQ为本项目包根路径。
 
 - com.Sparrow.launcher（类） 声明了启动器的快速启动游戏的方法。
-- com.Sparrow.Minecraft（类）  定义了一个类，包含Minecraft游戏路径和封装自 com.Sparrow.launcher 的启动方法和其它工具方法。
+- com.Sparrow.Utils.Minecraft（类）  定义了一个类，包含Minecraft游戏路径和封装自 com.Sparrow.launcher 的启动方法和其它工具方法。
 - com.Sparrow.Utils 存储了各工具类。
     - com.Sparrow.Utils.dialog 各类对话框（JavaFX实现）。
     - com.Sparrow.Utils.Download 封装JMCCC中的下载功能。
