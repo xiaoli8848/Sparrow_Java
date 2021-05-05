@@ -114,7 +114,6 @@ public class config {
         return this.packJson.getString("name");
     }
 
-    //TODO BUG：不直接解析Java Bean List，而解析成JSONObject List后手动解析。
     public List<offlineUser> getOfflineUsers(){
         List<JSONObject> temp = JSONObject.parseArray(versionJson.getJSONObject("users").getJSONArray("offline").toJSONString(),JSONObject.class);
         ArrayList<offlineUser> result = new ArrayList<>();

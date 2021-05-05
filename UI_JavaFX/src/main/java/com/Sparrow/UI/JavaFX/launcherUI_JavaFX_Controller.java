@@ -4,7 +4,6 @@ import com.Sparrow.Utils.MinecraftJFX;
 import com.Sparrow.Utils.SystemPlatform;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.Utils.dialog.expDialog;
-import com.Sparrow.Utils.imageString;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
@@ -22,22 +21,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class launcherUI_JavaFX_Controller {
+    protected static final Font FONT_COTITLE = Font.font("DengXian", FontWeight.BOLD, 16);
     private static final String SEPA = File.separator;
-    public static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
+    protected static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
     public File TempPath = new File(ROOTDIR + ".Sparrow");
 
     @FXML
@@ -309,7 +308,6 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void launch() {
-        //TODO 实现在线启动
         /*if (sw == signWays.Offline)
             versionList.getSelectionModel().getSelectedItem().launchOffline(nickName.getText(), true, true, 0, 0, 1000, 800, "");
         else {
@@ -455,7 +453,7 @@ class minecraftCell extends JFXListCell<MinecraftJFX> {
             version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
             Text info;
             if(item.config.getPackName() == null) {
-                info = new Text("详细信息：暂无");  //TODO 后期加入整合包信息或存档概览
+                info = new Text(item.saves.size()+"个存档，" + item.mods.size()+"个模组。");
             }else{
                 info = new Text("整合包 - " + item.config.getPackName());
             }
@@ -539,6 +537,7 @@ class modsCell extends JFXListCell<MinecraftJFX.mod> {
 }
 
 class userCell extends JFXListCell<user> {
+
     @Override
     public void updateItem(user item, boolean empty) {
         super.updateItem(item, empty);
@@ -548,15 +547,13 @@ class userCell extends JFXListCell<user> {
 
             VBox textBox = new VBox(2);
             Text version = new Text(item.getUserName()); //如果版本号含有字母则标记为NotRelease
-            version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
-            Text info = new Text(item instanceof offlineUser ? "离线登录" : item instanceof onlineUser ? "在线登录" : "外置登录");  //TODO 后期加入整合包信息或存档概览
+            version.setFont(launcherUI_JavaFX_Controller.FONT_COTITLE);
+            Text info = new Text(item instanceof offlineUser ? "离线登录" : item instanceof onlineUser ? "在线登录" : "外置登录");
             textBox.getChildren().addAll(version, info);
 
             HBox iconBox = new HBox(2);
             ImageView icon = null;
             try {
-                File temp = new File(launcherUI_JavaFX.controller.TempPath.toString() + File.separator + "headTexture_" + item.getUserName() + ".png");
-                temp.createNewFile();
                 ImageView icon1 = new ImageView(item.getTexture().getHeadTexture());
                 icon1.setFitWidth(40);
                 icon1.setFitHeight(40);

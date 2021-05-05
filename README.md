@@ -30,8 +30,8 @@
 
 |    配置名     |            主类             |
 | :-----------: | :-------------------------:|
-| withUI_JavaFX | com.Sparrow.com.Sparrow.UI.JavaFX.launcherUI |
-|   withUI_H5   |   com.Sparrow.com.Sparrow.UI.H5.launcherUI |
+| withUI_JavaFX | com.Sparrow.UI.JavaFX.launcherUI |
+|   withUI_H5   |  com.Sparrow.UI.H5.launcherUI |
 
 如果预期的配置不存在，请根据上表自行配置。
 
@@ -40,7 +40,7 @@
 ### 类 & 包 & 模块
 
 #### 包
-com.MQ为本项目包根路径。
+com.Sparrow为本项目包根路径。
 
 - com.Sparrow.launcher（类） 声明了启动器的快速启动游戏的方法。
 - com.Sparrow.Utils.Minecraft（类）  定义了一个类，包含Minecraft游戏路径和封装自 com.Sparrow.launcher 的启动方法和其它工具方法。
@@ -66,4 +66,4 @@ UI_JavaFX：启动器GUI在JavaFX+FXML下的实现。
 
 作者时间不多，一周会开发一两次，所以请勿见怪。
 
-![屏幕截图](docs/Screenshot_JavaFX.png)
+![屏幕截图_JavaFX](docs/Screenshot_JavaFX.png)
