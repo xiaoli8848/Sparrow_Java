@@ -113,6 +113,9 @@ public class launcherUI_JavaFX_Controller {
     private ToggleGroup signWay = new ToggleGroup();
 
     public void install() {
+        if(!TempPath.exists()){
+            TempPath.mkdirs();
+        }
         for(File fileTemp : TempPath.listFiles()){
             fileTemp.delete();
         }
@@ -134,7 +137,7 @@ public class launcherUI_JavaFX_Controller {
             rootDirChooser.setTitle("请选择游戏“.minecraft”文件夹。");
             try {
                 Init(rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage).toString());
-            } catch (Exception e) {
+            } catch (InitException e) {
                 new expDialog().apply("导入错误", null, "游戏导入发生错误。", e);
             }
         });
@@ -148,9 +151,13 @@ public class launcherUI_JavaFX_Controller {
                 inputer.setOnAction(event1 -> {
                     DirectoryChooser rootDirChooser = new DirectoryChooser();
                     rootDirChooser.setTitle("请选择游戏“.minecraft”文件夹。");
+                    File result = rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage);
+                    if(result==null){
+                        return;
+                    }
                     try {
-                        Init(rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage).toString());
-                    } catch (Exception e) {
+                        Init(result.toString());
+                    } catch (InitException e) {
                         new expDialog().apply("导入错误", null, "游戏导入发生错误。", e);
                     }
                 });
@@ -232,13 +239,22 @@ public class launcherUI_JavaFX_Controller {
 
     }
 
-    public void Init(String rootDir) throws Exception {
+    public void Init(String rootDir) throws InitException {
         launcherState state_import = new launcherState(com.Sparrow.UI.JavaFX.launcherState.IMPORTING);
+        if(new File(rootDir).getName()!=".minecraft"){
+            File file = new File(rootDir + File.separator + ".minecraft");
+            if(file.exists()){
+                Init(file.toString());
+            }
+        }else{
+            deleteState(state_import);
+            throw new InitException("非Minecraft文件夹");
+        }
         addState(state_import);
-        final File test = new File(rootDir);
+        File test = new File(rootDir);
         if (!test.exists() || !test.isDirectory()) {
             deleteState(state_import);
-            return;
+            throw new InitException("路径无效");
         }
         MinecraftJFX[] minecrafts = MinecraftJFX.getMinecrafts(new MinecraftDirectory(rootDir));
         versionList.getItems().addAll(minecrafts);
@@ -573,5 +589,15 @@ class userCell extends JFXListCell<user> {
             setText(null);
             setGraphic(null);
         }
+    }
+}
+
+class InitException extends Exception{
+    protected InitException(){
+        super();
+    }
+
+    protected InitException(String message){
+        super(message);
     }
 }

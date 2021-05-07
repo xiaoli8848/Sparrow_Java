@@ -73,7 +73,6 @@
                         <Image url="@imgs/WindowMinsizeButton.png" />
                     </image>
                 </ImageView>
-            <ImageView fx:id="headTexture" fitHeight="30.0" fitWidth="30.0" layoutX="617.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" />
             <JFXComboBox fx:id="characterChooser" layoutX="654.0" layoutY="11.0" prefWidth="148.0" />
             </children>
         </Pane>
@@ -84,6 +83,7 @@
                     <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
                         <children>
                      <JFXButton buttonType="RAISED" layoutX="321.0" layoutY="507.0" onAction="#launch" prefHeight="30.0" prefWidth="100.0" ripplerFill="#5cb85c" text="启动游戏" />
+                     <ImageView fx:id="headTexture" fitHeight="100.0" fitWidth="100.0" layoutX="129.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
                         </children>
                     </Pane>
                 </children>

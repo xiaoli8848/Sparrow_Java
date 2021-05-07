@@ -1,6 +1,8 @@
 package com.Sparrow.Utils;
 
+import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.launcher;
+import javafx.util.Pair;
 import org.to2mbn.jmccc.auth.Authenticator;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
@@ -24,6 +26,7 @@ import static com.Sparrow.launcher.setVersionTypeToMQ;
 public class MinecraftJFX {
     public String path;
     public String version;
+    public String versionName;
     public String rootPath;
     public ArrayList<save> saves;
     public ArrayList<mod> mods;
@@ -41,14 +44,20 @@ public class MinecraftJFX {
      * @param dir 游戏根目录
      * @return {@link ArrayList<String>}，含有所有版本的版本号。
      */
-    public static ArrayList<String> getMinecraftVersions(MinecraftDirectory dir) {
+    public static ArrayList<Pair<String,String>> getMinecraftVersions(MinecraftDirectory dir) {
         //Objects.requireNonNull(dir);
-        ArrayList<String> versions = new ArrayList<>();
+        ArrayList<Pair<String,String>> versions = new ArrayList<>();
         File[] subdirs = dir.getVersions().listFiles();
         if (subdirs != null) {
             for (File file : subdirs) {
                 if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
-                    versions.add(file.getName());
+                    String version = file.getName();
+                    for(int i=0;i<version.length();i++){
+                        if(version.substring(i,version.length()-1).matches("[d+(.\\d){0,2}]")){
+                            version = version.substring(i,version.length()-1);
+                        }
+                    }
+                    versions.add(new Pair<String, String>(version,file.getName()));
                 }
             }
         }
@@ -73,11 +82,12 @@ public class MinecraftJFX {
      * @return 一个 {@link MinecraftJFX} 类型的数组，表示游戏根目录下所有的游戏版本。
      */
     public static MinecraftJFX[] getMinecrafts(MinecraftDirectory dir) {
-        ArrayList<String> versions = new ArrayList<>(getMinecraftVersions(dir));
+        ArrayList<Pair<String, String>> versions = new ArrayList<>(getMinecraftVersions(dir));
         ArrayList<MinecraftJFX> result = new ArrayList<>();
-        for (String s : versions) {
+        for (Pair<String, String> s : versions) {
             MinecraftJFX temp = new MinecraftJFX();
-            temp.version = s;
+            temp.version = s.getKey();
+            temp.versionName = s.getValue();
             temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + s + File.separator;
             temp.rootPath = dir.getRoot().getPath();
             temp.saves = temp.getSaves(temp.rootPath);
@@ -131,7 +141,7 @@ public class MinecraftJFX {
         try {
             launcher.launch(option, gameProcessListener);
         } catch (LaunchException e) {
-            e.printStackTrace();
+            new errDialog().apply("启动错误",null,e.toString());
         }
     }
 
