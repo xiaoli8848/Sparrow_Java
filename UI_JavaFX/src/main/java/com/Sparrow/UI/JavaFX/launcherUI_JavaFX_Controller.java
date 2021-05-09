@@ -1,18 +1,18 @@
 package com.Sparrow.UI.JavaFX;
 
 import com.Sparrow.Utils.MinecraftJFX;
-import com.Sparrow.Utils.SystemPlatform;
 import com.Sparrow.Utils.dialog.errDialog;
-import com.Sparrow.Utils.dialog.expDialog;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
 import com.jfoenix.controls.*;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Side;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,181 +23,119 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Stack;
 
+/**
+ * JFX主控制类。
+ * 存储程序缓存目录 {@code public File TempPath = new File(ROOTDIR + ".Sparrow");}，主界面FXML中的控件，其它页面的node和controller实例。
+ * @author 1662423349@qq.com
+ */
 public class launcherUI_JavaFX_Controller {
     protected static final Font FONT_COTITLE = Font.font("DengXian", FontWeight.BOLD, 16);
-    private static final String SEPA = File.separator;
-    protected static final String ROOTDIR = System.getProperty("user.dir") + SEPA;
+    protected static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
     public File TempPath = new File(ROOTDIR + ".Sparrow");
+    private Stack<Node> pages = new Stack<>();
 
     @FXML
-    private ImageView closeButton;
+    protected ImageView closeButton;
 
     @FXML
-    private ImageView minisizeButton;
+    protected ImageView minisizeButton;
 
     @FXML
-    private JFXListView<MinecraftJFX> versionList;
+    protected Pane pagePane;
 
     @FXML
-    private Pane launchPane;
+    protected Pane launchPane;
 
     @FXML
-    private ImageView headTexture;
+    protected TabPane versionSummary;
 
     @FXML
-    private JFXComboBox<user> characterChooser;
+    protected JFXListView<MinecraftJFX.save> gameSaves;
 
     @FXML
-    private TabPane versionSummary;
+    protected JFXListView<MinecraftJFX.mod> gameMods;
 
     @FXML
-    private JFXListView<MinecraftJFX.save> gameSaves;
+    protected ToggleButton offlineSign;
 
     @FXML
-    private JFXListView<MinecraftJFX.mod> gameMods;
+    protected ToggleButton onlineSign;
 
     @FXML
-    private ToggleButton offlineSign;
+    protected ToggleButton libSign;
 
     @FXML
-    private ToggleButton onlineSign;
+    protected VBox offlinePane;
 
     @FXML
-    private ToggleButton libSign;
+    protected JFXTextField userName_Offline;
 
     @FXML
-    private VBox offlinePane;
+    protected VBox onlinePane;
 
     @FXML
-    private JFXTextField userName_Offline;
+    protected JFXTextField userName_Online;
 
     @FXML
-    private VBox onlinePane;
+    protected JFXPasswordField password_Online;
 
     @FXML
-    private JFXTextField userName_Online;
+    protected VBox libPane;
 
     @FXML
-    private JFXPasswordField password_Online;
+    protected JFXTextField userName_Lib;
 
     @FXML
-    private VBox libPane;
+    protected JFXPasswordField password_Lib;
 
     @FXML
-    private JFXTextField userName_Lib;
+    protected JFXTextField server_Lib;
 
     @FXML
-    private JFXPasswordField password_Lib;
+    protected Label State;
 
     @FXML
-    private JFXTextField server_Lib;
+    protected Label Version;
 
     @FXML
-    private Label State;
+    protected Button homeButton;
 
     @FXML
-    private Label Version;
+    protected Button backButton;
 
+    protected ToggleGroup signWay = new ToggleGroup();
     private int pointer_StateCreator = 0;
-    private ArrayList<launcherState> states = new ArrayList<>();
-    private ToggleGroup signWay = new ToggleGroup();
+    private final ArrayList<launcherState> states = new ArrayList<>();
+
+    protected launcherUI_JavaFX_versionList_Controller controller_versionList;
+    protected Node page_versionList;
+
+    protected launcherUI_JavaFX_controlFrame_Controller controller_control;
+    protected Node page_control;
 
     public void install() {
-        if(!TempPath.exists()){
+        if (!TempPath.exists()) {
             TempPath.mkdirs();
         }
-        for(File fileTemp : TempPath.listFiles()){
+        for (File fileTemp : Objects.requireNonNull(TempPath.listFiles())) {
             fileTemp.delete();
         }
         Version.setText(launcherUI_JavaFX.VERSION_UI);
         launchPane.setVisible(false);
         //设置ListView视图模板类
-        versionList.setCellFactory(param -> new minecraftCell());
         gameSaves.setCellFactory(param -> new savesCell());
         gameMods.setCellFactory(param -> new modsCell());
-        characterChooser.setCellFactory(param -> new userCell());
 
-        headTexture.setImage(new Image(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/login.png").toString()));
 
-        //设置右键菜单
-        ContextMenu versionList_ContextMenu = new ContextMenu();
-        MenuItem inputGame = new MenuItem("导入游戏");
-        inputGame.setOnAction(event -> {
-            DirectoryChooser rootDirChooser = new DirectoryChooser();
-            rootDirChooser.setTitle("请选择游戏“.minecraft”文件夹。");
-            try {
-                Init(rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage).toString());
-            } catch (InitException e) {
-                new expDialog().apply("导入错误", null, "游戏导入发生错误。", e);
-            }
-        });
-        versionList_ContextMenu.getItems().addAll(inputGame);
-//        versionList.setContextMenu(versionList_ContextMenu);
-        versionList.setOnContextMenuRequested(event -> {
-            if (!versionList.getSelectionModel().isEmpty()) {
-                ContextMenu temp = new ContextMenu();
-
-                MenuItem inputer = new MenuItem("导入游戏");
-                inputer.setOnAction(event1 -> {
-                    DirectoryChooser rootDirChooser = new DirectoryChooser();
-                    rootDirChooser.setTitle("请选择游戏“.minecraft”文件夹。");
-                    File result = rootDirChooser.showDialog(launcherUI_JavaFX.primaryStage);
-                    if(result==null){
-                        return;
-                    }
-                    try {
-                        Init(result.toString());
-                    } catch (InitException e) {
-                        new expDialog().apply("导入错误", null, "游戏导入发生错误。", e);
-                    }
-                });
-
-                MenuItem versionList_MenuItem_OpenRootDir = new MenuItem("打开所选游戏路径");
-                versionList_MenuItem_OpenRootDir.setOnAction(e -> {
-                    try {
-                        SystemPlatform.browseFile(versionList.getSelectionModel().getSelectedItem().rootPath);
-                    } catch (IOException ioException) {
-                        new expDialog().apply("打开路径错误", null, "打开游戏路径发生错误。可能游戏路径已被移动或删除。", ioException);
-                    }
-                });
-                temp.getItems().addAll(inputer, versionList_MenuItem_OpenRootDir);
-
-                temp.show(versionList, Side.RIGHT, 0, 0);
-            } else {
-                versionList_ContextMenu.show(versionList, Side.RIGHT, 0, 0);
-            }
-        });
-
-        //设置控件事件
-        versionList.getSelectionModel().selectedItemProperty().addListener(
-                (ObservableValue<? extends MinecraftJFX> observable, MinecraftJFX oldValue, MinecraftJFX newValue) -> {
-                    launchPane.setVisible(true);
-
-                    //versionText.setText(newValue.version);
-
-                    try {
-                        gameSaves.getItems().remove(0, gameSaves.getItems().size() - 1);
-                        gameSaves.getItems().remove(0);
-                        gameMods.getItems().remove(0, gameSaves.getItems().size() - 1);
-                        gameMods.getItems().remove(0);
-                    } catch (java.lang.IndexOutOfBoundsException e) {
-
-                    }
-                    gameSaves.getItems().addAll(newValue.saves);
-                    gameMods.getItems().addAll(newValue.mods);
-                    signWay.selectToggle(signWay.getToggles().get(0));
-                }
-        );
         signWay.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
             if (new_toggle == offlineSign) {
                 offlinePane.setDisable(false);
@@ -213,12 +151,7 @@ public class launcherUI_JavaFX_Controller {
                 onlinePane.setDisable(true);
             }
         });
-        characterChooser.selectionModelProperty().addListener(new ChangeListener<SingleSelectionModel<user>>() {
-            @Override
-            public void changed(ObservableValue<? extends SingleSelectionModel<user>> observableValue, SingleSelectionModel<user> userSingleSelectionModel, SingleSelectionModel<user> t1) {
-                headTexture.setImage(characterChooser.getSelectionModel().getSelectedItem().getTexture().getHeadTexture());
-            }
-        });
+
 
         //设置ToggleGroup
         offlineSign.setToggleGroup(signWay);
@@ -237,16 +170,38 @@ public class launcherUI_JavaFX_Controller {
             TempPath.mkdir();
         }
 
+        FXMLLoader fxmlLoader_versionList = new FXMLLoader();
+        fxmlLoader_versionList.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/versionlistFrame.fxml"));
+        try {
+            this.page_versionList = fxmlLoader_versionList.load();
+            this.controller_versionList = fxmlLoader_versionList.getController();
+            controller_versionList.install();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        FXMLLoader fxmlLoader_control = new FXMLLoader();
+        fxmlLoader_control.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/controlFrame.fxml"));
+        try {
+            this.page_control = fxmlLoader_control.load();
+            this.controller_control = fxmlLoader_control.getController();
+            controller_control.install();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pagePane.getChildren().add(page_control);
     }
 
     public void Init(String rootDir) throws InitException {
         launcherState state_import = new launcherState(com.Sparrow.UI.JavaFX.launcherState.IMPORTING);
-        if(new File(rootDir).getName()!=".minecraft"){
+        if (new File(rootDir).getName() != ".minecraft") {
             File file = new File(rootDir + File.separator + ".minecraft");
-            if(file.exists()){
+            if (file.exists()) {
                 Init(file.toString());
+                return;
             }
-        }else{
+        } else {
             deleteState(state_import);
             throw new InitException("非Minecraft文件夹");
         }
@@ -257,12 +212,12 @@ public class launcherUI_JavaFX_Controller {
             throw new InitException("路径无效");
         }
         MinecraftJFX[] minecrafts = MinecraftJFX.getMinecrafts(new MinecraftDirectory(rootDir));
-        versionList.getItems().addAll(minecrafts);
-        for(MinecraftJFX minecraft : minecrafts){
-            if(minecraft.config.haveUsers()){
-                characterChooser.getItems().addAll(minecraft.config.getOnlineUsers());
-                characterChooser.getItems().addAll(minecraft.config.getOfflineUsers());
-                characterChooser.getItems().addAll(minecraft.config.getLibUsers());
+        controller_versionList.addItems(Arrays.asList(minecrafts));
+        for (MinecraftJFX minecraft : minecrafts) {
+            if (minecraft.config.haveUsers()) {
+                controller_control.addItems(minecraft.config.getOnlineUsers());
+                controller_control.addItems(minecraft.config.getOfflineUsers());
+                controller_control.addItems(minecraft.config.getLibUsers());
             }
         }
         deleteState(state_import);
@@ -371,20 +326,20 @@ public class launcherUI_JavaFX_Controller {
                 new errDialog().apply("参数错误", null, "不好意思，你需要填写用户名（邮箱）才能在线登录。");
             }
         }*/
-        if (characterChooser.getSelectionModel().isEmpty()) {
+        if (controller_control.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个账户才能启动。");
-        } else if (versionList.getSelectionModel().isEmpty()) {
+        } else if (controller_versionList.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
         } else {
-            user selectedUser = characterChooser.getSelectionModel().getSelectedItem();
+            user selectedUser = controller_control.getSelectedItem();
             if (selectedUser instanceof offlineUser) {
-                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
             } else if (selectedUser instanceof onlineUser) {
                 ((onlineUser) selectedUser).getInfo();
-                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
             } else if (selectedUser instanceof libUser) {
                 ((libUser) selectedUser).getInfo();
-                versionList.getSelectionModel().getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
             }
         }
     }
@@ -392,10 +347,10 @@ public class launcherUI_JavaFX_Controller {
     @FXML
     void addUser_Offline() {
         if (userName_Offline.getText().length() > 0) {
-            characterChooser.getItems().add(new offlineUser(userName_Offline.getText()));
+            controller_control.addItem(new offlineUser(userName_Offline.getText()));
             try {
-                versionList.getSelectionModel().getSelectedItem().config.putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
-                versionList.getSelectionModel().getSelectedItem().config.flush();
+                controller_versionList.getSelectedItem().config.putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
+                controller_versionList.getSelectedItem().config.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -407,7 +362,7 @@ public class launcherUI_JavaFX_Controller {
         if (userName_Online.getText().length() > 0 && password_Online.getText().length() > 0) {
             onlineUser temp = new onlineUser(userName_Online.getText(), password_Online.getText());
             if (temp.getInfo()) {
-                characterChooser.getItems().add(temp);
+                controller_control.addItem(temp);
             } else {
                 new errDialog().apply("参数错误", null, "不好意思，尝试创建在线账户时遇到错误。");
             }
@@ -419,11 +374,45 @@ public class launcherUI_JavaFX_Controller {
         if (userName_Lib.getText().length() > 0 && password_Lib.getText().length() > 0 && server_Lib.getText().length() > 0) {
             libUser temp = new libUser(userName_Lib.getText(), password_Lib.getText(), server_Lib.getText());
             if (temp.getInfo()) {
-                characterChooser.getItems().add(temp);
+                controller_control.addItem(temp);
             } else {
                 new errDialog().apply("参数错误", null, "不好意思，尝试创建外置登录账户时遇到错误。");
             }
         }
+    }
+
+    @FXML
+    void home(){
+        homeButton.setDisable(true);
+        pages.push(pagePane.getChildren().get(0));
+        pagePane.getChildren().remove(0);
+        pagePane.getChildren().add(page_control);
+    }
+
+    protected void Goto(Node page){
+        if(page == page_control){
+            home();
+            return;
+        }
+        pages.push(pagePane.getChildren().get(0));
+        pagePane.getChildren().remove(0);
+        pagePane.getChildren().add(page);
+        backButton.setDisable(false);
+        homeButton.setDisable(false);
+    }
+
+    @FXML
+    void back(){
+        Node backer = pages.pop();
+        if(pages.empty()){
+            backButton.setDisable(true);
+        }
+        if(backer == page_control){
+            home();
+            return;
+        }
+        pagePane.getChildren().remove(0);
+        pagePane.getChildren().add(backer);
     }
 
     //定义在线或离线的登录方式
@@ -434,7 +423,7 @@ public class launcherUI_JavaFX_Controller {
 
     public class launcherState {
         public int serialNumber;
-        private com.Sparrow.UI.JavaFX.launcherState state;
+        private final com.Sparrow.UI.JavaFX.launcherState state;
 
         public launcherState(com.Sparrow.UI.JavaFX.launcherState state) {
             this.state = state;
@@ -444,52 +433,6 @@ public class launcherUI_JavaFX_Controller {
         @Override
         public String toString() {
             return state.toString();
-        }
-    }
-}
-
-
-class minecraftCell extends JFXListCell<MinecraftJFX> {
-
-    private static boolean judgeContainsLetters(String cardNum) {
-        String regex = ".*[a-zA-Z]+.*";
-        Matcher m = Pattern.compile(regex).matcher(cardNum);
-        return m.matches();
-    }
-
-    @Override
-    public void updateItem(MinecraftJFX item, boolean empty) {
-        super.updateItem(item, empty);
-        setText("");
-        if (!empty && item != null) {
-            BorderPane cell = new BorderPane();
-
-            VBox textBox = new VBox(3);
-            Text version = new Text(judgeContainsLetters(item.version) ? item.version + " - NotRelease" : item.version + " - Release"); //如果版本号含有字母则标记为NotRelease
-            version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
-            Text info;
-            if(item.config.getPackName() == null) {
-                info = new Text(item.saves.size()+"个存档，" + item.mods.size()+"个模组。");
-            }else{
-                info = new Text("整合包 - " + item.config.getPackName());
-            }
-            Text date = new Text(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.rootPath).lastModified()));
-            date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.EXTRA_BOLD, 10));
-            textBox.getChildren().addAll(version, info, date);
-
-            HBox iconBox = new HBox(2);
-            ImageView icon = new ImageView(this.getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/mc_icon.png").toString());
-            Pane space = new Pane();
-            space.setPrefWidth(10);
-            iconBox.getChildren().addAll(icon, space);
-
-            cell.setCenter(textBox);
-            cell.setLeft(iconBox);
-
-            setGraphic(cell);
-        } else if (empty) {
-            setText(null);
-            setGraphic(null);
         }
     }
 }
@@ -552,52 +495,12 @@ class modsCell extends JFXListCell<MinecraftJFX.mod> {
     }
 }
 
-class userCell extends JFXListCell<user> {
-
-    @Override
-    public void updateItem(user item, boolean empty) {
-        super.updateItem(item, empty);
-        setText("");
-        if (!empty && item != null) {
-            BorderPane cell = new BorderPane();
-
-            VBox textBox = new VBox(2);
-            Text version = new Text(item.getUserName()); //如果版本号含有字母则标记为NotRelease
-            version.setFont(launcherUI_JavaFX_Controller.FONT_COTITLE);
-            Text info = new Text(item instanceof offlineUser ? "离线登录" : item instanceof onlineUser ? "在线登录" : "外置登录");
-            textBox.getChildren().addAll(version, info);
-
-            HBox iconBox = new HBox(2);
-            ImageView icon = null;
-            try {
-                ImageView icon1 = new ImageView(item.getTexture().getHeadTexture());
-                icon1.setFitWidth(40);
-                icon1.setFitHeight(40);
-                icon = icon1;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            Pane space = new Pane();
-            space.setPrefWidth(10);
-            iconBox.getChildren().addAll(icon, space);
-
-            cell.setCenter(textBox);
-            cell.setLeft(iconBox);
-
-            setGraphic(cell);
-        } else if (empty) {
-            setText(null);
-            setGraphic(null);
-        }
-    }
-}
-
-class InitException extends Exception{
-    protected InitException(){
+class InitException extends Exception {
+    protected InitException() {
         super();
     }
 
-    protected InitException(String message){
+    protected InitException(String message) {
         super(message);
     }
 }

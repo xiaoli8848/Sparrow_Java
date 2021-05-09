@@ -33,12 +33,12 @@
 -->
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -73,17 +73,21 @@
                         <Image url="@imgs/WindowMinsizeButton.png" />
                     </image>
                 </ImageView>
-            <JFXComboBox fx:id="characterChooser" layoutX="654.0" layoutY="11.0" prefWidth="148.0" />
+            <Pane layoutX="14.0" layoutY="9.0">
+               <children>
+                <Button fx:id="backButton" disable="true" mnemonicParsing="false" onAction="#back" styleClass="first" text="后退" />
+                  <Button fx:id="homeButton" disable="true" layoutX="53.0" mnemonicParsing="false" onAction="#home" styleClass="middle" text="首页" />
+               </children>
+            </Pane>
             </children>
         </Pane>
         <SplitPane dividerPositions="0.25, 0.75" VBox.vgrow="ALWAYS">
-            <JFXListView fx:id="versionList" prefHeight="200.0" prefWidth="200.0" style="-fx-fixed-cell-size: 55px;" />
+         <Pane fx:id="pagePane" prefHeight="200.0" prefWidth="220.0" />
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                 <children>
                     <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
                         <children>
                      <JFXButton buttonType="RAISED" layoutX="321.0" layoutY="507.0" onAction="#launch" prefHeight="30.0" prefWidth="100.0" ripplerFill="#5cb85c" text="启动游戏" />
-                     <ImageView fx:id="headTexture" fitHeight="100.0" fitWidth="100.0" layoutX="129.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
                         </children>
                     </Pane>
                 </children>
@@ -242,7 +246,7 @@
                 </textFill>
             </Label>
             <Pane prefWidth="652.0" HBox.hgrow="ALWAYS" />
-            <Label fx:id="Version" font="$x3" maxWidth="-1.0" text="Sparrow Beta-0.1.0" textFill="$x4" HBox.hgrow="NEVER" />
+            <Label fx:id="Version" font="$x3" maxWidth="-1.0" text="Sparrow Alpha-0.4.0" textFill="$x4" HBox.hgrow="NEVER" />
         </HBox>
     </children>
 </VBox>

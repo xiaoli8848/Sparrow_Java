@@ -3,6 +3,8 @@ package com.Sparrow.Utils;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.launcher;
 import javafx.util.Pair;
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
 import org.to2mbn.jmccc.auth.Authenticator;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
@@ -12,6 +14,7 @@ import org.to2mbn.jmccc.option.ServerInfo;
 import org.to2mbn.jmccc.option.WindowSize;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,20 +47,38 @@ public class MinecraftJFX {
      * @param dir 游戏根目录
      * @return {@link ArrayList<String>}，含有所有版本的版本号。
      */
-    public static ArrayList<Pair<String,String>> getMinecraftVersions(MinecraftDirectory dir) {
+    public static ArrayList<Pair<String, String>> getMinecraftVersions(MinecraftDirectory dir) {
         //Objects.requireNonNull(dir);
-        ArrayList<Pair<String,String>> versions = new ArrayList<>();
+        ArrayList<Pair<String, String>> versions = new ArrayList<>();
         File[] subdirs = dir.getVersions().listFiles();
         if (subdirs != null) {
             for (File file : subdirs) {
                 if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
-                    String version = file.getName();
-                    for(int i=0;i<version.length();i++){
-                        if(version.substring(i,version.length()-1).matches("[d+(.\\d){0,2}]")){
-                            version = version.substring(i,version.length()-1);
+                    String versionName = file.getName();
+                    String version;
+                    JSONObject tempJson = null;
+                    try {
+                        tempJson = new JSONObject(FileUtils.readFileToString(file.listFiles(new jsonFilter())[0], charsetGuess.guessCharset(file.listFiles(new jsonFilter())[0])));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (org.json.JSONException e) {
+                        try {
+                            tempJson = new JSONObject(FileUtils.readFileToString(file.listFiles(new jsonFilter())[1], charsetGuess.guessCharset(file.listFiles(new jsonFilter())[0])));
+                        } catch (IOException exception){
+                            e.printStackTrace();
                         }
                     }
-                    versions.add(new Pair<String, String>(version,file.getName()));
+                    try {
+                        versionName = tempJson.getString("id");
+                        try {
+                            version = tempJson.getString("clientVersion");
+                        } catch (org.json.JSONException e){
+                            version = versionName;
+                        }
+                    } catch (NullPointerException exception) {
+                        version = versionName;
+                    }
+                    versions.add(new Pair<>(version, versionName));
                 }
             }
         }
@@ -88,16 +109,17 @@ public class MinecraftJFX {
             MinecraftJFX temp = new MinecraftJFX();
             temp.version = s.getKey();
             temp.versionName = s.getValue();
-            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + s + File.separator;
+            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + temp.versionName + File.separator;
             temp.rootPath = dir.getRoot().getPath();
             temp.saves = temp.getSaves(temp.rootPath);
             temp.mods = temp.getMods(temp.rootPath);
             try {
                 temp.config = new config(temp);
+                result.add(temp);
             } catch (IOException e) {
+                result.add(temp);
                 continue;
             }
-            result.add(temp);
         }
         return result.toArray(new MinecraftJFX[versions.size()]);
     }
@@ -111,7 +133,7 @@ public class MinecraftJFX {
         launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
     }
 
-    public void launch(Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL){
+    public void launch(Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
                 .setDebugPrintCommandline(debugPrint)
                 .setNativeFastCheck(nativesFC)
@@ -141,12 +163,43 @@ public class MinecraftJFX {
         try {
             launcher.launch(option, gameProcessListener);
         } catch (LaunchException e) {
-            new errDialog().apply("启动错误",null,e.toString());
+            new errDialog().apply("启动错误", null, e.toString());
         }
     }
 
     public MinecraftDirectory toMinecraftDirectory() {
         return new MinecraftDirectory(this.rootPath);
+    }
+
+    protected ArrayList<save> getSaves(String rootDir) {
+        File[] saves = new File(rootDir + File.separator + "saves" + File.separator).listFiles();
+        ArrayList<save> temp = new ArrayList<>();
+        if (saves == null) {
+            return new ArrayList<>();
+        }
+        for (File save : saves) {
+            save t = new save(save.toString());
+            t.name = save.getName();
+            t.image = new File(save + File.separator + "icon.png");
+            temp.add(t);
+        }
+        return temp;
+    }
+
+    protected ArrayList<mod> getMods(String rootDir) {
+        File[] mods = new File(rootDir + File.separator + "mods" + File.separator).listFiles();
+        ArrayList<mod> temp = new ArrayList<>();
+        if (mods == null) {
+            return new ArrayList<>();
+        }
+        for (File mod : mods) {
+            try {
+                temp.add(new mod(mod.toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return temp;
     }
 
     /**
@@ -161,21 +214,6 @@ public class MinecraftJFX {
         }
     }
 
-    protected ArrayList<save> getSaves(String rootDir) {
-        File[] saves = new File(rootDir + File.separator + "saves" + File.separator).listFiles();
-        ArrayList<save> temp = new ArrayList<>();
-        if(saves == null){
-            return new ArrayList<>();
-        }
-        for (File save : saves) {
-            save t = new save(save.toString());
-            t.name = save.getName();
-            t.image = new File(save.toString() + File.separator + "icon.png");
-            temp.add(t);
-        }
-        return temp;
-    }
-
     public class mod extends File {
         public String name;
 
@@ -184,20 +222,12 @@ public class MinecraftJFX {
             this.name = this.getName().substring(0, this.getName().lastIndexOf(".jar"));
         }
     }
+}
 
-    protected ArrayList<mod> getMods(String rootDir) {
-        File[] mods = new File(rootDir + File.separator + "mods" + File.separator).listFiles();
-        ArrayList<mod> temp = new ArrayList<>();
-        if(mods == null){
-            return new ArrayList<>();
-        }
-        for (File mod : mods) {
-            try {
-                temp.add(new mod(mod.toString()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return temp;
+class jsonFilter implements FileFilter {
+    @Override
+    public boolean accept(File pathname) {
+        return pathname.getName().toLowerCase().endsWith(".json");
+        // 若pathname是文件夹 则返回true 继续遍历这个文件夹
     }
 }

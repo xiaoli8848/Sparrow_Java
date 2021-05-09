@@ -30,5 +30,5 @@ public enum launcherState {
         public String toString() {
             return "游戏中";
         }
-    };
+    }
 }

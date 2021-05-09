@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_controlFrame_Controller">
+   <children>
+      <JFXComboBox fx:id="characterChooser" layoutX="84.0" layoutY="14.0" prefHeight="25.0" prefWidth="130.0" />
+      <ImageView fx:id="headTexture" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Separator layoutX="10.0" layoutY="94.0" prefWidth="200.0" />
+      <Pane layoutX="10.0" layoutY="103.0" prefHeight="85.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="gameIcon" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@imgs/mc_icon.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="gameVersion" layoutX="69.0" layoutY="16.0" prefHeight="23.0" prefWidth="130.0" text="待选择">
+               <font>
+                  <Font name="Microsoft YaHei" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="gameCotitle" layoutX="69.0" layoutY="43.0" prefHeight="18.0" prefWidth="85.0" text="待选择" textFill="#7c7b7b">
+               <font>
+                  <Font name="DengXian Regular" size="10.0" />
+               </font>
+            </Label>
+            <Button fx:id="mcVersionChooseButton" layoutX="158.0" layoutY="50.0" mnemonicParsing="false" onAction="#gotoVersionList" text="→" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

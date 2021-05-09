@@ -13,6 +13,10 @@ public class YggdrasilAuthenticator_JavaFX extends YggdrasilAuthenticator {
     private String username_temp;
     private String password_temp;
 
+    public YggdrasilAuthenticator_JavaFX(AuthenticationService sessionService) {
+        super(sessionService);
+    }
+
     public static YggdrasilAuthenticator_JavaFX password(String username, String password) throws AuthenticationException {
         YggdrasilAuthenticator_JavaFX temp = password(username, password, null);
         temp.username_temp = username;
@@ -48,10 +52,6 @@ public class YggdrasilAuthenticator_JavaFX extends YggdrasilAuthenticator {
         YggdrasilAuthenticator_JavaFX auth = new YggdrasilAuthenticator_JavaFX(service);
         auth.refreshWithPassword(passwordProvider);
         return auth;
-    }
-
-    public YggdrasilAuthenticator_JavaFX(AuthenticationService sessionService) {
-        super(sessionService);
     }
 
     @Override

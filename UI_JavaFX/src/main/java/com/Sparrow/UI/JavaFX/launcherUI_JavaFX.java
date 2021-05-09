@@ -8,14 +8,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 
 public class launcherUI_JavaFX extends Application {
-    public static Stage primaryStage;
-    public static launcherUI_JavaFX_Controller controller;
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final String VERSION_UI = "Sparrow Alpha-V0.4.0";
+    public static Stage primaryStage;
+    public static launcherUI_JavaFX_Controller controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
