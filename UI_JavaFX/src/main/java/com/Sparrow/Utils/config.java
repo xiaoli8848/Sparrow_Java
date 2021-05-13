@@ -12,10 +12,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class config {
-    private static JSONObject userMoulde = new JSONObject();
+    private static final JSONObject userMoulde = new JSONObject();
 
     static {
         userMoulde.put("online", new JSONArray());
@@ -24,12 +23,12 @@ public class config {
     }
 
     private JSONObject versionJson;
-    private File versionJsonFile;
-    private JSONObject packJson = new JSONObject();
-    private File packJsonFile;
+    private final File versionJsonFile;
+    private final JSONObject packJson = new JSONObject();
+    private final File packJsonFile;
 
     public config(MinecraftJFX minecraft) throws IOException, NullPointerException {
-        File configFileTemp = new File(minecraft.path + "config.json");
+        File configFileTemp = new File(minecraft.getPath() + "config.json");
         if (!configFileTemp.exists()) {
             configFileTemp.createNewFile();
         }
@@ -38,17 +37,17 @@ public class config {
         if (this.versionJson == null) {
             this.versionJson = new JSONObject();
         }
-        this.packJsonFile = new File(minecraft.rootPath + "pack.json");
+        this.packJsonFile = new File(minecraft.getRootPath() + "pack.json");
 
         checkOrCreate(minecraft);
     }
 
     public void checkOrCreate(MinecraftJFX minecraft) {
         if (this.versionJson.get("version") == null) {
-            this.versionJson.put("version", minecraft.version);
+            this.versionJson.put("version", minecraft.getVersion().getVersion());
         }
         if (this.versionJson.get("versionType") == null) {
-            this.versionJson.put("versionType", Pattern.compile(".*[a-zA-Z]+.*").matcher(minecraft.version).matches() ? "Release" : "NotRelease");
+            this.versionJson.put("versionType", minecraft.getVersion().getType());
         }
     }
 

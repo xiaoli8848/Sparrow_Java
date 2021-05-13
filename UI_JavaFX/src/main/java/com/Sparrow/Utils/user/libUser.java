@@ -10,11 +10,11 @@ import org.to2mbn.jmccc.util.UUIDUtils;
 
 import java.util.UUID;
 
-public class libUser extends user{
-    private String password;
+public class libUser extends user {
+    private final String password;
     private GameProfile gameProfile;
-    private ProfileService PROFILE_SERVICE;
-    private String server;
+    private final ProfileService PROFILE_SERVICE;
+    private final String server;
 
     public libUser(String userName, String password, String server) {
         super(userName);
@@ -26,8 +26,8 @@ public class libUser extends user{
         this.server = server;
     }
 
-    public boolean getInfo(){
-        if(this.gameProfile == null || this.texture == null || this.authenticator == null) {
+    public boolean getInfo() {
+        if (this.gameProfile == null || this.texture == null || this.authenticator == null) {
             try {
                 this.gameProfile = PROFILE_SERVICE.getGameProfile(PROFILE_SERVICE.lookupUUIDByName(getUserName()));
                 this.texture = new texture(PROFILE_SERVICE.getTextures(gameProfile).getSkin());
@@ -36,7 +36,7 @@ public class libUser extends user{
             } catch (Exception e) {
                 return false;
             }
-        }else{
+        } else {
             return true;
         }
     }
@@ -51,20 +51,20 @@ public class libUser extends user{
 }
 
 class yggdrasilAPIProvider implements YggdrasilAPIProvider {
-    private String server;
+    private final String server;
 
-    private String authenticate;
-    private String refresh;
-    private String validate;
-    private String invalidate;
-    private String signout;
-    private String profile;
-    private String profileLookup;
+    private final String authenticate;
+    private final String refresh;
+    private final String validate;
+    private final String invalidate;
+    private final String signout;
+    private final String profile;
+    private final String profileLookup;
 
-    public yggdrasilAPIProvider(String server){
-        if(server.charAt(server.length()-1)!='/'){
-            this.server = server+"/";
-        }else{
+    public yggdrasilAPIProvider(String server) {
+        if (server.charAt(server.length() - 1) != '/') {
+            this.server = server + "/";
+        } else {
             this.server = server;
         }
         this.authenticate = server + "authenticate";

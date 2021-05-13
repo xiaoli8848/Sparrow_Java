@@ -2,9 +2,6 @@ package com.Sparrow.Utils;
 
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.launcher;
-import javafx.util.Pair;
-import org.apache.commons.io.FileUtils;
-import org.json.JSONObject;
 import org.to2mbn.jmccc.auth.Authenticator;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
@@ -27,13 +24,12 @@ import static com.Sparrow.launcher.setVersionTypeToMQ;
  * 本类类似于 {@link MinecraftDirectory} ，且本类工厂方法参数含有 {@link MinecraftDirectory} ，但两者没有继承关系，本类封装了它的一些功能。
  */
 public class MinecraftJFX {
-    public String path;
-    public String version;
-    public String versionName;
-    public String rootPath;
-    public ArrayList<save> saves;
-    public ArrayList<mod> mods;
-    public config config;
+    private String path;
+    private version version;
+    private String rootPath;
+    private ArrayList<save> saves;
+    private ArrayList<mod> mods;
+    private config config;
 
     /**
      * 为本类工厂方法和子类等提供私有无参构造函数，一般为private或protected。
@@ -47,38 +43,14 @@ public class MinecraftJFX {
      * @param dir 游戏根目录
      * @return {@link ArrayList<String>}，含有所有版本的版本号。
      */
-    public static ArrayList<Pair<String, String>> getMinecraftVersions(MinecraftDirectory dir) {
+    public static ArrayList<version> getMinecraftVersions(MinecraftDirectory dir) {
         //Objects.requireNonNull(dir);
-        ArrayList<Pair<String, String>> versions = new ArrayList<>();
+        ArrayList<version> versions = new ArrayList<>();
         File[] subdirs = dir.getVersions().listFiles();
         if (subdirs != null) {
             for (File file : subdirs) {
                 if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
-                    String versionName = file.getName();
-                    String version;
-                    JSONObject tempJson = null;
-                    try {
-                        tempJson = new JSONObject(FileUtils.readFileToString(file.listFiles(new jsonFilter())[0], charsetGuess.guessCharset(file.listFiles(new jsonFilter())[0])));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (org.json.JSONException e) {
-                        try {
-                            tempJson = new JSONObject(FileUtils.readFileToString(file.listFiles(new jsonFilter())[1], charsetGuess.guessCharset(file.listFiles(new jsonFilter())[0])));
-                        } catch (IOException exception){
-                            e.printStackTrace();
-                        }
-                    }
-                    try {
-                        versionName = tempJson.getString("id");
-                        try {
-                            version = tempJson.getString("clientVersion");
-                        } catch (org.json.JSONException e){
-                            version = versionName;
-                        }
-                    } catch (NullPointerException exception) {
-                        version = versionName;
-                    }
-                    versions.add(new Pair<>(version, versionName));
+                    versions.add(new version(file));
                 }
             }
         }
@@ -103,16 +75,15 @@ public class MinecraftJFX {
      * @return 一个 {@link MinecraftJFX} 类型的数组，表示游戏根目录下所有的游戏版本。
      */
     public static MinecraftJFX[] getMinecrafts(MinecraftDirectory dir) {
-        ArrayList<Pair<String, String>> versions = new ArrayList<>(getMinecraftVersions(dir));
+        ArrayList<version> versions = new ArrayList<>(getMinecraftVersions(dir));
         ArrayList<MinecraftJFX> result = new ArrayList<>();
-        for (Pair<String, String> s : versions) {
+        for (version s : versions) {
             MinecraftJFX temp = new MinecraftJFX();
-            temp.version = s.getKey();
-            temp.versionName = s.getValue();
-            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + temp.versionName + File.separator;
+            temp.version = s;
+            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + s.getPath().getName() + File.separator;
             temp.rootPath = dir.getRoot().getPath();
-            temp.saves = temp.getSaves(temp.rootPath);
-            temp.mods = temp.getMods(temp.rootPath);
+            temp.saves = temp.getSaves(temp.getRootPath());
+            temp.mods = temp.getMods(temp.getRootPath());
             try {
                 temp.config = new config(temp);
                 result.add(temp);
@@ -126,11 +97,11 @@ public class MinecraftJFX {
 
     @Override
     public String toString() {
-        return this.version + " - " + path;
+        return this.getVersion() + " - " + getPath();
     }
 
     public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
-        launcher.launch_offline(rootPath, version, playername, debug, FC, minMem, maxMem, width, height, serverURL);
+        launcher.launch_offline(getRootPath(), getVersion().getVersion(), playername, debug, FC, minMem, maxMem, width, height, serverURL);
     }
 
     public void launch(Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) {
@@ -142,9 +113,9 @@ public class MinecraftJFX {
         LaunchOption option = null;
         try {
             option = new LaunchOption(
-                    version, // 游戏版本
+                    getVersion().getVersion(), // 游戏版本
                     authenticator, // 使用离线验证
-                    new MinecraftDirectory(rootPath));
+                    new MinecraftDirectory(getRootPath()));
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
             if (windowHeight > 0 && windowWidth > 0)
@@ -168,7 +139,7 @@ public class MinecraftJFX {
     }
 
     public MinecraftDirectory toMinecraftDirectory() {
-        return new MinecraftDirectory(this.rootPath);
+        return new MinecraftDirectory(this.getRootPath());
     }
 
     protected ArrayList<save> getSaves(String rootDir) {
@@ -200,6 +171,30 @@ public class MinecraftJFX {
             }
         }
         return temp;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public com.Sparrow.Utils.version getVersion() {
+        return version;
+    }
+
+    public String getRootPath() {
+        return rootPath;
+    }
+
+    public ArrayList<save> getSaves() {
+        return saves;
+    }
+
+    public ArrayList<mod> getMods() {
+        return mods;
+    }
+
+    public com.Sparrow.Utils.config getConfig() {
+        return config;
     }
 
     /**

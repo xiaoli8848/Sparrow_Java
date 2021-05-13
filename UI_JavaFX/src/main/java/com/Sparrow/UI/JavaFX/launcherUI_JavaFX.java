@@ -5,14 +5,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 
 public class launcherUI_JavaFX extends Application {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static final String VERSION_UI = "Sparrow Alpha-V0.4.0";
+    public static final Font FONT_COTITLE = Font.font("DengXian", FontWeight.BOLD, 16);
+    public static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
     public static Stage primaryStage;
     public static launcherUI_JavaFX_Controller controller;
 

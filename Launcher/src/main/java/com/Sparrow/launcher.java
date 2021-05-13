@@ -227,7 +227,6 @@ public class launcher {
                 .setDebugPrintCommandline(debugPrint)
                 .setNativeFastCheck(nativesFC)
                 .build();
-
         setVersionTypeToMQ(option);
         // 启动游戏
         try {

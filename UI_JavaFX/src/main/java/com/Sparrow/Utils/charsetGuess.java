@@ -3,13 +3,14 @@ package com.Sparrow.Utils;
 import java.io.*;
 
 public class charsetGuess {
-    public static String guessCharset(File file){
+    public static String guessCharset(File file) {
         try {
-            return guessCharset(new FileInputStream(file),true);
+            return guessCharset(new FileInputStream(file), true);
         } catch (FileNotFoundException e) {
             return "UTF-8";
         }
     }
+
     public static String guessCharset(InputStream inputStream, boolean isAutoClose) {
         String charset = "GBK";
         byte[] first3Bytes = new byte[3];
@@ -17,7 +18,7 @@ public class charsetGuess {
         try {
             boolean checked = false;
             bis = new BufferedInputStream(inputStream);
-            bis.mark(50*1024*1024);
+            bis.mark(50 * 1024 * 1024);
             int read = bis.read(first3Bytes, 0, 3);
             if (read == -1)
                 return charset;
@@ -72,8 +73,8 @@ public class charsetGuess {
             }
         } catch (Exception e) {
             return "UTF-8";
-        }finally{
-            if(isAutoClose){
+        } finally {
+            if (isAutoClose) {
                 try {
                     bis.close();
                 } catch (Exception e) {

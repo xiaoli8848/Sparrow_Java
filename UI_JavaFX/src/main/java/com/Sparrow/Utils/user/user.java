@@ -8,7 +8,7 @@ public abstract class user {
     protected com.Sparrow.Utils.texture texture;
     protected Authenticator authenticator;
 
-    public user(String userName){
+    public user(String userName) {
         setUserName(userName);
     }
 
@@ -24,7 +24,7 @@ public abstract class user {
         return texture;
     }
 
-    public Authenticator getAuthenticator(){
+    public Authenticator getAuthenticator() {
         return authenticator;
     }
 

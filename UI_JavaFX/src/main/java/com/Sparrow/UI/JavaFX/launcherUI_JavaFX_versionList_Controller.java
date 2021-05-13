@@ -27,10 +27,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class launcherUI_JavaFX_versionList_Controller {
+    private final launcherUI_JavaFX_Controller controller = launcherUI_JavaFX.controller;
     @FXML
     private ListView<MinecraftJFX> versionList;
-
-    private final launcherUI_JavaFX_Controller controller = launcherUI_JavaFX.controller;
 
     protected void install() {
         versionList.setCellFactory(param -> new minecraftCell());
@@ -70,7 +69,7 @@ public class launcherUI_JavaFX_versionList_Controller {
                 MenuItem versionList_MenuItem_OpenRootDir = new MenuItem("打开所选游戏路径");
                 versionList_MenuItem_OpenRootDir.setOnAction(e -> {
                     try {
-                        SystemPlatform.browseFile(versionList.getSelectionModel().getSelectedItem().rootPath);
+                        SystemPlatform.browseFile(versionList.getSelectionModel().getSelectedItem().getRootPath());
                     } catch (IOException ioException) {
                         new expDialog().apply("打开路径错误", null, "打开游戏路径发生错误。可能游戏路径已被移动或删除。", ioException);
                     }
@@ -98,8 +97,8 @@ public class launcherUI_JavaFX_versionList_Controller {
                     } catch (java.lang.IndexOutOfBoundsException e) {
 
                     }
-                    controller.gameSaves.getItems().addAll(newValue.saves);
-                    controller.gameMods.getItems().addAll(newValue.mods);
+                    controller.gameSaves.getItems().addAll(newValue.getSaves());
+                    controller.gameMods.getItems().addAll(newValue.getMods());
                     controller.signWay.selectToggle(controller.signWay.getToggles().get(0));
                 }
         );
@@ -121,19 +120,12 @@ public class launcherUI_JavaFX_versionList_Controller {
         return versionList.getItems().isEmpty();
     }
 
-    protected SelectionModel<MinecraftJFX> getSelectionModel(){
+    protected SelectionModel<MinecraftJFX> getSelectionModel() {
         return versionList.getSelectionModel();
     }
 }
 
 class minecraftCell extends JFXListCell<MinecraftJFX> {
-
-    private static boolean judgeContainsLetters(String cardNum) {
-        String regex = ".*[a-zA-Z]+.*";
-        Matcher m = Pattern.compile(regex).matcher(cardNum);
-        return m.matches();
-    }
-
     @Override
     public void updateItem(MinecraftJFX item, boolean empty) {
         super.updateItem(item, empty);
@@ -142,15 +134,15 @@ class minecraftCell extends JFXListCell<MinecraftJFX> {
             BorderPane cell = new BorderPane();
 
             VBox textBox = new VBox(3);
-            Text version = new Text(judgeContainsLetters(item.version) ? item.version + " - NotRelease" : item.version + " - Release"); //如果版本号含有字母则标记为NotRelease
+            Text version = new Text(item.getVersion().getName() + " - " + item.getVersion().getType()); //如果版本号含有字母则标记为NotRelease
             version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
             Text info;
-            if (item.config.getPackName() == null) {
-                info = new Text(item.saves.size() + "个存档，" + item.mods.size() + "个模组。");
+            if (item.getConfig().getPackName() == null) {
+                info = new Text(item.getSaves().size() + "个存档，" + item.getMods().size() + "个模组。");
             } else {
-                info = new Text("整合包 - " + item.config.getPackName());
+                info = new Text("整合包 - " + item.getConfig().getPackName());
             }
-            Text date = new Text(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.rootPath).lastModified()));
+            Text date = new Text(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.getRootPath()).lastModified()));
             date.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.EXTRA_BOLD, 10));
             textBox.getChildren().addAll(version, info, date);
 

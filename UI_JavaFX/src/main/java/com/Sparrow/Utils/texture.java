@@ -17,18 +17,10 @@ public class texture {
     private Image fullTexture;
     private Image headTexture;
 
-    public Image getFullTexture() {
-        return fullTexture;
-    }
-
-    public Image getHeadTexture() {
-        return headTexture;
-    }
-
-    public texture(Texture Ttexture) throws IOException{
+    public texture(Texture Ttexture) throws IOException {
         try {
-            File result = new File(launcherUI_JavaFX.controller.TempPath+File.separator+"temp_"+num+++".png");
-            FileUtils.copyURLToFile(new URL(Ttexture.getUrl()),result);
+            File result = new File(launcherUI_JavaFX.controller.TempPath + File.separator + "temp_" + num++ + ".png");
+            FileUtils.copyURLToFile(new URL(Ttexture.getUrl()), result);
             this.fullTexture = new Image(result.toURL().toString());
             File result2 = new File(launcherUI_JavaFX.controller.TempPath + File.separator + "temp_" + num++ + ".png");
             saveHeadTexture(ImageIO.read(result), result2);
@@ -44,7 +36,7 @@ public class texture {
         int yCoordinate = 8;
         int xLength = 8;
         int yLength = 8;
-        if((xCoordinate + xLength) >= image.getWidth()) {
+        if ((xCoordinate + xLength) >= image.getWidth()) {
             xLength = image.getWidth() - xCoordinate;
         }
         if ((yCoordinate + yLength) >= image.getHeight()) {
@@ -54,13 +46,21 @@ public class texture {
         for (int x = 0; x < xLength; x++) {
             for (int y = 0; y < yLength; y++) {
                 int rgb = image.getRGB(x + xCoordinate, y + yCoordinate);
-                for(int i=0;i<5;i++){
-                    for(int j=0;j<5;j++){
-                        resultImage.setRGB(x*5+i,y*5+j,rgb);
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        resultImage.setRGB(x * 5 + i, y * 5 + j, rgb);
                     }
                 }
             }
         }
-        return ImageIO.write(resultImage,"PNG",saveFile);
+        return ImageIO.write(resultImage, "PNG", saveFile);
+    }
+
+    public Image getFullTexture() {
+        return fullTexture;
+    }
+
+    public Image getHeadTexture() {
+        return headTexture;
     }
 }

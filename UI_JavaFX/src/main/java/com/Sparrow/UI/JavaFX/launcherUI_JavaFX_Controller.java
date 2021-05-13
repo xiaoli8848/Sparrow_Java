@@ -6,10 +6,11 @@ import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXListCell;
+import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,7 +22,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
@@ -35,14 +35,12 @@ import java.util.Stack;
 /**
  * JFX主控制类。
  * 存储程序缓存目录 {@code public File TempPath = new File(ROOTDIR + ".Sparrow");}，主界面FXML中的控件，其它页面的node和controller实例。
+ *
  * @author 1662423349@qq.com
  */
 public class launcherUI_JavaFX_Controller {
-    protected static final Font FONT_COTITLE = Font.font("DengXian", FontWeight.BOLD, 16);
-    protected static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
-    public File TempPath = new File(ROOTDIR + ".Sparrow");
-    private Stack<Node> pages = new Stack<>();
-
+    private final ArrayList<launcherState> states = new ArrayList<>();
+    public File TempPath = new File(launcherUI_JavaFX.ROOTDIR + ".Sparrow");
     @FXML
     protected ImageView closeButton;
 
@@ -113,14 +111,12 @@ public class launcherUI_JavaFX_Controller {
     protected Button backButton;
 
     protected ToggleGroup signWay = new ToggleGroup();
-    private int pointer_StateCreator = 0;
-    private final ArrayList<launcherState> states = new ArrayList<>();
-
     protected launcherUI_JavaFX_versionList_Controller controller_versionList;
     protected Node page_versionList;
-
     protected launcherUI_JavaFX_controlFrame_Controller controller_control;
     protected Node page_control;
+    private final Stack<Node> pages = new Stack<>();
+    private int pointer_StateCreator = 0;
 
     public void install() {
         if (!TempPath.exists()) {
@@ -161,7 +157,7 @@ public class launcherUI_JavaFX_Controller {
 
         //自动导入程序目录下的游戏
         try {
-            Init(ROOTDIR + ".minecraft");
+            Init(launcherUI_JavaFX.ROOTDIR + ".minecraft");
         } catch (Exception e) {
 
         }
@@ -214,10 +210,10 @@ public class launcherUI_JavaFX_Controller {
         MinecraftJFX[] minecrafts = MinecraftJFX.getMinecrafts(new MinecraftDirectory(rootDir));
         controller_versionList.addItems(Arrays.asList(minecrafts));
         for (MinecraftJFX minecraft : minecrafts) {
-            if (minecraft.config.haveUsers()) {
-                controller_control.addItems(minecraft.config.getOnlineUsers());
-                controller_control.addItems(minecraft.config.getOfflineUsers());
-                controller_control.addItems(minecraft.config.getLibUsers());
+            if (minecraft.getConfig().haveUsers()) {
+                controller_control.addItems(minecraft.getConfig().getOnlineUsers());
+                controller_control.addItems(minecraft.getConfig().getOfflineUsers());
+                controller_control.addItems(minecraft.getConfig().getLibUsers());
             }
         }
         deleteState(state_import);
@@ -349,8 +345,8 @@ public class launcherUI_JavaFX_Controller {
         if (userName_Offline.getText().length() > 0) {
             controller_control.addItem(new offlineUser(userName_Offline.getText()));
             try {
-                controller_versionList.getSelectedItem().config.putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
-                controller_versionList.getSelectedItem().config.flush();
+                controller_versionList.getSelectedItem().getConfig().putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
+                controller_versionList.getSelectedItem().getConfig().flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -382,15 +378,15 @@ public class launcherUI_JavaFX_Controller {
     }
 
     @FXML
-    void home(){
+    void home() {
         homeButton.setDisable(true);
         pages.push(pagePane.getChildren().get(0));
         pagePane.getChildren().remove(0);
         pagePane.getChildren().add(page_control);
     }
 
-    protected void Goto(Node page){
-        if(page == page_control){
+    protected void Goto(Node page) {
+        if (page == page_control) {
             home();
             return;
         }
@@ -402,12 +398,12 @@ public class launcherUI_JavaFX_Controller {
     }
 
     @FXML
-    void back(){
+    void back() {
         Node backer = pages.pop();
-        if(pages.empty()){
+        if (pages.empty()) {
             backButton.setDisable(true);
         }
-        if(backer == page_control){
+        if (backer == page_control) {
             home();
             return;
         }
@@ -415,15 +411,9 @@ public class launcherUI_JavaFX_Controller {
         pagePane.getChildren().add(backer);
     }
 
-    //定义在线或离线的登录方式
-    enum signWays {
-        Offline,
-        Online
-    }
-
     public class launcherState {
-        public int serialNumber;
         private final com.Sparrow.UI.JavaFX.launcherState state;
+        public int serialNumber;
 
         public launcherState(com.Sparrow.UI.JavaFX.launcherState state) {
             this.state = state;
