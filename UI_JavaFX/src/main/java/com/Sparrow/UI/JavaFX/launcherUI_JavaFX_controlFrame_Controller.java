@@ -1,6 +1,6 @@
 package com.Sparrow.UI.JavaFX;
 
-import com.Sparrow.Utils.MinecraftJFX;
+import com.Sparrow.Utils.Minecraft;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
@@ -20,7 +20,7 @@ import javafx.scene.text.Text;
 import java.util.List;
 
 public class launcherUI_JavaFX_controlFrame_Controller {
-    private final launcherUI_JavaFX_Controller controller = launcherUI_JavaFX.controller;
+    private final launcherUI_JavaFX_Controller CONTROLLER = launcherUI_JavaFX.controller;
     @FXML
     private JFXComboBox<user> characterChooser;
     @FXML
@@ -36,11 +36,7 @@ public class launcherUI_JavaFX_controlFrame_Controller {
 
     protected void install() {
         characterChooser.setCellFactory(param -> new userCell());
-        characterChooser.selectionModelProperty().addListener(
-                (observableValue, userSingleSelectionModel, t1) ->
-                        headTexture.setImage(characterChooser.getSelectionModel().getSelectedItem().getTexture().getHeadTexture())
-        );
-        controller.controller_versionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends MinecraftJFX> observable, MinecraftJFX oldValue, MinecraftJFX newValue) -> {
+        CONTROLLER.controller_versionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) -> {
             gameVersion.setText(newValue.getVersion().getName());
             gameCotitle.setText(newValue.getVersion().getType().toString());
         });
@@ -64,7 +60,17 @@ public class launcherUI_JavaFX_controlFrame_Controller {
 
     @FXML
     void gotoVersionList() {
-        controller.Goto(controller.page_versionList);
+        CONTROLLER.Goto(CONTROLLER.page_versionList);
+    }
+
+    @FXML
+    void flushImage(){
+        headTexture.setImage(characterChooser.getSelectionModel().getSelectedItem().getTexture().getHeadTexture());
+    }
+
+    @FXML
+    void gotoUserCreator(){
+        CONTROLLER.Goto(CONTROLLER.page_userCreator);
     }
 }
 

@@ -1,6 +1,6 @@
 package com.Sparrow.Utils;
 
-import com.Sparrow.UI.JavaFX.launcherUI_JavaFX;
+import com.Sparrow.launcher;
 import javafx.scene.image.Image;
 import org.apache.commons.io.FileUtils;
 import org.to2mbn.jmccc.auth.yggdrasil.core.Texture;
@@ -15,16 +15,20 @@ import java.net.URL;
 public class texture {
     private static int num = 0;
     private Image fullTexture;
+    private File fullTextureFile;
     private Image headTexture;
+    private File headTextureFile;
 
     public texture(Texture Ttexture) throws IOException {
         try {
-            File result = new File(launcherUI_JavaFX.controller.TempPath + File.separator + "temp_" + num++ + ".png");
+            File result = new File(launcher.TempPath + File.separator + "temp_" + num++ + ".png");
             FileUtils.copyURLToFile(new URL(Ttexture.getUrl()), result);
             this.fullTexture = new Image(result.toURL().toString());
-            File result2 = new File(launcherUI_JavaFX.controller.TempPath + File.separator + "temp_" + num++ + ".png");
+            this.fullTextureFile = result;
+            File result2 = new File(launcher.TempPath + File.separator + "temp_" + num++ + ".png");
             saveHeadTexture(ImageIO.read(result), result2);
             this.headTexture = new Image(result2.toURL().toString());
+            this.headTextureFile = result2;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -62,5 +66,13 @@ public class texture {
 
     public Image getHeadTexture() {
         return headTexture;
+    }
+
+    public File getFullTextureFile() {
+        return fullTextureFile;
+    }
+
+    public File getHeadTextureFile() {
+        return headTextureFile;
     }
 }

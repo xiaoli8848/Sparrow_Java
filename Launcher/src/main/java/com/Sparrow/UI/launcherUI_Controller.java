@@ -82,7 +82,7 @@ public abstract class launcherUI_Controller {
      * @return String-游戏版本的版本号
      */
     public String getSelectMC_Version() {
-        return getSelectMC().version;
+        return getSelectMC().getVersion().getVersion();
     }
 
     /**

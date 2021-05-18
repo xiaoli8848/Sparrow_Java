@@ -16,6 +16,7 @@ import org.to2mbn.jmccc.option.WindowSize;
 import org.to2mbn.jmccc.version.Version;
 import org.to2mbn.jmccc.version.Versions;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -105,6 +106,7 @@ public class launcher {
             };
         }
     };
+    public static File TempPath = new File(System.getProperty("user.dir") + File.separator + ".Sparrow");
 
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {

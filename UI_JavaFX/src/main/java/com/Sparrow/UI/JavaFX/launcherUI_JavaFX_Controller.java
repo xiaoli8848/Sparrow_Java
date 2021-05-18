@@ -1,11 +1,12 @@
 package com.Sparrow.UI.JavaFX;
 
-import com.Sparrow.Utils.MinecraftJFX;
+import com.Sparrow.Utils.Minecraft;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
+import com.Sparrow.launcher;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPasswordField;
@@ -23,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 import java.io.File;
@@ -40,7 +42,6 @@ import java.util.Stack;
  */
 public class launcherUI_JavaFX_Controller {
     private final ArrayList<launcherState> states = new ArrayList<>();
-    public File TempPath = new File(launcherUI_JavaFX.ROOTDIR + ".Sparrow");
     @FXML
     protected ImageView closeButton;
 
@@ -57,46 +58,10 @@ public class launcherUI_JavaFX_Controller {
     protected TabPane versionSummary;
 
     @FXML
-    protected JFXListView<MinecraftJFX.save> gameSaves;
+    protected JFXListView<Minecraft.save> gameSaves;
 
     @FXML
-    protected JFXListView<MinecraftJFX.mod> gameMods;
-
-    @FXML
-    protected ToggleButton offlineSign;
-
-    @FXML
-    protected ToggleButton onlineSign;
-
-    @FXML
-    protected ToggleButton libSign;
-
-    @FXML
-    protected VBox offlinePane;
-
-    @FXML
-    protected JFXTextField userName_Offline;
-
-    @FXML
-    protected VBox onlinePane;
-
-    @FXML
-    protected JFXTextField userName_Online;
-
-    @FXML
-    protected JFXPasswordField password_Online;
-
-    @FXML
-    protected VBox libPane;
-
-    @FXML
-    protected JFXTextField userName_Lib;
-
-    @FXML
-    protected JFXPasswordField password_Lib;
-
-    @FXML
-    protected JFXTextField server_Lib;
+    protected JFXListView<Minecraft.mod> gameMods;
 
     @FXML
     protected Label State;
@@ -110,19 +75,24 @@ public class launcherUI_JavaFX_Controller {
     @FXML
     protected Button backButton;
 
-    protected ToggleGroup signWay = new ToggleGroup();
+
     protected launcherUI_JavaFX_versionList_Controller controller_versionList;
     protected Node page_versionList;
+
     protected launcherUI_JavaFX_controlFrame_Controller controller_control;
     protected Node page_control;
+
+    protected launcherUI_JavaFX_userCreator_Controller controller_userCreator;
+    protected Node page_userCreator;
+
     private final Stack<Node> pages = new Stack<>();
     private int pointer_StateCreator = 0;
 
     public void install() {
-        if (!TempPath.exists()) {
-            TempPath.mkdirs();
+        if (!launcher.TempPath.exists()) {
+            launcher.TempPath.mkdirs();
         }
-        for (File fileTemp : Objects.requireNonNull(TempPath.listFiles())) {
+        for (File fileTemp : Objects.requireNonNull(launcher.TempPath.listFiles())) {
             fileTemp.delete();
         }
         Version.setText(launcherUI_JavaFX.VERSION_UI);
@@ -131,30 +101,6 @@ public class launcherUI_JavaFX_Controller {
         gameSaves.setCellFactory(param -> new savesCell());
         gameMods.setCellFactory(param -> new modsCell());
 
-
-        signWay.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-            if (new_toggle == offlineSign) {
-                offlinePane.setDisable(false);
-                onlinePane.setDisable(true);
-                libPane.setDisable(true);
-            } else if (new_toggle == onlineSign) {
-                offlinePane.setDisable(true);
-                libPane.setDisable(true);
-                onlinePane.setDisable(false);
-            } else {
-                offlinePane.setDisable(true);
-                libPane.setDisable(false);
-                onlinePane.setDisable(true);
-            }
-        });
-
-
-        //设置ToggleGroup
-        offlineSign.setToggleGroup(signWay);
-        onlineSign.setToggleGroup(signWay);
-        libSign.setToggleGroup(signWay);
-
-
         //自动导入程序目录下的游戏
         try {
             Init(launcherUI_JavaFX.ROOTDIR + ".minecraft");
@@ -162,8 +108,8 @@ public class launcherUI_JavaFX_Controller {
 
         }
 
-        if (!TempPath.exists()) {
-            TempPath.mkdir();
+        if (!launcher.TempPath.exists()) {
+            launcher.TempPath.mkdir();
         }
 
         FXMLLoader fxmlLoader_versionList = new FXMLLoader();
@@ -182,6 +128,16 @@ public class launcherUI_JavaFX_Controller {
             this.page_control = fxmlLoader_control.load();
             this.controller_control = fxmlLoader_control.getController();
             controller_control.install();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        FXMLLoader fxmlLoader_userCreator = new FXMLLoader();
+        fxmlLoader_userCreator.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/userCreator.fxml"));
+        try {
+            this.page_userCreator = fxmlLoader_userCreator.load();
+            this.controller_userCreator = fxmlLoader_userCreator.getController();
+            controller_userCreator.install();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -207,9 +163,9 @@ public class launcherUI_JavaFX_Controller {
             deleteState(state_import);
             throw new InitException("路径无效");
         }
-        MinecraftJFX[] minecrafts = MinecraftJFX.getMinecrafts(new MinecraftDirectory(rootDir));
+        Minecraft[] minecrafts = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
         controller_versionList.addItems(Arrays.asList(minecrafts));
-        for (MinecraftJFX minecraft : minecrafts) {
+        for (Minecraft minecraft : minecrafts) {
             if (minecraft.getConfig().haveUsers()) {
                 controller_control.addItems(minecraft.getConfig().getOnlineUsers());
                 controller_control.addItems(minecraft.getConfig().getOfflineUsers());
@@ -265,6 +221,13 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void closeWindow(MouseEvent event) {
+        for(File temp:launcher.TempPath.listFiles()){
+            temp.delete();
+        }
+        try {
+            controller_versionList.getSelectedItem().getConfig().flush();
+        } catch (IOException exception) {
+        }
         System.exit(0);
     }
 
@@ -329,50 +292,25 @@ public class launcherUI_JavaFX_Controller {
         } else {
             user selectedUser = controller_control.getSelectedItem();
             if (selectedUser instanceof offlineUser) {
-                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                try {
+                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                } catch (LaunchException e) {
+                    e.printStackTrace();
+                }
             } else if (selectedUser instanceof onlineUser) {
                 ((onlineUser) selectedUser).getInfo();
-                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                try {
+                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                } catch (LaunchException e) {
+                    e.printStackTrace();
+                }
             } else if (selectedUser instanceof libUser) {
                 ((libUser) selectedUser).getInfo();
-                controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
-            }
-        }
-    }
-
-    @FXML
-    void addUser_Offline() {
-        if (userName_Offline.getText().length() > 0) {
-            controller_control.addItem(new offlineUser(userName_Offline.getText()));
-            try {
-                controller_versionList.getSelectedItem().getConfig().putOfflineUserInfo(new offlineUser(userName_Offline.getText()));
-                controller_versionList.getSelectedItem().getConfig().flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @FXML
-    void addUser_Online() {
-        if (userName_Online.getText().length() > 0 && password_Online.getText().length() > 0) {
-            onlineUser temp = new onlineUser(userName_Online.getText(), password_Online.getText());
-            if (temp.getInfo()) {
-                controller_control.addItem(temp);
-            } else {
-                new errDialog().apply("参数错误", null, "不好意思，尝试创建在线账户时遇到错误。");
-            }
-        }
-    }
-
-    @FXML
-    void addUser_Lib() {
-        if (userName_Lib.getText().length() > 0 && password_Lib.getText().length() > 0 && server_Lib.getText().length() > 0) {
-            libUser temp = new libUser(userName_Lib.getText(), password_Lib.getText(), server_Lib.getText());
-            if (temp.getInfo()) {
-                controller_control.addItem(temp);
-            } else {
-                new errDialog().apply("参数错误", null, "不好意思，尝试创建外置登录账户时遇到错误。");
+                try {
+                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                } catch (LaunchException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -427,9 +365,9 @@ public class launcherUI_JavaFX_Controller {
     }
 }
 
-class savesCell extends JFXListCell<MinecraftJFX.save> {
+class savesCell extends JFXListCell<Minecraft.save> {
     @Override
-    public void updateItem(MinecraftJFX.save item, boolean empty) {
+    public void updateItem(Minecraft.save item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (empty) {
@@ -462,9 +400,9 @@ class savesCell extends JFXListCell<MinecraftJFX.save> {
     }
 }
 
-class modsCell extends JFXListCell<MinecraftJFX.mod> {
+class modsCell extends JFXListCell<Minecraft.mod> {
     @Override
-    public void updateItem(MinecraftJFX.mod item, boolean empty) {
+    public void updateItem(Minecraft.mod item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (!empty && item != null) {

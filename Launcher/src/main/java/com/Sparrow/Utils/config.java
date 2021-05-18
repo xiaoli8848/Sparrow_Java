@@ -27,7 +27,7 @@ public class config {
     private final JSONObject packJson = new JSONObject();
     private final File packJsonFile;
 
-    public config(MinecraftJFX minecraft) throws IOException, NullPointerException {
+    public config(Minecraft minecraft) throws IOException, NullPointerException {
         File configFileTemp = new File(minecraft.getPath() + "config.json");
         if (!configFileTemp.exists()) {
             configFileTemp.createNewFile();
@@ -42,7 +42,7 @@ public class config {
         checkOrCreate(minecraft);
     }
 
-    public void checkOrCreate(MinecraftJFX minecraft) {
+    public void checkOrCreate(Minecraft minecraft) {
         if (this.versionJson.get("version") == null) {
             this.versionJson.put("version", minecraft.getVersion().getVersion());
         }
@@ -71,7 +71,7 @@ public class config {
         JSONObject temp = new JSONObject();
         temp.put("name", offlineUser.getUserName());
         if (!offlineUser.haveDefaultTexture())
-            temp.put("texture", offlineUser.getTexture());
+            temp.put("texture", imageString.imageToString(offlineUser.getTexture().getFullTextureFile().toString()));
         this.versionJson.getJSONObject("users").getJSONArray("offline").add(temp);
     }
 

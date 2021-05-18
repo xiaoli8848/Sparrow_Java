@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class version {
-    private static File versionListFile = new File(version.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/versionList.json").toString());
+    private static File versionListFile = new File(version.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/versionList.json").toString().substring(6));
     private static JSONObject versionList;
     private File path;
     private String version;
@@ -20,7 +20,6 @@ public class version {
         try {
             versionList = JSONObject.parseObject(FileUtils.readFileToString(versionListFile, charsetGuess.guessCharset(versionListFile)));
         } catch (IOException exception) {
-            versionListFile = null;
             versionList = null;
         }
     }
@@ -34,7 +33,6 @@ public class version {
         for (File json : jsons) {
             try {
                 tempJson = JSONObject.parseObject(FileUtils.readFileToString(json, charsetGuess.guessCharset(json)));
-                System.out.println(tempJson.getString("assets"));
                 versionName = tempJson.getString("id");
                 version = tempJson.getString("assets");
                 break;

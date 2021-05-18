@@ -12,13 +12,13 @@ public class offlineUser extends user {
         super(userName);
         this.authenticator = new OfflineAuthenticator(userName);
         try {
-            this.texture = new texture(new Texture(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/steve.png").toString(), null));
+            this.texture = new texture(new Texture(getClass().getClassLoader().getResource("com/Sparrow/imgs/steve.png").toString(), null));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public boolean haveDefaultTexture() {
-        return this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/steve.png").toString(), null)) || this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/alex.png").toString(), null));
+        return this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/imgs/steve.png").toString(), null)) || this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/imgs/alex.png").toString(), null));
     }
 }
