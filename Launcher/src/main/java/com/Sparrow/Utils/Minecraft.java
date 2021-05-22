@@ -8,12 +8,15 @@ import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.option.ServerInfo;
 import org.to2mbn.jmccc.option.WindowSize;
+import org.to2mbn.jmccc.version.Versions;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
 
 import static com.Sparrow.launcher.gameProcessListener;
 import static com.Sparrow.launcher.setVersionTypeToMQ;
@@ -99,10 +102,6 @@ public class Minecraft {
         return this.getVersion() + " - " + getPath();
     }
 
-    public void launchOffline(String playername, boolean debug, boolean FC, int minMem, int maxMem, int width, int height, String serverURL) {
-        launcher.launch_offline(getRootPath(), getVersion().getVersion(), playername, debug, FC, minMem, maxMem, width, height, serverURL);
-    }
-
     public void launch(Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) throws LaunchException {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
                 .setDebugPrintCommandline(debugPrint)
@@ -111,8 +110,10 @@ public class Minecraft {
 
         LaunchOption option = null;
         try {
+            System.out.println(Versions.resolveVersion(new MinecraftDirectory(getRootPath()),version.getName()));
+            System.out.println(new MinecraftDirectory(getRootPath()).getVersion(version.getName()));
             option = new LaunchOption(
-                    getVersion().getVersion(), // 游戏版本
+                    getVersion().getName(), // 游戏版本
                     authenticator,
                     new MinecraftDirectory(getRootPath()));
             option.setMaxMemory(maxMemory);
@@ -125,7 +126,7 @@ public class Minecraft {
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
             }
             setVersionTypeToMQ(option);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

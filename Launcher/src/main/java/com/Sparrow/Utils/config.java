@@ -3,6 +3,7 @@ package com.Sparrow.Utils;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
+import com.Sparrow.launcher;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;
@@ -28,7 +29,7 @@ public class config {
     private final File packJsonFile;
 
     public config(Minecraft minecraft) throws IOException, NullPointerException {
-        File configFileTemp = new File(minecraft.getPath() + "config.json");
+        File configFileTemp = new File(launcher.WorkPath.toString() + File.separator + "config.json");
         if (!configFileTemp.exists()) {
             configFileTemp.createNewFile();
         }
@@ -37,7 +38,7 @@ public class config {
         if (this.versionJson == null) {
             this.versionJson = new JSONObject();
         }
-        this.packJsonFile = new File(minecraft.getRootPath() + "pack.json");
+        this.packJsonFile = new File(launcher.WorkPath.toString() + File.separator + "pack.json");
 
         checkOrCreate(minecraft);
     }

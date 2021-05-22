@@ -14,7 +14,6 @@
             <artifactId>jmccc</artifactId>
             <version>2.4</version>
             <type>jar</type>
-            <scope>compile</scope>
             <optional>false</optional>
         </dependency>
         <dependency>
@@ -22,7 +21,6 @@
             <artifactId>jmccc-yggdrasil-authenticator</artifactId>
             <version>2.4</version>
             <type>jar</type>
-            <scope>compile</scope>
             <optional>false</optional>
         </dependency>
         <dependency>
@@ -30,7 +28,6 @@
             <artifactId>jmccc-mcdownloader</artifactId>
             <version>2.4</version>
             <type>jar</type>
-            <scope>compile</scope>
             <optional>false</optional>
         </dependency>
         <dependency>

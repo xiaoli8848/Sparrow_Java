@@ -9,9 +9,6 @@ import com.Sparrow.Utils.user.user;
 import com.Sparrow.launcher;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -108,8 +105,8 @@ public class launcherUI_JavaFX_Controller {
 
         }
 
-        if (!launcher.TempPath.exists()) {
-            launcher.TempPath.mkdir();
+        if (!launcher.WorkPath.exists()) {
+            launcher.WorkPath.mkdir();
         }
 
         FXMLLoader fxmlLoader_versionList = new FXMLLoader();
@@ -221,7 +218,7 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void closeWindow(MouseEvent event) {
-        for(File temp:launcher.TempPath.listFiles()){
+        for(File temp:launcher.WorkPath.listFiles()){
             temp.delete();
         }
         try {

@@ -27,7 +27,6 @@ import static com.Sparrow.Utils.Download.Download.downloadGame;
 public class launcher {
     public static final String LAUNCHER_VERSION = "V0.3.0";
     public static final String projectURL = "https://github.com/xiaoli8848/MQ";
-    public static final ProfileService profileService = YggdrasilServiceBuilder.defaultProfileService();
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
@@ -106,7 +105,8 @@ public class launcher {
             };
         }
     };
-    public static File TempPath = new File(System.getProperty("user.dir") + File.separator + ".Sparrow");
+    public static File WorkPath = new File(System.getProperty("user.dir") + File.separator + ".Sparrow");
+    public static File TempPath = new File(WorkPath.toString() + File.separator + "Temp");
 
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {

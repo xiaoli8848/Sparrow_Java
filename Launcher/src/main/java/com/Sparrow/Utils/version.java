@@ -18,7 +18,7 @@ public class version {
 
     {
         try {
-            versionList = JSONObject.parseObject(FileUtils.readFileToString(versionListFile, charsetGuess.guessCharset(versionListFile)));
+            versionList = JSONObject.parseObject(FileUtils.readFileToString(versionListFile, IO.guessCharset(versionListFile)));
         } catch (IOException exception) {
             versionList = null;
         }
@@ -32,15 +32,29 @@ public class version {
         File[] jsons = versionPath.listFiles(new jsonFilter());
         for (File json : jsons) {
             try {
-                tempJson = JSONObject.parseObject(FileUtils.readFileToString(json, charsetGuess.guessCharset(json)));
-                versionName = tempJson.getString("id");
-                version = tempJson.getString("assets");
-                break;
-            } catch (Exception e) {
+                if(IO.guessCharset(json) != "UTF-8"){
+                    IO.convert(json,IO.guessCharset(json),"UTF-8");
+                }
+                tempJson = JSONObject.parseObject(FileUtils.readFileToString(json, "UTF-8"));
+            } catch (IOException exception) {
+                exception.printStackTrace();
                 continue;
             }
+            versionName = tempJson.getString("id");
+            version = tempJson.getString("clientVersion");
+            if(version == null) {
+                version = tempJson.getString("assets");
+            }
+            if(version==null||versionName==null){
+                continue;
+            }
+            break;
         }
-        this.version = version;
+        if(version == null || versionName == null){
+            this.version = versionName;
+        }else {
+            this.version = version;
+        }
         this.name = versionName;
         try {
             for (int i = 0; i < versionList.getJSONArray("versions").size(); i++) {
@@ -88,7 +102,7 @@ public class version {
     }
 
     public static void setVersionList(File file) throws IOException {
-        versionList = JSONObject.parseObject(FileUtils.readFileToString(file, charsetGuess.guessCharset(file)));
+        versionList = JSONObject.parseObject(FileUtils.readFileToString(file, IO.guessCharset(file)));
     }
 
     public static void setVersionList(JSONObject json) {
