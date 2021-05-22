@@ -5,6 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/Launcher/Launcher.iml" filepath="$PROJECT_DIR$/Launcher/Launcher.iml" />
       <module fileurl="file://$PROJECT_DIR$/Sparrow.iml" filepath="$PROJECT_DIR$/Sparrow.iml" />
       <module fileurl="file://$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" filepath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JMCCC/jmccc/jmccc.iml" filepath="$PROJECT_DIR$/JMCCC/jmccc/jmccc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/jmccc-mcdownloader.iml" filepath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/jmccc-mcdownloader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JMCCC/jmccc-parent.iml" filepath="$PROJECT_DIR$/JMCCC/jmccc-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/jmccc-yggdrasil-authenticator.iml" filepath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/jmccc-yggdrasil-authenticator.iml" />
     </modules>
   </component>
 </project>

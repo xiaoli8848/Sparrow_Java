@@ -23,3 +23,5 @@
 hs_err_pid*
 *.exe4j
 *.exe
+/UI_JavaFX/target/
+/Launcher/target/

@@ -12,10 +12,10 @@
     <orderEntry type="library" name="Maven: org.apache.ant:ant:1.9.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.9.4" level="project" />
     <orderEntry type="module" module-name="Launcher" />
-    <orderEntry type="library" name="Maven: org.to2mbn:jmccc:2.4" level="project" />
+    <orderEntry type="module" module-name="jmccc" />
     <orderEntry type="library" name="Maven: org.json:json:20140107" level="project" />
-    <orderEntry type="library" name="Maven: org.to2mbn:jmccc-yggdrasil-authenticator:2.4" level="project" />
-    <orderEntry type="library" name="Maven: org.to2mbn:jmccc-mcdownloader:2.4" level="project" />
+    <orderEntry type="module" module-name="jmccc-yggdrasil-authenticator" />
+    <orderEntry type="module" module-name="jmccc-mcdownloader" />
     <orderEntry type="library" name="Maven: org.tukaani:xz:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:11" level="project" />

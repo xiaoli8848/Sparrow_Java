@@ -1,5 +1,6 @@
 package com.Sparrow.Utils;
 
+import com.Sparrow.Utils.Callback.launchCallback;
 import com.Sparrow.launcher;
 import org.to2mbn.jmccc.auth.Authenticator;
 import org.to2mbn.jmccc.launch.LaunchException;
@@ -102,16 +103,15 @@ public class Minecraft {
         return this.getVersion() + " - " + getPath();
     }
 
-    public void launch(Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) throws LaunchException {
+    public void launch(launchCallback launchCallback, Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) throws LaunchException {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
                 .setDebugPrintCommandline(debugPrint)
                 .setNativeFastCheck(nativesFC)
                 .build();
+        launchCallback.onInstalling();
 
         LaunchOption option = null;
         try {
-            System.out.println(Versions.resolveVersion(new MinecraftDirectory(getRootPath()),version.getName()));
-            System.out.println(new MinecraftDirectory(getRootPath()).getVersion(version.getName()));
             option = new LaunchOption(
                     getVersion().getName(), // 游戏版本
                     authenticator,
@@ -126,11 +126,13 @@ public class Minecraft {
                 option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
             }
             setVersionTypeToMQ(option);
+            launchCallback.onResolvingOptions();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // 启动游戏
+        launchCallback.onLaunch();
         launcher.launch(option, gameProcessListener);
     }
 

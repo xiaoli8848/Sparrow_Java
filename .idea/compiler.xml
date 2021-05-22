@@ -6,11 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="UI_JavaFX" />
+        <module name="jmccc" />
         <module name="Launcher" />
+        <module name="jmccc-yggdrasil-authenticator" />
+        <module name="jmccc-mcdownloader" />
+        <module name="UI_JavaFX" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="jmccc" target="1.7" />
+      <module name="jmccc-mcdownloader" target="1.7" />
+      <module name="jmccc-parent" target="1.7" />
+      <module name="jmccc-yggdrasil-authenticator" target="1.7" />
       <module name="Launcher" target="8" />
       <module name="Sparrow" target="8" />
       <module name="UI_H5" target="8" />

@@ -1,5 +1,6 @@
 package com.Sparrow.UI.JavaFX;
 
+import com.Sparrow.Utils.Callback.launchCallback;
 import com.Sparrow.Utils.Minecraft;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.Utils.user.libUser;
@@ -9,6 +10,8 @@ import com.Sparrow.Utils.user.user;
 import com.Sparrow.launcher;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 
@@ -72,6 +76,12 @@ public class launcherUI_JavaFX_Controller {
     @FXML
     protected Button backButton;
 
+    @FXML
+    private ProgressBar launchProcess;
+
+    @FXML
+    private JFXTextArea launchLog;
+
 
     protected launcherUI_JavaFX_versionList_Controller controller_versionList;
     protected Node page_versionList;
@@ -85,7 +95,51 @@ public class launcherUI_JavaFX_Controller {
     private final Stack<Node> pages = new Stack<>();
     private int pointer_StateCreator = 0;
 
+    private final launchCallback launchCallback = new launchCallback() {
+        @Override
+        public void onInstalling() {
+            for (int i = 0; i < 200; i++) {
+                launchProcess.setProgress(launchProcess.getProgress() + 0.001);
+            }
+        }
+
+        @Override
+        public void onResolvingOptions() {
+            for (int i = 0; i < 600; i++) {
+                launchProcess.setProgress(launchProcess.getProgress() + 0.001);
+            }
+        }
+
+        @Override
+        public void onLaunch() {
+            launchProcess.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
+        }
+    };
+
     public void install() {
+        launcher.gameProcessListener = new GameProcessListener() {
+            //TODO 完善响应
+            @Override
+            public void onLog(String log) {
+                launchLog.appendText(log + "\n");
+            }
+
+            @Override
+            public void onErrorLog(String log) {
+                launchLog.appendText(log + "\n");
+            }
+
+            @Override
+            public void onExit(int code) {
+                Platform.runLater(()->launchProcess.setProgress(0));
+                if(code == 0){
+                    launchLog.appendText("游戏正常退出。" + "\n");
+                }else{
+                    launchLog.appendText("抱歉，游戏非正常退出。代码：" + code + "。" +"\n");
+                }
+            }
+        };
+
         if (!launcher.TempPath.exists()) {
             launcher.TempPath.mkdirs();
         }
@@ -218,7 +272,7 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void closeWindow(MouseEvent event) {
-        for(File temp:launcher.WorkPath.listFiles()){
+        for(File temp:launcher.TempPath.listFiles()){
             temp.delete();
         }
         try {
@@ -235,76 +289,30 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void launch() {
-        /*if (sw == signWays.Offline)
-            versionList.getSelectionModel().getSelectedItem().launchOffline(nickName.getText(), true, true, 0, 0, 1000, 800, "");
-        else {
-            if (userName.getText() != "") {
-                if (password.getText() != "") {
-                    try {
-                        YggdrasilAuthenticator_JavaFX onlineAuth = YggdrasilAuthenticator_JavaFX.password(userName.getText(), password.getText());
-                        org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
-                                .setDebugPrintCommandline(false)
-                                .setNativeFastCheck(true)
-                                .build();
-
-                        LaunchOption option = null;
-                        try {
-                            option = new LaunchOption(
-                                    versionList.getSelectionModel().getSelectedItem().version, // 游戏版本
-                                    onlineAuth, // 使用在线验证
-                                    new MinecraftDirectory(versionList.getSelectionModel().getSelectedItem().rootPath));
-                            option.setMaxMemory(0);
-                            option.setMinMemory(0);
-                            option.setWindowSize(WindowSize.window(0, 0));
-                            *//*
-                            if (serverURL != null && !Objects.equals(serverURL, "")) {
-                                option.setServerInfo(new ServerInfo(serverURL.substring(0, serverURL.lastIndexOf(":")), Integer.parseInt(serverURL.substring(serverURL.lastIndexOf(":") + 1, serverURL.length() - 1))));
-                            }
-                            *//*
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        // 启动游戏
-                        try {
-                            launcher.launch(option, gameProcessListener);
-                        } catch (LaunchException e) {
-                            e.printStackTrace();
-                        }
-                    } catch (AuthenticationException e) {
-                        new errDialog().apply("在线登陆失败", null, "非常不好意思，但是我们在尝试在线登录时出现错误。启动意外失败了。你可以检查一下你的用户名和密码是否输入正确。");
-                        return;
-                    }
-                } else {
-                    new errDialog().apply("参数错误", null, "不好意思，你需要填写密码才能在线登录。");
-                }
-            } else {
-                new errDialog().apply("参数错误", null, "不好意思，你需要填写用户名（邮箱）才能在线登录。");
-            }
-        }*/
         if (controller_control.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个账户才能启动。");
         } else if (controller_versionList.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
         } else {
+            launchLog.setText("");
             user selectedUser = controller_control.getSelectedItem();
             if (selectedUser instanceof offlineUser) {
                 try {
-                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }
             } else if (selectedUser instanceof onlineUser) {
                 ((onlineUser) selectedUser).getInfo();
                 try {
-                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }
             } else if (selectedUser instanceof libUser) {
                 ((libUser) selectedUser).getInfo();
                 try {
-                    controller_versionList.getSelectedItem().launch(selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }
