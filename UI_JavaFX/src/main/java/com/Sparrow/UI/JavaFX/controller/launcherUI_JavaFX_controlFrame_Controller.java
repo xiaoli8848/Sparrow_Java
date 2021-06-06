@@ -1,5 +1,6 @@
-package com.Sparrow.UI.JavaFX;
+package com.Sparrow.UI.JavaFX.controller;
 
+import com.Sparrow.UI.JavaFX.launcherUI_JavaFX;
 import com.Sparrow.Utils.Minecraft;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;

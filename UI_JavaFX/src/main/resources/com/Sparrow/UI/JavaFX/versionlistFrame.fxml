@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_versionList_Controller">
+<AnchorPane prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_versionList_Controller">
    <children>
       <JFXListView fx:id="versionList" prefHeight="555.0" prefWidth="220.0" style="-fx-fixed-cell-size: 55px;" />
    </children>

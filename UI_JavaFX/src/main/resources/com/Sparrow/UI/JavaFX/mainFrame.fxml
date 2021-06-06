@@ -52,13 +52,13 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="625.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller">
+<VBox prefHeight="625.0" prefWidth="900.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_Controller">
     <children>
-        <Pane prefHeight="252.0" prefWidth="900.0">
+        <Pane prefHeight="45.0" prefWidth="900.0" style="-fx-background-color: #CFF1FF;">
             <children>
-                <Label alignment="CENTER" layoutX="395.0" layoutY="8.0" text="Sparrow" textAlignment="CENTER">
+                <Label alignment="CENTER" layoutX="406.0" layoutY="9.0" text="Sparrow" textAlignment="CENTER">
                     <font>
-                        <Font name="Microsoft YaHei Bold" size="26.0" />
+                        <Font name="Calibri" size="26.0" />
                     </font>
                 </Label>
                 <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="880.0" layoutY="6.0" onMouseClicked="#closeWindow" onMouseEntered="#windowButtonActive" onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
@@ -80,22 +80,18 @@
             </children>
         </Pane>
         <SplitPane dividerPositions="0.25, 0.75" VBox.vgrow="ALWAYS">
-         <Pane fx:id="pagePane" prefHeight="200.0" prefWidth="220.0" />
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
-                <children>
-                    <Pane fx:id="launchPane" layoutY="4.0" prefHeight="551.0" prefWidth="441.0">
-                        <children>
-                     <Pane layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="413.0" style="-fx-background-radius: 10px; -fx-background-color: rgb(233,233,233);">
-                        <children>
-                           <ProgressBar fx:id="launchProcess" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="386.0" progress="0.0" />
-                           <JFXTextArea fx:id="launchLog" editable="false" layoutX="14.0" layoutY="43.0" prefHeight="200.0" prefWidth="386.0" />
-                           <JFXButton buttonType="RAISED" layoutX="299.0" layoutY="256.0" onAction="#launch" prefHeight="30.0" prefWidth="100.0" ripplerFill="#5cb85c" text="启动游戏" />
-                        </children>
-                     </Pane>
-                        </children>
-                    </Pane>
-                </children>
-            </AnchorPane>
+         <Pane fx:id="pagePane" prefHeight="200.0" prefWidth="220.0" style="-fx-background-color: #CFF1FF;" />
+              <Pane fx:id="launchPane" prefHeight="551.0" prefWidth="441.0" style="-fx-background-color: #CFF1FF;">
+                  <children>
+               <Pane layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="413.0" style="-fx-background-color: #88A6B3; -fx-background-radius: 10px;">
+                  <children>
+                     <ProgressBar fx:id="launchProcess" layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="386.0" progress="0.0" />
+                     <JFXTextArea fx:id="launchLog" editable="false" layoutX="14.0" layoutY="43.0" prefHeight="200.0" prefWidth="386.0" />
+                     <JFXButton buttonType="RAISED" layoutX="299.0" layoutY="256.0" onAction="#launch" prefHeight="30.0" prefWidth="100.0" ripplerFill="#cff1ff" text="启动游戏" />
+                  </children>
+               </Pane>
+                  </children>
+              </Pane>
             <TabPane fx:id="versionSummary" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                 <Tab text="游戏文件">
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

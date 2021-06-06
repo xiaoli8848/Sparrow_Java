@@ -25,3 +25,5 @@ hs_err_pid*
 *.exe
 /UI_JavaFX/target/
 /Launcher/target/
+/UI_JavaFX/src/main/test/
+/.Sparrow/

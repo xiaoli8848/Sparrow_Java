@@ -10,204 +10,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Move utils into Launcher module instead of UI module">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_annotations_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpasyncclient_4_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_nio_4_4_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_api_3_0_0_rc2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_core_3_0_0_rc2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_modules_ehcache_impl_3_0_0_rc2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ehcache_sizeof_0_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_offheap_store_2_2_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_terracotta_statistics_1_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/README.zh_CN.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/ApacheHttpAsyncClientFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/AppendedDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/EhcacheFeature.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/IncrementallyDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/MinecraftDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/MinecraftDownloaderBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/MinecraftDownloaderImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/RemoteVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/RemoteVersionList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/AppendedDownloadSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/AppendedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/CachedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/CachedDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloadCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloadCallbackGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloadCallbacks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloadSession.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/Downloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/DownloaderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/FileDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/HttpAsyncDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/JdkHttpDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/MemoryDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/ResultProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/AnyCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/AppendedCombinedDownloadContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/AppendedCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloadCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloadCallbackGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloadCallbacks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloadContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/CombinedDownloaderImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/ExtendedCallableCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/ExtendedDownloadTaskCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/MultipleCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/combine/SingleCombinedDownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/AdaptedCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/AsyncFuture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/Callback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/CallbackAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/CallbackAsyncFutureTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/CallbackFutureTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/CallbackGroup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/Callbacks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/Cancelable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/CompletedFuture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/EmptyCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/EventDispatchException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/Shutdownable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/download/concurrent/WhateverCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/AbstractMinecraftDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/DefaultLayoutProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/ExtendedDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/InfoDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/InstallProfileProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/JarLibraryDownloadHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/LibraryDownloadHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/MinecraftDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/MojangDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/PackLibraryDownloadHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/PackProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/URIDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/XZPackLibraryDownloadHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/forge/ForgeDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/forge/ForgeVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/forge/ForgeVersionList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/forge/ResolvedForgeVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/forge/UniversalDecompressor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/liteloader/LiteloaderDownloadProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/liteloader/LiteloaderVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/liteloader/LiteloaderVersionList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/provider/liteloader/ResolvedLiteloaderVersion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/util/URIUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-mcdownloader/src/main/java/org/to2mbn/jmccc/mcdownloader/util/VersionComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/CharacterSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/DefaultCharacterSelector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/YggdrasilAuthenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/Agent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/AuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/GameProfile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/PlayerTextures.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/ProfileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/PropertiesGameProfile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/RemoteAuthenticationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/Session.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/Texture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/UserType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/io/HttpRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/io/JSONHttpRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/util/Base64.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/AbstractYggdrasilService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/MojangYggdrasilAPIProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/PropertiesDeserializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/RequestException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/ResponseFormatException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/ResponseSignatureException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/YggdrasilAPIProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/YggdrasilAuthenticationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/YggdrasilProfileService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/java/org/to2mbn/jmccc/auth/yggdrasil/core/yggdrasil/YggdrasilServiceBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/main/resources/yggdrasil_session_pubkey.der" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/test/java/org/to2mbn/jmccc/auth/yggdrasil/test/Base64Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc-yggdrasil-authenticator/src/test/java/org/to2mbn/jmccc/auth/yggdrasil/test/SerializationTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/AuthInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/AuthenticationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/Authenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/OfflineAuthenticator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/exec/DaemonStreamPumpMonitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/exec/GameProcessListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/exec/LoggingMonitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/exec/ProcessMonitor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/Jmccc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/LaunchArgument.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/LaunchException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/LaunchResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/LauncherBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/MissingDependenciesException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/option/JavaOption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/option/LaunchOption.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/option/MinecraftDirectory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/option/ServerInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/option/WindowSize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/ChecksumUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/ExtraArgumentsTemplates.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/FileUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/HexUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/Platform.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/util/UUIDUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/Asset.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/AssetIndexInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/DownloadInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/Library.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/LibraryInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/Native.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/Version.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/VersionParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/version/Versions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/AssetTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/HexUtilsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/MinecraftEnvironmentTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/TestUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/VersionTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/java/org/to2mbn/jmccc/test/WindowSizeTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/assets/indexes/test.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/assets/objects/00/000c82756fd54e40cb236199f2b479629d0aca2f" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/1.6.4/1.6.4.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/1.7.10-LiteLoader1.7.10/1.7.10-LiteLoader1.7.10.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/1.7.10/1.7.10.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/1.8-forge1.8-11.14.3.1514/1.8-forge1.8-11.14.3.1514.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/1.8/1.8.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/16w05b/16w05b.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/test/resources/mcdir/versions/16w05b_/16w05b_.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Callback/launchCallback.java" afterDir="false" />
+    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Move JMCCC into a local module">
+      <change beforePath="$PROJECT_DIR$/.Sparrow/Temp/temp_0.png" beforeDir="false" afterPath="$PROJECT_DIR$/.Sparrow/Temp/temp_0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.Sparrow/Temp/temp_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.Sparrow/config.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_to2mbn_jmccc_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_to2mbn_jmccc_mcdownloader_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_to2mbn_jmccc_yggdrasil_authenticator_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/Launcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/Launcher.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sparrow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sparrow.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/OfflineAuthenticator.java" beforeDir="false" afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/auth/OfflineAuthenticator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/onlineUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/onlineUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/user.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/user.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_controlFrame_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_userCreator_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_versionList_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_versionList_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/versionlistFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/versionlistFrame.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -268,6 +91,7 @@
       <recent name="com.Sparrow.UI.JavaFX.launcherUI_JavaFX_Controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\JavaFile\Sparrow\UI_JavaFX\src\main\test\test_checkUsers" />
       <recent name="D:\JavaFile\Sparrow\Launcher\libs" />
       <recent name="D:\JavaFile\Sparrow\Launcher\src\main\resources\com\Sparrow\imgs" />
     </key>
@@ -278,12 +102,39 @@
       <recent name="com.Sparrow.Utils" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.withUI_JavaFX">
+  <component name="RunManager" selected="应用程序.test">
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test_checkUsers.test" />
+      <module name="UI_JavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test_checkUsers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="withUI_JavaFX" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.Sparrow.UI.JavaFX.launcherUI" />
       <module name="UI_JavaFX" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test-CheckUsers在UI_JavaFX" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="UI_JavaFX" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Test-CheckUsers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Test-CheckUsers" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -309,10 +160,14 @@
     <list>
       <item itemvalue="JAR 应用程序.UI_JavaFX.jar" />
       <item itemvalue="JUnit.com.Sparrow.Utils在UI_JavaFX" />
+      <item itemvalue="JUnit.Test-CheckUsers在UI_JavaFX" />
       <item itemvalue="应用程序.withUI_JavaFX" />
+      <item itemvalue="应用程序.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.test" />
+        <item itemvalue="JUnit.Test-CheckUsers在UI_JavaFX" />
         <item itemvalue="JAR 应用程序.UI_JavaFX.jar" />
         <item itemvalue="JUnit.com.Sparrow.Utils在UI_JavaFX" />
       </list>
@@ -411,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621668263179</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="refactor: Move JMCCC into a local module">
+      <created>1621692410518</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1621692410518</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -439,13 +301,14 @@
     <MESSAGE value="feat: Allow to scan the game's version and its type" />
     <MESSAGE value="feat: Change GUI's structure&#10;BUG: Loading some special versions may make the launcher crash" />
     <MESSAGE value="refactor: Move utils into Launcher module instead of UI module" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: Move utils into Launcher module instead of UI module" />
+    <MESSAGE value="refactor: Move JMCCC into a local module" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Move JMCCC into a local module" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX_userCreator_Controller.java</url>
+          <url>file://$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java</url>
           <line>117</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
@@ -455,9 +318,9 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/JMCCC/jmccc/src/main/java/org/to2mbn/jmccc/launch/Jmccc.java</url>
-          <line>196</line>
-          <option name="timeStamp" value="17" />
+          <url>file://$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/texture.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

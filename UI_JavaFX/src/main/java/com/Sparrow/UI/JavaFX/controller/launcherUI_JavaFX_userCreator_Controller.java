@@ -1,5 +1,6 @@
-package com.Sparrow.UI.JavaFX;
+package com.Sparrow.UI.JavaFX.controller;
 
+import com.Sparrow.UI.JavaFX.launcherUI_JavaFX;
 import com.Sparrow.Utils.dialog.errDialog;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
@@ -12,8 +13,6 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 public class launcherUI_JavaFX_userCreator_Controller {
     public static final launcherUI_JavaFX_Controller CONTROLLER = launcherUI_JavaFX.controller;

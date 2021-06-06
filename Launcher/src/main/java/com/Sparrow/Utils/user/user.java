@@ -12,6 +12,8 @@ public abstract class user {
         setUserName(userName);
     }
 
+    user(){};
+
     public String getUserName() {
         return userName;
     }

@@ -6,22 +6,27 @@ import org.to2mbn.jmccc.auth.yggdrasil.core.GameProfile;
 import org.to2mbn.jmccc.auth.yggdrasil.core.ProfileService;
 import org.to2mbn.jmccc.auth.yggdrasil.core.yggdrasil.YggdrasilServiceBuilder;
 
+import java.util.UUID;
+
 public class onlineUser extends user {
     private static final ProfileService PROFILE_SERVICE = YggdrasilServiceBuilder.defaultProfileService();
+    private String email;
     private final String password;
     private GameProfile gameProfile;
 
-    public onlineUser(String userName, String password) {
-        super(userName);
+    public onlineUser(String email, String password) {
+        super();
+        this.email = email;
         this.password = password;
     }
 
     public boolean getInfo() {
         if (gameProfile == null || texture == null || authenticator == null) {
             try {
-                this.gameProfile = PROFILE_SERVICE.getGameProfile(PROFILE_SERVICE.lookupUUIDByName(getUserName()));
+                this.authenticator = YggdrasilAuthenticator.password(email, password);
+                this.userName = this.authenticator.auth().getUsername();
+                this.gameProfile = PROFILE_SERVICE.getGameProfile(PROFILE_SERVICE.lookupUUIDByName(this.userName));
                 this.texture = new texture(PROFILE_SERVICE.getTextures(gameProfile).getSkin());
-                this.authenticator = YggdrasilAuthenticator.password(userName, password);
                 return true;
             } catch (Exception e) {
                 return false;

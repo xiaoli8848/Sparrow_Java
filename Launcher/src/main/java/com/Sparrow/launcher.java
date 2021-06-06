@@ -1,5 +1,6 @@
 package com.Sparrow;
 
+import org.to2mbn.jmccc.auth.AuthenticationException;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.auth.yggdrasil.core.ProfileService;
 import org.to2mbn.jmccc.auth.yggdrasil.core.yggdrasil.YggdrasilServiceBuilder;
@@ -198,10 +199,14 @@ public class launcher {
 
         LaunchOption option = null;
         try {
-            option = new LaunchOption(
-                    version, // 游戏版本
-                    new OfflineAuthenticator(playerName), // 使用离线验证
-                    new MinecraftDirectory(rootDir));
+            try {
+                option = new LaunchOption(
+                        version, // 游戏版本
+                        new OfflineAuthenticator(playerName), // 使用离线验证
+                        new MinecraftDirectory(rootDir));
+            } catch (AuthenticationException e) {
+                e.printStackTrace();
+            }
             option.setMaxMemory(maxMemory);
             option.setMinMemory(minMemory);
             if (windowHeight > 0 && windowWidth > 0)
