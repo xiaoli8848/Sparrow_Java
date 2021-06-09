@@ -4,6 +4,8 @@ import com.Sparrow.UI.JavaFX.launcherUI_JavaFX;
 import com.Sparrow.Utils.Callback.launchCallback;
 import com.Sparrow.Utils.Minecraft;
 import com.Sparrow.Utils.dialog.errDialog;
+import com.Sparrow.Utils.mod;
+import com.Sparrow.Utils.save;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
@@ -60,10 +62,10 @@ public class launcherUI_JavaFX_Controller {
     protected TabPane versionSummary;
 
     @FXML
-    protected JFXListView<Minecraft.save> gameSaves;
+    protected JFXListView<save> gameSaves;
 
     @FXML
-    protected JFXListView<Minecraft.mod> gameMods;
+    protected JFXListView<mod> gameMods;
 
     @FXML
     protected Label State;
@@ -278,7 +280,7 @@ public class launcherUI_JavaFX_Controller {
         }
         try {
             controller_versionList.getSelectedItem().getConfig().flush();
-        } catch (IOException exception) {
+        } catch (Exception e) {
         }
         System.exit(0);
     }
@@ -371,9 +373,9 @@ public class launcherUI_JavaFX_Controller {
     }
 }
 
-class savesCell extends JFXListCell<Minecraft.save> {
+class savesCell extends JFXListCell<save> {
     @Override
-    public void updateItem(Minecraft.save item, boolean empty) {
+    public void updateItem(save item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (empty) {
@@ -385,14 +387,14 @@ class savesCell extends JFXListCell<Minecraft.save> {
             setMouseTransparent(false);
             setStyle(null);
             BorderPane cell = new BorderPane();
-            ImageView imageView = new ImageView(new Image("file:" + File.separator + item.image.toString()));
+            ImageView imageView = new ImageView(new Image("file:" + File.separator + item.getImage().toString()));
             HBox imageBox = new HBox(2);
             Pane space = new Pane();
             space.setPrefWidth(10);
             imageBox.getChildren().addAll(imageView, space);
 
             VBox textBox = new VBox(2);
-            Label saveName = new Label(item.name);
+            Label saveName = new Label(item.getName());
             saveName.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 14));
             Label modDate = new Label(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.toString()).lastModified()));
             modDate.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, 8));
@@ -406,14 +408,14 @@ class savesCell extends JFXListCell<Minecraft.save> {
     }
 }
 
-class modsCell extends JFXListCell<Minecraft.mod> {
+class modsCell extends JFXListCell<mod> {
     @Override
-    public void updateItem(Minecraft.mod item, boolean empty) {
+    public void updateItem(mod item, boolean empty) {
         super.updateItem(item, empty);
         setText("");
         if (!empty && item != null) {
             BorderPane cell = new BorderPane();
-            Label title = new Label(item.name);
+            Label title = new Label(item.getName());
 
             Label modDate = new Label(launcherUI_JavaFX.DATE_FORMAT.format(new File(item.toString()).lastModified()));
             modDate.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.NORMAL, 8));

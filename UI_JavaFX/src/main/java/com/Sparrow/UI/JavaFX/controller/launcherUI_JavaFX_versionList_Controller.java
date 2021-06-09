@@ -133,7 +133,7 @@ class minecraftCell extends JFXListCell<Minecraft> {
             BorderPane cell = new BorderPane();
 
             VBox textBox = new VBox(3);
-            Text version = new Text(item.getVersion().getName() + " - " + item.getVersion().getType()); //如果版本号含有字母则标记为NotRelease
+            Text version = new Text(item.getVersion().getVersion() + " - " + item.getVersion().getType()); //如果版本号含有字母则标记为NotRelease
             version.setFont(javafx.scene.text.Font.font("DengXian", FontWeight.BOLD, 16));
             Text info;
             if (item.getConfig().getPackName() == null) {

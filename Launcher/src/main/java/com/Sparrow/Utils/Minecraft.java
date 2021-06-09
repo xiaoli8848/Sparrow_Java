@@ -1,23 +1,23 @@
 package com.Sparrow.Utils;
 
 import com.Sparrow.Utils.Callback.launchCallback;
-import com.Sparrow.launcher;
 import org.to2mbn.jmccc.auth.Authenticator;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
+import org.to2mbn.jmccc.mcdownloader.provider.forge.ForgeVersion;
+import org.to2mbn.jmccc.mcdownloader.provider.liteloader.LiteloaderVersion;
 import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
 import org.to2mbn.jmccc.option.ServerInfo;
 import org.to2mbn.jmccc.option.WindowSize;
+import org.to2mbn.jmccc.version.Version;
 import org.to2mbn.jmccc.version.Versions;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.Set;
 
 import static com.Sparrow.launcher.gameProcessListener;
 import static com.Sparrow.launcher.setVersionTypeToMQ;
@@ -28,36 +28,15 @@ import static com.Sparrow.launcher.setVersionTypeToMQ;
  */
 public class Minecraft {
     private String path;
-    private version version;
+    private Version version;
     private String rootPath;
     private ArrayList<save> saves;
     private ArrayList<mod> mods;
     private config config;
+    private ForgeVersion forgeVersion;
+    private LiteloaderVersion liteloaderVersion;
 
-    /**
-     * 为本类工厂方法和子类等提供私有无参构造函数，一般为private或protected。
-     */
     protected Minecraft() {
-    }
-
-    /**
-     * 获取游戏目录下所有版本的版本号。
-     *
-     * @param dir 游戏根目录
-     * @return {@link ArrayList<String>}，含有所有版本的版本号。
-     */
-    public static ArrayList<version> getMinecraftVersions(MinecraftDirectory dir) {
-        //Objects.requireNonNull(dir);
-        ArrayList<version> versions = new ArrayList<>();
-        File[] subdirs = dir.getVersions().listFiles();
-        if (subdirs != null) {
-            for (File file : subdirs) {
-                if (file.isDirectory() && doesVersionExist(dir, file.getName())) {
-                    versions.add(new version(file));
-                }
-            }
-        }
-        return versions;
     }
 
     /**
@@ -78,12 +57,16 @@ public class Minecraft {
      * @return 一个 {@link Minecraft} 类型的数组，表示游戏根目录下所有的游戏版本。
      */
     public static Minecraft[] getMinecrafts(MinecraftDirectory dir) {
-        ArrayList<version> versions = new ArrayList<>(getMinecraftVersions(dir));
+        File[] versions = dir.getVersions().listFiles(pathname -> pathname.isDirectory() && doesVersionExist(dir, pathname.getName()));
         ArrayList<Minecraft> result = new ArrayList<>();
-        for (version s : versions) {
+        for (File s : versions) {
             Minecraft temp = new Minecraft();
-            temp.version = s;
-            temp.path = dir.getRoot().toString() + File.separator + "versions" + File.separator + s.getPath().getName() + File.separator;
+            try {
+                temp.version = Versions.resolveVersion(dir,s.getName());
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+            temp.path = s +File.separator;
             temp.rootPath = dir.getRoot().getPath();
             temp.saves = temp.getSaves(temp.getRootPath());
             temp.mods = temp.getMods(temp.getRootPath());
@@ -95,7 +78,7 @@ public class Minecraft {
                 continue;
             }
         }
-        return result.toArray(new Minecraft[versions.size()]);
+        return result.toArray(new Minecraft[versions.length]);
     }
 
     @Override
@@ -103,7 +86,20 @@ public class Minecraft {
         return this.getVersion() + " - " + getPath();
     }
 
-    public void launch(launchCallback launchCallback, Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) throws LaunchException {
+    /**
+     * 启动游戏。
+     * @param launchCallback
+     * @param authenticator
+     * @param debugPrint
+     * @param nativesFC
+     * @param minMemory
+     * @param maxMemory
+     * @param windowWidth
+     * @param windowHeight
+     * @param serverURL
+     * @throws LaunchException
+     */
+    public Process launch(launchCallback launchCallback, Authenticator authenticator, boolean debugPrint, boolean nativesFC, int minMemory, int maxMemory, int windowWidth, int windowHeight, String serverURL) throws LaunchException {
         org.to2mbn.jmccc.launch.Launcher launcher = LauncherBuilder.create()
                 .setDebugPrintCommandline(debugPrint)
                 .setNativeFastCheck(nativesFC)
@@ -113,7 +109,7 @@ public class Minecraft {
         LaunchOption option = null;
         try {
             option = new LaunchOption(
-                    getVersion().getName(), // 游戏版本
+                    getVersion(), // 游戏版本
                     authenticator,
                     new MinecraftDirectory(getRootPath()));
             option.setMaxMemory(maxMemory);
@@ -133,11 +129,7 @@ public class Minecraft {
 
         // 启动游戏
         launchCallback.onLaunch();
-        launcher.launch(option, gameProcessListener);
-    }
-
-    public MinecraftDirectory toMinecraftDirectory() {
-        return new MinecraftDirectory(this.getRootPath());
+        return launcher.launch(option, gameProcessListener).getProcess();
     }
 
     protected ArrayList<save> getSaves(String rootDir) {
@@ -147,10 +139,7 @@ public class Minecraft {
             return new ArrayList<>();
         }
         for (File save : saves) {
-            save t = new save(save.toString());
-            t.name = save.getName();
-            t.image = new File(save + File.separator + "icon.png");
-            temp.add(t);
+            temp.add(new save(save.toString(), save.getName(), new File(save + File.separator + "icon.png")));
         }
         return temp;
     }
@@ -175,7 +164,7 @@ public class Minecraft {
         return path;
     }
 
-    public com.Sparrow.Utils.version getVersion() {
+    public Version getVersion() {
         return version;
     }
 
@@ -195,26 +184,6 @@ public class Minecraft {
         return config;
     }
 
-    /**
-     * 存档类，表示 {@code .minecraft/saves/}下的存档。
-     */
-    public class save extends File {
-        public String name;
-        public File image;
-
-        private save(String path) {
-            super(path);
-        }
-    }
-
-    public class mod extends File {
-        public String name;
-
-        private mod(String jarPath) throws IOException {
-            super(jarPath);
-            this.name = this.getName().substring(0, this.getName().lastIndexOf(".jar"));
-        }
-    }
 }
 
 class jsonFilter implements FileFilter {

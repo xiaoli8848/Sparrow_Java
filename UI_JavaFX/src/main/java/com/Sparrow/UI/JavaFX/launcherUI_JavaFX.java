@@ -23,11 +23,11 @@ public class launcherUI_JavaFX extends Application {
     public static Stage primaryStage;
     public static launcherUI_JavaFX_Controller controller;
 
-    protected static final Color COLOR_MAIN_BLUE = new Color(207,241,255,100);
+    /*protected static final Color COLOR_MAIN_BLUE = new Color(207,241,255,100);
     protected static final Color COLOR_MAIN_BLUE_DARK = new Color(136,166,179,70);
     protected static final Color COLOR_CO_GREEN = new Color(207,255,215,100);
     protected static final Color COLOR_CO_GREEN_DARK = new Color(136,179,143,70);
-    protected static final Color COLOR_CO_PINK = new Color(255,228,220,100);
+    protected static final Color COLOR_CO_PINK = new Color(255,228,220,100);*/
 
     @Override
     public void start(Stage primaryStage) throws Exception {

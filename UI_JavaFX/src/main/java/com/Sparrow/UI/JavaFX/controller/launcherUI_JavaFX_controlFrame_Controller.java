@@ -38,8 +38,8 @@ public class launcherUI_JavaFX_controlFrame_Controller {
     protected void install() {
         characterChooser.setCellFactory(param -> new userCell());
         CONTROLLER.controller_versionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) -> {
-            gameVersion.setText(newValue.getVersion().getName());
-            gameCotitle.setText(newValue.getVersion().getType().toString());
+            gameVersion.setText(newValue.getVersion().getVersion());
+            gameCotitle.setText(newValue.getVersion().getType());
         });
     }
 
