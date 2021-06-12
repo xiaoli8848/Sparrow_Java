@@ -12,6 +12,14 @@
 <?import javafx.scene.text.Font?>
 
 
+<!--
+  ~ Copyright (c) 2021 Sparrow All Rights Reserved.
+  ~ FileName: userCreator.fxml
+  ~ @author: 1662423349@qq.com
+  ~ @date: 2021/6/12 下午9:17
+  ~ @version: 1.0
+  -->
+
 <AnchorPane prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_userCreator_Controller">
    <children>
       <HBox layoutX="21.0" layoutY="14.0" prefHeight="30.0" prefWidth="180.0">

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_TEST_SOURCES" value="false" />
+    <option name="SCOPE_TYPE" value="4" />
+  </component>
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="Sparrow:jar" />
@@ -10,30 +14,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Delete version class">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.Sparrow/Temp/temp_0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.Sparrow/Temp/temp_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.Sparrow/config.json" beforeDir="false" />
+    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Redesign GUI">
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/Sparrow.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/config.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/version.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/versionType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sparrow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sparrow.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/YggdrasilAuthenticator_JavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/YggdrasilAuthenticator_JavaFX.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_versionList_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_versionList_Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherState.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/SystemPlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/SystemPlatform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/confirmDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/confirmDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/errDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/errDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/expDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/expDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/inputDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/inputDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/loginDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/loginDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/stdDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/stdDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/voidDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/voidDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/warnDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/dialog/warnDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/imgs/mc_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/imgs/mc_icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/versionlistFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/versionlistFrame.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +84,7 @@
     <property name="project.structure.last.edited" value="模块" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.42446044" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="copyright.profiles" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -280,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623249110382</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="refactor: Redesign GUI">
+      <created>1623503231320</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1623503231320</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,14 +324,15 @@
     <MESSAGE value="refactor: Move JMCCC into a local module" />
     <MESSAGE value="fix: Fix the online launch problem" />
     <MESSAGE value="refactor: Delete version class" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: Delete version class" />
+    <MESSAGE value="refactor: Redesign GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Redesign GUI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java</url>
-          <line>117</line>
+          <line>125</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

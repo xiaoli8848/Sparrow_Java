@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2021 Sparrow All Rights Reserved.
+ * FileName: launcherUI_JavaFX_controlFrame_Controller.java
+ * @author: 1662423349@qq.com
+ * @date: 2021/6/12 下午9:17
+ * @version: 1.0
+ */
+
 package com.Sparrow.UI.JavaFX.controller;
 
 import com.Sparrow.UI.JavaFX.launcherUI_JavaFX;
