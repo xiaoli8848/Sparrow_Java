@@ -30,6 +30,7 @@ import javafx.scene.text.FontWeight;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,20 +47,24 @@ import java.util.Stack;
  */
 public class launcherUI_JavaFX_Controller {
     private final ArrayList<launcherState> states = new ArrayList<>();
+    private static Logger logger = Logger.getLogger(launcherUI_JavaFX_Controller.class);
     @FXML
-    protected ImageView closeButton;
+    private ImageView closeButton;
 
     @FXML
-    protected ImageView minisizeButton;
+    private ImageView minisizeButton;
 
     @FXML
-    protected Pane pagePane;
+    private Button backButton;
+
+    @FXML
+    private Button homeButton;
+
+    @FXML
+    private Pane pagePane;
 
     @FXML
     protected Pane launchPane;
-
-    @FXML
-    protected TabPane versionSummary;
 
     @FXML
     protected JFXListView<save> gameSaves;
@@ -68,22 +73,10 @@ public class launcherUI_JavaFX_Controller {
     protected JFXListView<mod> gameMods;
 
     @FXML
-    protected Label State;
+    private Label State;
 
     @FXML
-    protected Label Version;
-
-    @FXML
-    protected Button homeButton;
-
-    @FXML
-    protected Button backButton;
-
-    @FXML
-    private ProgressBar launchProcess;
-
-    @FXML
-    private JFXTextArea launchLog;
+    private Label Version;
 
 
     protected launcherUI_JavaFX_versionList_Controller controller_versionList;
@@ -101,45 +94,35 @@ public class launcherUI_JavaFX_Controller {
     private final launchCallback launchCallback = new launchCallback() {
         @Override
         public void onInstalling() {
-            for (int i = 0; i < 200; i++) {
-                launchProcess.setProgress(launchProcess.getProgress() + 0.001);
-            }
         }
 
         @Override
         public void onResolvingOptions() {
-            for (int i = 0; i < 600; i++) {
-                launchProcess.setProgress(launchProcess.getProgress() + 0.001);
-            }
         }
 
         @Override
         public void onLaunch() {
-            launchProcess.setProgress(ProgressIndicator.INDETERMINATE_PROGRESS);
         }
     };
 
     public void install() {
+        logger.info("控制类开始初始化。");
+
         launcher.gameProcessListener = new GameProcessListener() {
             //TODO 完善响应
             @Override
             public void onLog(String log) {
-                launchLog.appendText(log + "\n");
+                System.out.println(log);
             }
 
             @Override
             public void onErrorLog(String log) {
-                launchLog.appendText(log + "\n");
+                System.err.println(log);
             }
 
             @Override
             public void onExit(int code) {
-                Platform.runLater(()->launchProcess.setProgress(0));
-                if(code == 0){
-                    launchLog.appendText("游戏正常退出。" + "\n");
-                }else{
-                    launchLog.appendText("抱歉，游戏非正常退出。代码：" + code + "。" +"\n");
-                }
+                System.out.println("游戏退出：" + code);
             }
         };
 
@@ -157,13 +140,21 @@ public class launcherUI_JavaFX_Controller {
 
         //自动导入程序目录下的游戏
         try {
+            logger.info("尝试载入当前目录下游戏。");
             Init(launcherUI_JavaFX.ROOTDIR + ".minecraft");
         } catch (Exception e) {
-
+            logger.info("未能载入当前目录下游戏。");
         }
 
         if (!launcher.WorkPath.exists()) {
-            launcher.WorkPath.mkdir();
+            logger.info("工作目录不存在，尝试创建：" + launcher.WorkPath.toString());
+            if(launcher.WorkPath.mkdir()){
+                logger.info("创建工作目录成功。");
+            }else{
+                logger.fatal("创建工作目录失败。");
+                new errDialog().apply("致命错误",null,"不好意思，程序无法创建工作目录，无法启动。");
+                System.exit(0);
+            }
         }
 
         FXMLLoader fxmlLoader_versionList = new FXMLLoader();
@@ -175,6 +166,7 @@ public class launcherUI_JavaFX_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info("加载versionList页面完毕。");
 
         FXMLLoader fxmlLoader_control = new FXMLLoader();
         fxmlLoader_control.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/controlFrame.fxml"));
@@ -185,6 +177,7 @@ public class launcherUI_JavaFX_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info("加载controlFrame页面完毕。");
 
         FXMLLoader fxmlLoader_userCreator = new FXMLLoader();
         fxmlLoader_userCreator.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/userCreator.fxml"));
@@ -195,19 +188,24 @@ public class launcherUI_JavaFX_Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info("加载userCreator页面完毕。");
 
         pagePane.getChildren().add(page_control);
+        logger.info("控制器初始化完成。");
     }
 
     public void Init(String rootDir) throws InitException {
+        logger.info("尝试载入游戏：" + rootDir);
         launcherState state_import = new launcherState(com.Sparrow.UI.JavaFX.launcherState.IMPORTING);
         if (new File(rootDir).getName() != ".minecraft") {
             File file = new File(rootDir + File.separator + ".minecraft");
             if (file.exists()) {
+                logger.info("检测到下一级的游戏文件夹并尝试载入：" + file);
                 Init(file.toString());
                 return;
             }
         } else {
+            logger.info("未检测到游戏文件夹");
             deleteState(state_import);
             throw new InitException("非Minecraft文件夹");
         }
@@ -227,20 +225,24 @@ public class launcherUI_JavaFX_Controller {
             }
         }
         deleteState(state_import);
+        logger.info("成功载入" + minecrafts.length + "个游戏。");
     }
 
     public void addState(launcherState state) {
+        logger.info("启动器状态添加：" + state.toString());
         states.add(state);
         refreshState();
     }
 
     public void deleteState(launcherState state) {
+        logger.info("启动器状态消除：" + state.toString());
         deleteState(state.serialNumber);
     }
 
     public void deleteState(int serialNumber) {
         for (int i = 0; i < states.size(); i++) {
             if (states.get(i).serialNumber == serialNumber) {
+                logger.info("启动器状态消除：" + states.get(i).toString());
                 states.remove(i);
                 refreshState();
                 return;
@@ -297,7 +299,6 @@ public class launcherUI_JavaFX_Controller {
         } else if (controller_versionList.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
         } else {
-            launchLog.setText("");
             user selectedUser = controller_control.getSelectedItem();
             if (selectedUser instanceof offlineUser) {
                 try {

@@ -2,8 +2,6 @@ package com.Sparrow;
 
 import org.to2mbn.jmccc.auth.AuthenticationException;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
-import org.to2mbn.jmccc.auth.yggdrasil.core.ProfileService;
-import org.to2mbn.jmccc.auth.yggdrasil.core.yggdrasil.YggdrasilServiceBuilder;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
@@ -27,7 +25,6 @@ import static com.Sparrow.Utils.Download.Download.downloadGame;
 
 public class launcher {
     public static final String LAUNCHER_VERSION = "V0.3.0";
-    public static final String projectURL = "https://github.com/xiaoli8848/MQ";
     public static GameProcessListener gameProcessListener = new GameProcessListener() {
         @Override
         public void onLog(String log) {
@@ -107,7 +104,7 @@ public class launcher {
         }
     };
     public static File WorkPath = new File(System.getProperty("user.dir") + File.separator + ".Sparrow");
-    public static File TempPath = new File(WorkPath.toString() + File.separator + "Temp");
+    public static File TempPath = new File(WorkPath + File.separator + "Temp");
 
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {

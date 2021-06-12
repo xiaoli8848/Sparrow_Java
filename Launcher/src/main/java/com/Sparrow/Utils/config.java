@@ -24,12 +24,10 @@ public class config {
     }
 
     private JSONObject versionJson;
-    private final File versionJsonFile;
-    private final JSONObject packJson = new JSONObject();
-    private final File packJsonFile;
+    private File versionJsonFile;
 
     public config(Minecraft minecraft) throws IOException, NullPointerException {
-        File configFileTemp = new File(launcher.WorkPath.toString() + File.separator + "config.json");
+        File configFileTemp = new File(new File(minecraft.getRootPath()).getParentFile().toString() + File.separator + "Sparrow.json");
         if (!configFileTemp.exists()) {
             configFileTemp.createNewFile();
         }
@@ -38,7 +36,6 @@ public class config {
         if (this.versionJson == null) {
             this.versionJson = new JSONObject();
         }
-        this.packJsonFile = new File(launcher.WorkPath.toString() + File.separator + "pack.json");
 
         checkOrCreate(minecraft);
     }
@@ -90,26 +87,23 @@ public class config {
         this.versionJson.getJSONObject("users").getJSONArray("lib").add(temp);
     }
 
-    public void createPack(String name, String author, File icon) throws IOException {
-        if (!this.packJsonFile.exists()) {
-            this.packJsonFile.createNewFile();
-        }
-        this.packJson.put("name", name);
-        this.packJson.put("author", author);
-        this.packJson.put("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
-        this.packJson.put("icon", imageString.imageToString(icon.toString()));
+    public void putPackInfo(String name, String author, File icon) throws IOException {
+        this.versionJson.put("name", name);
+        this.versionJson.put("author", author);
+        this.versionJson.put("createTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(System.currentTimeMillis()));
+        this.versionJson.put("icon", imageString.imageToString(icon.toString()));
     }
 
     public String getPackName() {
-        return this.packJson.getString("name");
+        return this.versionJson.getString("name");
     }
 
     public void setPackName(String name) {
-        if (this.packJson.get("name") == null) {
-            this.packJson.put("name", name);
+        if (this.versionJson.get("name") == null) {
+            this.versionJson.put("name", name);
         } else {
-            this.packJson.remove("name");
-            this.packJson.put("name", name);
+            this.versionJson.remove("name");
+            this.versionJson.put("name", name);
         }
     }
 

@@ -11,6 +11,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -22,15 +24,20 @@ public class launcherUI_JavaFX extends Application {
     public static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
     public static Stage primaryStage;
     public static launcherUI_JavaFX_Controller controller;
-
     /*protected static final Color COLOR_MAIN_BLUE = new Color(207,241,255,100);
     protected static final Color COLOR_MAIN_BLUE_DARK = new Color(136,166,179,70);
     protected static final Color COLOR_CO_GREEN = new Color(207,255,215,100);
     protected static final Color COLOR_CO_GREEN_DARK = new Color(136,179,143,70);
     protected static final Color COLOR_CO_PINK = new Color(255,228,220,100);*/
+    private static Logger logger = Logger.getLogger(launcherUI_JavaFX.class);
+
+    static{
+        PropertyConfigurator.configure(launcherUI_JavaFX.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/log4j.properties"));
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        logger.info("启动器开始初始化。");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/mainFrame.fxml"));
         Parent root = fxmlLoader.load();
@@ -42,6 +49,7 @@ public class launcherUI_JavaFX extends Application {
         launcherUI_JavaFX.primaryStage = primaryStage;
         controller = fxmlLoader.getController();
         primaryStage.show();
+        logger.info("加载主界面、程序图标完成。");
         controller.install();
     }
 }

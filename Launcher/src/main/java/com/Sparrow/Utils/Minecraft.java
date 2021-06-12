@@ -186,10 +186,3 @@ public class Minecraft {
 
 }
 
-class jsonFilter implements FileFilter {
-    @Override
-    public boolean accept(File pathname) {
-        return pathname.getName().toLowerCase().endsWith(".json");
-        // 若pathname是文件夹 则返回true 继续遍历这个文件夹
-    }
-}

@@ -11,6 +11,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -23,17 +24,19 @@ import java.util.List;
 public class launcherUI_JavaFX_controlFrame_Controller {
     private final launcherUI_JavaFX_Controller CONTROLLER = launcherUI_JavaFX.controller;
     @FXML
-    private JFXComboBox<user> characterChooser;
-    @FXML
-    private ImageView headTexture;
-    @FXML
     private ImageView gameIcon;
+
     @FXML
     private Label gameVersion;
+
     @FXML
     private Label gameCotitle;
+
     @FXML
-    private Button mcVersionChooseButton;
+    private JFXComboBox<user> characterChooser;
+
+    @FXML
+    private ImageView headTexture;
 
     protected void install() {
         characterChooser.setCellFactory(param -> new userCell());
@@ -72,6 +75,16 @@ public class launcherUI_JavaFX_controlFrame_Controller {
     @FXML
     void gotoUserCreator(){
         CONTROLLER.Goto(CONTROLLER.page_userCreator);
+    }
+
+    @FXML
+    void mcIconEnter(){
+        gameIcon.setEffect(new Glow(0.5));
+    }
+
+    @FXML
+    void mcIconExit(){
+        gameIcon.setEffect(null);
     }
 }
 
