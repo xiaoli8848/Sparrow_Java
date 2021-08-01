@@ -109,17 +109,32 @@ public class launcher {
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {
             case 0: //离线登录
-                launch_offline(
-                        args[1],    //游戏路径
-                        args[2],    //玩家昵称
-                        Boolean.parseBoolean(args[3]),  //是否将调试信息输出到System.out
-                        Boolean.parseBoolean(args[4]),  //是否对natives执行快速检查（比对文件大小）
-                        Integer.parseInt(args[5]),  //最小内存
-                        Integer.parseInt(args[6]),  //最大内存
-                        Integer.parseInt(args[7]),  //窗口宽
-                        Integer.parseInt(args[8]),  //窗口高
-                        args[9] //进入游戏后要进入的服务器，可为null
-                );
+                if(args.length == 11)
+                    launch_offline(
+                            args[1],    //游戏路径
+                            args[2],
+                            args[3],    //玩家昵称
+                            Boolean.parseBoolean(args[4]),  //是否将调试信息输出到System.out
+                            Boolean.parseBoolean(args[5]),  //是否对natives执行快速检查（比对文件大小）
+                            Integer.parseInt(args[6]),  //最小内存
+                            Integer.parseInt(args[7]),  //最大内存
+                            Integer.parseInt(args[8]),  //窗口宽
+                            Integer.parseInt(args[9]),  //窗口高
+                            args[10] //进入游戏后要进入的服务器，可为null
+                    );
+                else
+                    launch_offline(
+                            args[1],    //游戏路径
+                            args[2],    //玩家昵称,
+                            args[3],
+                            Boolean.parseBoolean(args[4]),  //是否将调试信息输出到System.out
+                            Boolean.parseBoolean(args[5]),  //是否对natives执行快速检查（比对文件大小）
+                            Integer.parseInt(args[6]),  //最小内存
+                            Integer.parseInt(args[7]),  //最大内存
+                            Integer.parseInt(args[8]),  //窗口宽
+                            Integer.parseInt(args[9]),  //窗口高
+                            null //进入游戏后要进入的服务器，可为null
+                    );
                 break;
             case 1: //下载游戏
                 downloadGame(

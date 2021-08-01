@@ -19,6 +19,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.JMetroStyleClass;
+import jfxtras.styles.jmetro.Style;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -32,6 +35,7 @@ public class launcherUI_JavaFX extends Application {
     public static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
     public static Stage primaryStage;
     public static launcherUI_JavaFX_Controller controller;
+    public static JMetro jMetro;
     /*protected static final Color COLOR_MAIN_BLUE = new Color(207,241,255,100);
     protected static final Color COLOR_MAIN_BLUE_DARK = new Color(136,166,179,70);
     protected static final Color COLOR_CO_GREEN = new Color(207,255,215,100);
@@ -56,6 +60,9 @@ public class launcherUI_JavaFX extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         launcherUI_JavaFX.primaryStage = primaryStage;
         controller = fxmlLoader.getController();
+        jMetro = new JMetro(Style.LIGHT);
+        jMetro.setScene(scene);
+
         primaryStage.show();
         logger.info("加载主界面、程序图标完成。");
         controller.install();

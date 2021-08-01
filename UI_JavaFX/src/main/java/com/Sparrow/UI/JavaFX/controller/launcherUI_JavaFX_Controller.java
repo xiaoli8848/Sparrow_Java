@@ -21,8 +21,6 @@ import com.Sparrow.Utils.user.user;
 import com.Sparrow.launcher;
 import com.jfoenix.controls.JFXListCell;
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextArea;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -35,6 +33,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.JMetroStyleClass;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
@@ -56,6 +56,9 @@ import java.util.Stack;
 public class launcherUI_JavaFX_Controller {
     private final ArrayList<launcherState> states = new ArrayList<>();
     private static Logger logger = Logger.getLogger(launcherUI_JavaFX_Controller.class);
+    @FXML
+    private VBox root;
+
     @FXML
     private ImageView closeButton;
 
@@ -85,10 +88,6 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     private Label Version;
-
-
-    protected launcherUI_JavaFX_versionList_Controller controller_versionList;
-    protected Node page_versionList;
 
     protected launcherUI_JavaFX_controlFrame_Controller controller_control;
     protected Node page_control;
@@ -164,18 +163,6 @@ public class launcherUI_JavaFX_Controller {
                 System.exit(0);
             }
         }
-
-        FXMLLoader fxmlLoader_versionList = new FXMLLoader();
-        fxmlLoader_versionList.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/versionlistFrame.fxml"));
-        try {
-            this.page_versionList = fxmlLoader_versionList.load();
-            this.controller_versionList = fxmlLoader_versionList.getController();
-            controller_versionList.install();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        logger.info("加载versionList页面完毕。");
-
         FXMLLoader fxmlLoader_control = new FXMLLoader();
         fxmlLoader_control.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/controlFrame.fxml"));
         try {
@@ -199,6 +186,11 @@ public class launcherUI_JavaFX_Controller {
         logger.info("加载userCreator页面完毕。");
 
         pagePane.getChildren().add(page_control);
+        for(Node child : root.getChildren()){
+            if(child instanceof Pane){
+                child.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+            }
+        }
         logger.info("控制器初始化完成。");
     }
 
@@ -224,7 +216,7 @@ public class launcherUI_JavaFX_Controller {
             throw new InitException("路径无效");
         }
         Minecraft[] minecrafts = Minecraft.getMinecrafts(new MinecraftDirectory(rootDir));
-        controller_versionList.addItems(Arrays.asList(minecrafts));
+        controller_control.versionList.getItems().addAll(Arrays.asList(minecrafts));
         for (Minecraft minecraft : minecrafts) {
             if (minecraft.getConfig().haveUsers()) {
                 controller_control.addItems(minecraft.getConfig().getOnlineUsers());
@@ -289,7 +281,7 @@ public class launcherUI_JavaFX_Controller {
             temp.delete();
         }
         try {
-            controller_versionList.getSelectedItem().getConfig().flush();
+            controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().flush();
         } catch (Exception e) {
         }
         System.exit(0);
@@ -304,27 +296,27 @@ public class launcherUI_JavaFX_Controller {
     void launch() {
         if (controller_control.isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个账户才能启动。");
-        } else if (controller_versionList.isEmpty()) {
+        } else if (controller_control.versionList.getItems().isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
         } else {
             user selectedUser = controller_control.getSelectedItem();
             if (selectedUser instanceof offlineUser) {
                 try {
-                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_control.versionList.getSelectionModel().getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }
             } else if (selectedUser instanceof onlineUser) {
                 ((onlineUser) selectedUser).getInfo();
                 try {
-                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_control.versionList.getSelectionModel().getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }
             } else if (selectedUser instanceof libUser) {
                 ((libUser) selectedUser).getInfo();
                 try {
-                    controller_versionList.getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
+                    controller_control.versionList.getSelectionModel().getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
                 } catch (LaunchException e) {
                     e.printStackTrace();
                 }

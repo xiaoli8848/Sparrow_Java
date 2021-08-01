@@ -17,7 +17,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListCell;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
@@ -30,25 +30,28 @@ import javafx.scene.text.Text;
 import java.util.List;
 
 public class launcherUI_JavaFX_controlFrame_Controller {
-    private final launcherUI_JavaFX_Controller CONTROLLER = launcherUI_JavaFX.controller;
-    @FXML
-    private ImageView gameIcon;
-
+    private static launcherUI_JavaFX_Controller CONTROLLER = launcherUI_JavaFX.controller;
     @FXML
     private Label gameVersion;
+
+    @FXML
+    private ImageView gameIcon;
 
     @FXML
     private Label gameCotitle;
 
     @FXML
-    private JFXComboBox<user> characterChooser;
+    public ComboBox<Minecraft> versionList;
 
     @FXML
     private ImageView headTexture;
 
+    @FXML
+    private ComboBox<user> characterChooser;
+
     protected void install() {
         characterChooser.setCellFactory(param -> new userCell());
-        CONTROLLER.controller_versionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) -> {
+        versionList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Minecraft> observable, Minecraft oldValue, Minecraft newValue) -> {
             gameVersion.setText(newValue.getVersion().getVersion());
             gameCotitle.setText(newValue.getVersion().getType());
         });
@@ -68,11 +71,6 @@ public class launcherUI_JavaFX_controlFrame_Controller {
 
     protected boolean isEmpty() {
         return characterChooser.getSelectionModel().isEmpty();
-    }
-
-    @FXML
-    void gotoVersionList() {
-        CONTROLLER.Goto(CONTROLLER.page_versionList);
     }
 
     @FXML

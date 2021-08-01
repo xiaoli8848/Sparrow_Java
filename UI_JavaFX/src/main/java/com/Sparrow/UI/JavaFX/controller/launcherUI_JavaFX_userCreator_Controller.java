@@ -90,7 +90,7 @@ public class launcherUI_JavaFX_userCreator_Controller {
 
     @FXML
     void addUser_Offline() {
-        if(CONTROLLER.controller_versionList.getSelectedItem() == null){
+        if(CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem() == null){
             new errDialog().apply("参数错误", null, "不好意思，创建账户前需要选择游戏。");
             return;
         }
@@ -99,8 +99,8 @@ public class launcherUI_JavaFX_userCreator_Controller {
             CONTROLLER.controller_control.addItem(temp);
             try {
                 CONTROLLER.controller_control.addItem(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().putOfflineUserInfo(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().flush();
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().putOfflineUserInfo(temp);
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().flush();
             } catch (Exception e) {
                 new errDialog().apply("参数错误", null, "不好意思，尝试创建离线账户时遇到错误。");
             }
@@ -109,7 +109,7 @@ public class launcherUI_JavaFX_userCreator_Controller {
 
     @FXML
     void addUser_Online() {
-        if(CONTROLLER.controller_versionList.getSelectedItem() == null){
+        if(CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem()== null){
             new errDialog().apply("参数错误", null, "不好意思，创建账户前需要选择游戏。");
             return;
         }
@@ -123,8 +123,8 @@ public class launcherUI_JavaFX_userCreator_Controller {
                     return;
                 }
                 CONTROLLER.controller_control.addItem(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().putOnlineUserInfo(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().flush();
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().putOnlineUserInfo(temp);
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().flush();
             } catch (Exception e) {
                 new errDialog().apply("参数错误", null, "不好意思，尝试创建在线账户时遇到错误。");
             }
@@ -133,7 +133,7 @@ public class launcherUI_JavaFX_userCreator_Controller {
 
     @FXML
     void addUser_Lib() {
-        if(CONTROLLER.controller_versionList.getSelectedItem() == null){
+        if(CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem() == null){
             new errDialog().apply("参数错误", null, "不好意思，创建账户前需要选择游戏。");
             return;
         }
@@ -147,8 +147,8 @@ public class launcherUI_JavaFX_userCreator_Controller {
                     return;
                 }
                 CONTROLLER.controller_control.addItem(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().putLibUserInfo(temp);
-                CONTROLLER.controller_versionList.getSelectedItem().getConfig().flush();
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().putLibUserInfo(temp);
+                CONTROLLER.controller_control.versionList.getSelectionModel().getSelectedItem().getConfig().flush();
             }catch (Exception e){
                 new errDialog().apply("参数错误", null, "不好意思，尝试创建在线账户时遇到错误。");
             }

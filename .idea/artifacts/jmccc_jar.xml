@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact name="jmccc:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jmccc_jar</output-path>
+    <root id="root">
+      <element id="archive" name="jmccc.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="jmccc" />
+      </element>
+      <element id="library" level="project" name="Maven: org.json:json:20140107" />
+    </root>
+  </artifact>
+</component>
