@@ -21,7 +21,7 @@
       <module name="Launcher" target="8" />
       <module name="Sparrow" target="8" />
       <module name="UI_H5" target="8" />
-      <module name="UI_JavaFX" target="8" />
+      <module name="UI_JavaFX" target="9" />
     </bytecodeTargetLevel>
   </component>
 </project>

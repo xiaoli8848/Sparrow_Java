@@ -14,13 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
-import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.Style;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -41,9 +39,9 @@ public class launcherUI_JavaFX extends Application {
     protected static final Color COLOR_CO_GREEN = new Color(207,255,215,100);
     protected static final Color COLOR_CO_GREEN_DARK = new Color(136,179,143,70);
     protected static final Color COLOR_CO_PINK = new Color(255,228,220,100);*/
-    private static Logger logger = Logger.getLogger(launcherUI_JavaFX.class);
+    private static final Logger logger = Logger.getLogger(launcherUI_JavaFX.class);
 
-    static{
+    static {
         PropertyConfigurator.configure(launcherUI_JavaFX.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/log4j.properties"));
     }
 
@@ -60,8 +58,8 @@ public class launcherUI_JavaFX extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         launcherUI_JavaFX.primaryStage = primaryStage;
         controller = fxmlLoader.getController();
-        jMetro = new JMetro(Style.LIGHT);
-        jMetro.setScene(scene);
+        /*jMetro = new JMetro(Style.LIGHT);
+        jMetro.setScene(scene);*/
 
         primaryStage.show();
         logger.info("加载主界面、程序图标完成。");

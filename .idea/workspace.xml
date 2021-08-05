@@ -14,36 +14,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Redesign GUI">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Launcher_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/jmccc_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfoenix_jfoenix_9_0_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfxtras_jmetro_11_6_15.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_win_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_win_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_16.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_11_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JMCCC/jmccc/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jfoenix_jfoenix_8_0_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_16.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_11.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_win_16.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreatorTab_Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreatorTab.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/Launcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/Launcher.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sparrow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sparrow.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_versionList_Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/SystemPlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/Utils/SystemPlatform.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/imgs/icon.ico" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/versionlistFrame.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +59,14 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a12f5e65-94fd-41b1-92b7-b3fa2d61ef5b" />
+        <option name="url" value="https://github.com/xiaoli8848/Sparrow.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="ProjectId" id="1r1ZKd3mV7SuVXH5ArANv1qiGMf" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -85,7 +81,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last.edited.regexp" value="" />
     <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/SceneBuilder/SceneBuilder.exe" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="模块" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.42446044" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -276,7 +272,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623503231320</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="refactor: Redesign GUI">
+      <created>1627828126511</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1627828126511</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

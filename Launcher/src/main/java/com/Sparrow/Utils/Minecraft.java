@@ -39,6 +39,15 @@ public class Minecraft {
     protected Minecraft() {
     }
 
+    public Minecraft(String path, Version version, String rootPath, ArrayList<save> saves, ArrayList<mod> mods, config config){
+        this.path = path;
+        this.version = version;
+        this.rootPath = rootPath;
+        this.saves = saves;
+        this.mods = mods;
+        this.config = config;
+    }
+
     /**
      * 检测游戏目录下是否有指定版本。
      *

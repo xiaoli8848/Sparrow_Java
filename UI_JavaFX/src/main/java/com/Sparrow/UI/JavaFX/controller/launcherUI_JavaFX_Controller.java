@@ -19,12 +19,21 @@ import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
 import com.Sparrow.launcher;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXToggleButton;
+import com.sun.javafx.scene.control.behavior.TabPaneBehavior;
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
+import javafx.collections.ObservableArray;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.TabPaneSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,12 +42,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontWeight;
-import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
+import org.apache.log4j.Logger;
 import org.to2mbn.jmccc.exec.GameProcessListener;
 import org.to2mbn.jmccc.launch.LaunchException;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,50 +62,9 @@ import java.util.Stack;
  * @author 1662423349@qq.com
  */
 public class launcherUI_JavaFX_Controller {
+    private static final Logger logger = Logger.getLogger(launcherUI_JavaFX_Controller.class);
     private final ArrayList<launcherState> states = new ArrayList<>();
-    private static Logger logger = Logger.getLogger(launcherUI_JavaFX_Controller.class);
-    @FXML
-    private VBox root;
-
-    @FXML
-    private ImageView closeButton;
-
-    @FXML
-    private ImageView minisizeButton;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
-    private Button homeButton;
-
-    @FXML
-    private Pane pagePane;
-
-    @FXML
-    protected Pane launchPane;
-
-    @FXML
-    protected JFXListView<save> gameSaves;
-
-    @FXML
-    protected JFXListView<mod> gameMods;
-
-    @FXML
-    private Label State;
-
-    @FXML
-    private Label Version;
-
-    protected launcherUI_JavaFX_controlFrame_Controller controller_control;
-    protected Node page_control;
-
-    protected launcherUI_JavaFX_userCreator_Controller controller_userCreator;
-    protected Node page_userCreator;
-
     private final Stack<Node> pages = new Stack<>();
-    private int pointer_StateCreator = 0;
-
     private final launchCallback launchCallback = new launchCallback() {
         @Override
         public void onInstalling() {
@@ -111,6 +78,30 @@ public class launcherUI_JavaFX_Controller {
         public void onLaunch() {
         }
     };
+    protected launcherUI_JavaFX_controlFrame_Controller controller_control;
+    protected Node page_control;
+    @FXML
+    private VBox root;
+    @FXML
+    private ImageView closeButton;
+    @FXML
+    private ImageView minisizeButton;
+    @FXML
+    private Button backButton;
+    @FXML
+    private Button homeButton;
+    @FXML
+    private Pane pagePane;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab lunchTab;
+    @FXML
+    private Label State;
+    @FXML
+    private Label Version;
+    private int pointer_StateCreator = 0;
+    private Tab userCreatorTab;
 
     public void install() {
         logger.info("控制类开始初始化。");
@@ -140,10 +131,6 @@ public class launcherUI_JavaFX_Controller {
             fileTemp.delete();
         }
         Version.setText(launcherUI_JavaFX.VERSION_UI);
-        launchPane.setVisible(false);
-        //设置ListView视图模板类
-        gameSaves.setCellFactory(param -> new savesCell());
-        gameMods.setCellFactory(param -> new modsCell());
 
         //自动导入程序目录下的游戏
         try {
@@ -155,11 +142,11 @@ public class launcherUI_JavaFX_Controller {
 
         if (!launcher.WorkPath.exists()) {
             logger.info("工作目录不存在，尝试创建：" + launcher.WorkPath.toString());
-            if(launcher.WorkPath.mkdir()){
+            if (launcher.WorkPath.mkdir()) {
                 logger.info("创建工作目录成功。");
-            }else{
+            } else {
                 logger.fatal("创建工作目录失败。");
-                new errDialog().apply("致命错误",null,"不好意思，程序无法创建工作目录，无法启动。");
+                new errDialog().apply("致命错误", null, "不好意思，程序无法创建工作目录，无法启动。");
                 System.exit(0);
             }
         }
@@ -174,23 +161,23 @@ public class launcherUI_JavaFX_Controller {
         }
         logger.info("加载controlFrame页面完毕。");
 
-        FXMLLoader fxmlLoader_userCreator = new FXMLLoader();
-        fxmlLoader_userCreator.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/userCreator.fxml"));
-        try {
-            this.page_userCreator = fxmlLoader_userCreator.load();
-            this.controller_userCreator = fxmlLoader_userCreator.getController();
-            controller_userCreator.install();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        logger.info("加载userCreator页面完毕。");
-
         pagePane.getChildren().add(page_control);
-        for(Node child : root.getChildren()){
-            if(child instanceof Pane){
+        for (Node child : root.getChildren()) {
+            if (child instanceof Pane) {
                 child.getStyleClass().add(JMetroStyleClass.BACKGROUND);
             }
         }
+
+        FXMLLoader fxmlLoader_userCreatorTab = new FXMLLoader();
+        fxmlLoader_userCreatorTab.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/userCreatorTab.fxml"));
+        try {
+            userCreatorTab = fxmlLoader_userCreatorTab.load();
+            ((launcherUI_JavaFX_userCreatorTab_Controller)fxmlLoader_userCreatorTab.getController()).install();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tabPane.getTabs().add(userCreatorTab);
+
         logger.info("控制器初始化完成。");
     }
 
@@ -219,9 +206,9 @@ public class launcherUI_JavaFX_Controller {
         controller_control.versionList.getItems().addAll(Arrays.asList(minecrafts));
         for (Minecraft minecraft : minecrafts) {
             if (minecraft.getConfig().haveUsers()) {
-                controller_control.addItems(minecraft.getConfig().getOnlineUsers());
-                controller_control.addItems(minecraft.getConfig().getOfflineUsers());
-                controller_control.addItems(minecraft.getConfig().getLibUsers());
+                controller_control.addUsers(minecraft.getConfig().getOnlineUsers());
+                controller_control.addUsers(minecraft.getConfig().getOfflineUsers());
+                controller_control.addUsers(minecraft.getConfig().getLibUsers());
             }
         }
         deleteState(state_import);
@@ -277,7 +264,7 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void closeWindow(MouseEvent event) {
-        for(File temp:launcher.TempPath.listFiles()){
+        for (File temp : launcher.TempPath.listFiles()) {
             temp.delete();
         }
         try {
@@ -294,12 +281,12 @@ public class launcherUI_JavaFX_Controller {
 
     @FXML
     void launch() {
-        if (controller_control.isEmpty()) {
+        if (controller_control.isUsersEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个账户才能启动。");
         } else if (controller_control.versionList.getItems().isEmpty()) {
             new errDialog().apply("参数错误", null, "不好意思，你需要选择一个游戏版本才能启动。");
         } else {
-            user selectedUser = controller_control.getSelectedItem();
+            user selectedUser = controller_control.getSelectedUser();
             if (selectedUser instanceof offlineUser) {
                 try {
                     controller_control.versionList.getSelectionModel().getSelectedItem().launch(launchCallback, selectedUser.getAuthenticator(), true, true, 0, 0, 1000, 800, "");
@@ -358,6 +345,18 @@ public class launcherUI_JavaFX_Controller {
         pagePane.getChildren().add(backer);
     }
 
+    public void addTab(tabType type) {
+        switch (type) {
+            case USER_CREATOR:
+                tabPane.getTabs().add(userCreatorTab);
+                break;
+        }
+    }
+
+    public enum tabType {
+        USER_CREATOR
+    }
+
     public class launcherState {
         private final com.Sparrow.UI.JavaFX.launcherState state;
         public int serialNumber;
@@ -370,6 +369,15 @@ public class launcherUI_JavaFX_Controller {
         @Override
         public String toString() {
             return state.toString();
+        }
+    }
+
+    private void closeTab(Tab tab) {
+        EventHandler<Event> handler = tab.getOnClosed();
+        if (null != handler) {
+            handler.handle(null);
+        } else {
+            tab.getTabPane().getTabs().remove(tab);
         }
     }
 }
