@@ -13,25 +13,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="refactor: Redesign GUI">
-      <change afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreatorTab_Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreatorTab.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/Launcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/Launcher.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/Minecraft.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Launcher/src/main/java/com/Sparrow/Utils/user/offlineUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Sparrow.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Sparrow.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/UI_JavaFX.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_controlFrame_Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/controller/launcherUI_JavaFX_userCreator_Controller.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/java/com/Sparrow/UI/JavaFX/launcherUI_JavaFX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/controlFrame.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/imgs/icon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/mainFrame.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_JavaFX/src/main/resources/com/Sparrow/UI/JavaFX/userCreator.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +262,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627828126511</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator">
+      <created>1628169168274</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1628169168274</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -311,7 +301,8 @@
     <MESSAGE value="fix: Fix the online launch problem" />
     <MESSAGE value="refactor: Delete version class" />
     <MESSAGE value="refactor: Redesign GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: Redesign GUI" />
+    <MESSAGE value="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
