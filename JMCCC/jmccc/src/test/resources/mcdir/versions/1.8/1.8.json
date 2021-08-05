@@ -9,9 +9,9 @@
       "name": "java3d:vecmath:1.5.2",
       "clientreq": false
     },
-	{
-		"name": "io.netty:netty-all:4.0.0.Final"
-	}
+    {
+      "name": "io.netty:netty-all:4.0.0.Final"
+    }
   ],
   "mainClass": "net.minecraft.client.main.Main",
   "minimumLauncherVersion": 14,

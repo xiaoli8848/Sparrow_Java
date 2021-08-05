@@ -10,48 +10,48 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-
-<Tab fx:id="UserCreatorTab" text="登录" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_userCreatorTab_Controller">
+<Tab xmlns:fx="http://javafx.com/fxml/1" fx:id="UserCreatorTab" text="登录" xmlns="http://javafx.com/javafx/16"
+     fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_userCreatorTab_Controller">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-                <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" />
-                <Separator layoutX="123.0" layoutY="36.0" orientation="VERTICAL" prefHeight="448.0" />
-                <ToggleButton fx:id="offlineUserType" layoutX="222.0" layoutY="62.0" mnemonicParsing="false" selected="true" text="离线账户">
+                <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="14.0" layoutY="209.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+                <Separator layoutX="123.0" layoutY="36.0" orientation="VERTICAL" prefHeight="448.0"/>
+                <ToggleButton fx:id="offlineUserType" layoutX="222.0" layoutY="62.0" mnemonicParsing="false"
+                              selected="true" text="离线账户">
                     <toggleGroup>
-                        <ToggleGroup fx:id="userTypeChooser" />
+                        <ToggleGroup fx:id="userTypeChooser"/>
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton fx:id="onlineUserType" layoutX="299.0" layoutY="62.0" mnemonicParsing="false" text="线上账户" toggleGroup="$userTypeChooser" />
+                <ToggleButton fx:id="onlineUserType" layoutX="299.0" layoutY="62.0" mnemonicParsing="false" text="线上账户"
+                              toggleGroup="$userTypeChooser"/>
                 <Pane fx:id="offlineUserCreator" layoutX="168.0" layoutY="103.0" prefHeight="354.0" prefWidth="262.0">
                     <children>
-                        <Label layoutX="24.0" layoutY="39.0" text="昵称：" />
-                        <TextField fx:id="offlineUserCreator_Name" layoutX="76.0" layoutY="31.0" />
-                        <JFXToggleButton fx:id="offlineUserCreator_Texture" layoutX="76.0" layoutY="83.0" size="5.0" text="Steve" />
-                        <Label layoutX="24.0" layoutY="94.0" text="皮肤：" />
+                        <Label layoutX="24.0" layoutY="39.0" text="昵称："/>
+                        <TextField fx:id="offlineUserCreator_Name" layoutX="76.0" layoutY="31.0"/>
+                        <JFXToggleButton fx:id="offlineUserCreator_Texture" layoutX="76.0" layoutY="83.0" size="5.0"
+                                         text="Steve"/>
+                        <Label layoutX="24.0" layoutY="94.0" text="皮肤："/>
                     </children>
                 </Pane>
                 <Pane fx:id="onlineUserCreator" layoutX="168.0" layoutY="103.0" prefHeight="354.0" prefWidth="262.0">
                     <children>
-                        <Label layoutX="24.0" layoutY="39.0" text="邮箱：" />
-                        <TextField fx:id="onlineUserCreator_Email" layoutX="76.0" layoutY="31.0" />
-                        <PasswordField fx:id="onlineUserCreator_Password" layoutX="77.0" layoutY="86.0" />
-                        <Label layoutX="24.0" layoutY="94.0" text="密码：" />
-                        <Label layoutX="18.0" layoutY="155.0" text="服务器：" />
-                        <TextField fx:id="onlineUserCreator_Server" layoutX="76.0" layoutY="147.0" promptText="===外置登录使用===" />
+                        <Label layoutX="24.0" layoutY="39.0" text="邮箱："/>
+                        <TextField fx:id="onlineUserCreator_Email" layoutX="76.0" layoutY="31.0"/>
+                        <PasswordField fx:id="onlineUserCreator_Password" layoutX="77.0" layoutY="86.0"/>
+                        <Label layoutX="24.0" layoutY="94.0" text="密码："/>
+                        <Label layoutX="18.0" layoutY="155.0" text="服务器："/>
+                        <TextField fx:id="onlineUserCreator_Server" layoutX="76.0" layoutY="147.0"
+                                   promptText="===外置登录使用==="/>
                     </children>
                 </Pane>
-                <JFXButton fx:id="addUserButton" buttonType="RAISED" layoutX="392.0" layoutY="474.0" onAction="#addUser" text="添加账户" />
+                <JFXButton fx:id="addUserButton" buttonType="RAISED" layoutX="392.0" layoutY="474.0" onAction="#addUser"
+                           text="添加账户"/>
             </children>
         </AnchorPane>
     </content>

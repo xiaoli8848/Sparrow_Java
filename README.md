@@ -1,4 +1,5 @@
 # Sparrow
+
 基于 [JMCCC](https://github.com/to2mbn/JMCCC) 的Minecraft启动器
 
 ## 协议
@@ -18,6 +19,7 @@
 ## 快速入门
 
 ### 构建
+
 本项目为主要使用IDEA开发的Java项目，使用Maven进行依赖管理。
 
 请下载（克隆）整个仓库，并使用IDEA打开。然后使用Maven工具同步。
@@ -40,10 +42,11 @@
 ### 类 & 包 & 模块
 
 #### 包
+
 com.Sparrow为本项目包根路径。
 
 - com.Sparrow.launcher（类） 声明了启动器的快速启动游戏的方法。
-- com.Sparrow.Utils.Minecraft（类）  定义了一个类，包含Minecraft游戏路径和封装自 com.Sparrow.launcher 的启动方法和其它工具方法。
+- com.Sparrow.Utils.Minecraft（类） 定义了一个类，包含Minecraft游戏路径和封装自 com.Sparrow.launcher 的启动方法和其它工具方法。
 - com.Sparrow.Utils 存储了各工具类。
     - com.Sparrow.Utils.dialog 各类对话框（JavaFX实现）。
     - com.Sparrow.Utils.Download 封装JMCCC中的下载功能。
@@ -52,6 +55,7 @@ com.Sparrow为本项目包根路径。
     - 其下的每个包都是一个平台的GUI。并且，默认地，每个包下都会有 launcherUI 类，这其中包含程序主类，用于启动该包下的GUI平台。
 
 #### 模块
+
 Launcher：启动器核心部分，封装一些类和启动方法，以及一些UI统一要用到的工具类。每个UI模块都要包含Launcher模块。
 
 UI_H5：启动器GUI在JavaFX+HTML5下的实现，已弃用。

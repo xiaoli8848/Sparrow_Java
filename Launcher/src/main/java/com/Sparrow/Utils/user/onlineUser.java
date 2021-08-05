@@ -6,12 +6,10 @@ import org.to2mbn.jmccc.auth.yggdrasil.core.GameProfile;
 import org.to2mbn.jmccc.auth.yggdrasil.core.ProfileService;
 import org.to2mbn.jmccc.auth.yggdrasil.core.yggdrasil.YggdrasilServiceBuilder;
 
-import java.util.UUID;
-
 public class onlineUser extends user {
     private static final ProfileService PROFILE_SERVICE = YggdrasilServiceBuilder.defaultProfileService();
-    private String email;
     private final String password;
+    private String email;
     private GameProfile gameProfile;
 
     public onlineUser(String email, String password) {

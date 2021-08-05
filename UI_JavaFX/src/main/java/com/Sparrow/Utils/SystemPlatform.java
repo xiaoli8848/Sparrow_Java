@@ -10,7 +10,6 @@ package com.Sparrow.Utils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class SystemPlatform {
         try {
             image = ImageIO.read(SystemPlatform.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/imgs/icon.png"));
         } catch (IOException e) {
-            image=Toolkit.getDefaultToolkit().createImage("icon.png");
+            image = Toolkit.getDefaultToolkit().createImage("icon.png");
         }
         //Alternative (if the icon is on the classpath):
         //Image image = Toolkit.getDefaultToolkit().createImage(getClass().getResource("icon.png"));

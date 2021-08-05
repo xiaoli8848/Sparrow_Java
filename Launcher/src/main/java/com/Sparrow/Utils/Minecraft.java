@@ -14,7 +14,6 @@ import org.to2mbn.jmccc.version.Version;
 import org.to2mbn.jmccc.version.Versions;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,7 +38,7 @@ public class Minecraft {
     protected Minecraft() {
     }
 
-    public Minecraft(String path, Version version, String rootPath, ArrayList<save> saves, ArrayList<mod> mods, config config){
+    public Minecraft(String path, Version version, String rootPath, ArrayList<save> saves, ArrayList<mod> mods, config config) {
         this.path = path;
         this.version = version;
         this.rootPath = rootPath;
@@ -71,11 +70,11 @@ public class Minecraft {
         for (File s : versions) {
             Minecraft temp = new Minecraft();
             try {
-                temp.version = Versions.resolveVersion(dir,s.getName());
+                temp.version = Versions.resolveVersion(dir, s.getName());
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            temp.path = s +File.separator;
+            temp.path = s + File.separator;
             temp.rootPath = dir.getRoot().getPath();
             temp.saves = temp.getSaves(temp.getRootPath());
             temp.mods = temp.getMods(temp.getRootPath());
@@ -97,6 +96,7 @@ public class Minecraft {
 
     /**
      * 启动游戏。
+     *
      * @param launchCallback
      * @param authenticator
      * @param debugPrint

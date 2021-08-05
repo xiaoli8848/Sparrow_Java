@@ -24,12 +24,7 @@ public class offlineUser extends user {
         }
     }
 
-    public offlineUser(){
-    }
-
-    public enum textureType{
-        STEVE,
-        ALEX
+    public offlineUser() {
     }
 
     public offlineUser(String userName, textureType textureType) throws UnsupportedEncodingException {
@@ -56,5 +51,10 @@ public class offlineUser extends user {
 
     public boolean haveDefaultTexture() {
         return this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/imgs/steve.png").toString(), null)) || this.texture.equals(new Texture(getClass().getClassLoader().getResource("com/Sparrow/imgs/alex.png").toString(), null));
+    }
+
+    public enum textureType {
+        STEVE,
+        ALEX
     }
 }

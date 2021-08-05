@@ -13,9 +13,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d2dba6e9-1a3a-40fc-9aff-73f68a734a73" name="默认变更列表" comment="feat: Use TabPane as main frame instead of Pane, use item as creator instead of page_creator" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

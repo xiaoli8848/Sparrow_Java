@@ -19,7 +19,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
-import jfxtras.styles.jmetro.Style;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -31,15 +30,15 @@ public class launcherUI_JavaFX extends Application {
     public static final String VERSION_UI = "Sparrow Alpha-V0.4.0";
     public static final Font FONT_COTITLE = Font.font("DengXian", FontWeight.BOLD, 16);
     public static final String ROOTDIR = System.getProperty("user.dir") + File.separator;
-    public static Stage primaryStage;
-    public static launcherUI_JavaFX_Controller controller;
-    public static JMetro jMetro;
     /*protected static final Color COLOR_MAIN_BLUE = new Color(207,241,255,100);
     protected static final Color COLOR_MAIN_BLUE_DARK = new Color(136,166,179,70);
     protected static final Color COLOR_CO_GREEN = new Color(207,255,215,100);
     protected static final Color COLOR_CO_GREEN_DARK = new Color(136,179,143,70);
     protected static final Color COLOR_CO_PINK = new Color(255,228,220,100);*/
     private static final Logger logger = Logger.getLogger(launcherUI_JavaFX.class);
+    public static Stage primaryStage;
+    public static launcherUI_JavaFX_Controller controller;
+    public static JMetro jMetro;
 
     static {
         PropertyConfigurator.configure(launcherUI_JavaFX.class.getClassLoader().getResource("com/Sparrow/UI/JavaFX/log4j.properties"));

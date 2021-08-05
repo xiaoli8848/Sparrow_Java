@@ -19,21 +19,16 @@ import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
 import com.Sparrow.Utils.user.user;
 import com.Sparrow.launcher;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListCell;
-import com.jfoenix.controls.JFXToggleButton;
-import com.sun.javafx.scene.control.behavior.TabPaneBehavior;
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableStringValue;
-import javafx.collections.ObservableArray;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.skin.TabPaneSkin;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -172,7 +167,7 @@ public class launcherUI_JavaFX_Controller {
         fxmlLoader_userCreatorTab.setLocation(getClass().getClassLoader().getResource("com/Sparrow/UI/JavaFX/userCreatorTab.fxml"));
         try {
             userCreatorTab = fxmlLoader_userCreatorTab.load();
-            ((launcherUI_JavaFX_userCreatorTab_Controller)fxmlLoader_userCreatorTab.getController()).install();
+            ((launcherUI_JavaFX_userCreatorTab_Controller) fxmlLoader_userCreatorTab.getController()).install();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -353,6 +348,15 @@ public class launcherUI_JavaFX_Controller {
         }
     }
 
+    private void closeTab(Tab tab) {
+        EventHandler<Event> handler = tab.getOnClosed();
+        if (null != handler) {
+            handler.handle(null);
+        } else {
+            tab.getTabPane().getTabs().remove(tab);
+        }
+    }
+
     public enum tabType {
         USER_CREATOR
     }
@@ -369,15 +373,6 @@ public class launcherUI_JavaFX_Controller {
         @Override
         public String toString() {
             return state.toString();
-        }
-    }
-
-    private void closeTab(Tab tab) {
-        EventHandler<Event> handler = tab.getOnClosed();
-        if (null != handler) {
-            handler.handle(null);
-        } else {
-            tab.getTabPane().getTabs().remove(tab);
         }
     }
 }

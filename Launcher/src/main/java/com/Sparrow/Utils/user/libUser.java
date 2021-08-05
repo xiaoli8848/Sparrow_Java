@@ -12,9 +12,9 @@ import java.util.UUID;
 
 public class libUser extends user {
     private final String password;
-    private GameProfile gameProfile;
     private final ProfileService PROFILE_SERVICE;
     private final String server;
+    private GameProfile gameProfile;
 
     public libUser(String userName, String password, String server) {
         super(userName);

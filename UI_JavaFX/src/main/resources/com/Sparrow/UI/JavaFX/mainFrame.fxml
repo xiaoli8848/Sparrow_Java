@@ -33,81 +33,81 @@
 -->
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
-
-<VBox fx:id="root" prefHeight="625.0" prefWidth="700.0" style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_Controller">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="625.0" prefWidth="700.0"
+      style="-fx-border-radius: 10px 10px 0px 0px;" stylesheets="@bootstrap3.css" xmlns="http://javafx.com/javafx/16"
+      fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_Controller">
     <children>
         <Pane prefHeight="45.0" prefWidth="900.0">
             <children>
-                <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="671.0" layoutY="15.0" onMouseClicked="#closeWindow" onMouseEntered="#windowButtonActive" onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="closeButton" fitHeight="15.0" fitWidth="15.0" layoutX="671.0" layoutY="15.0"
+                           onMouseClicked="#closeWindow" onMouseEntered="#windowButtonActive"
+                           onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@imgs/WindowCloseButton.png" />
+                        <Image url="@imgs/WindowCloseButton.png"/>
                     </image>
                 </ImageView>
-                <ImageView fx:id="minisizeButton" fitHeight="15.0" fitWidth="15.0" layoutX="646.0" layoutY="15.0" onMouseClicked="#minsizeWindow" onMouseEntered="#windowButtonActive" onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="minisizeButton" fitHeight="15.0" fitWidth="15.0" layoutX="646.0" layoutY="15.0"
+                           onMouseClicked="#minsizeWindow" onMouseEntered="#windowButtonActive"
+                           onMouseExited="#windowButtonCancel" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@imgs/WindowMinsizeButton.png" />
+                        <Image url="@imgs/WindowMinsizeButton.png"/>
                     </image>
                 </ImageView>
-            <Pane layoutX="14.0" layoutY="9.0">
-               <children>
-                <Button fx:id="backButton" disable="true" mnemonicParsing="false" onAction="#back" styleClass="first" text="后退" />
-                  <Button fx:id="homeButton" disable="true" layoutX="53.0" mnemonicParsing="false" onAction="#home" styleClass="middle" text="首页" />
-               </children>
-            </Pane>
+                <Pane layoutX="14.0" layoutY="9.0">
+                    <children>
+                        <Button fx:id="backButton" disable="true" mnemonicParsing="false" onAction="#back"
+                                styleClass="first" text="后退"/>
+                        <Button fx:id="homeButton" disable="true" layoutX="53.0" mnemonicParsing="false"
+                                onAction="#home" styleClass="middle" text="首页"/>
+                    </children>
+                </Pane>
             </children>
         </Pane>
-      <Pane prefHeight="555.0" prefWidth="700.0">
-         <children>
-            <Pane fx:id="pagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="220.0" />
-            <Separator layoutX="215.0" layoutY="8.0" orientation="VERTICAL" prefHeight="540.0" prefWidth="10.0" />
-            <TabPane fx:id="tabPane" layoutX="225.0" prefHeight="555.0" prefWidth="475.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab fx:id="lunchTab" closable="false" text="启动">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <JFXButton buttonType="RAISED" layoutX="384.0" layoutY="474.0" onAction="#launch" ripplerFill="#45d026" text="启动游戏" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </Pane>
+        <Pane prefHeight="555.0" prefWidth="700.0">
+            <children>
+                <Pane fx:id="pagePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                      minWidth="-Infinity" prefHeight="555.0" prefWidth="220.0"/>
+                <Separator layoutX="215.0" layoutY="8.0" orientation="VERTICAL" prefHeight="540.0" prefWidth="10.0"/>
+                <TabPane fx:id="tabPane" layoutX="225.0" prefHeight="555.0" prefWidth="475.0"
+                         tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab fx:id="lunchTab" closable="false" text="启动">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <JFXButton buttonType="RAISED" layoutX="384.0" layoutY="474.0"
+                                                   onAction="#launch" ripplerFill="#45d026" text="启动游戏"/>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </Pane>
         <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="20.0" spacing="5.0" VBox.vgrow="NEVER">
             <padding>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
             </padding>
-            <Label fx:id="State" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="15.0" prefWidth="250.0" text="待命。" HBox.hgrow="ALWAYS">
+            <Label fx:id="State" maxHeight="1.7976931348623157E308" maxWidth="-1.0" prefHeight="15.0" prefWidth="250.0"
+                   text="待命。" HBox.hgrow="ALWAYS">
                 <font>
-                    <Font size="11.0" fx:id="x3" />
+                    <Font size="11.0" fx:id="x3"/>
                 </font>
                 <textFill>
-                    <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+                    <Color red="0.625" green="0.625" blue="0.625" fx:id="x4"/>
                 </textFill>
             </Label>
-            <Pane prefHeight="15.0" prefWidth="500.0" HBox.hgrow="ALWAYS" />
-            <Label fx:id="Version" font="$x3" maxWidth="-1.0" prefHeight="15.0" prefWidth="206.0" text="Sparrow Alpha-0.4.0" textFill="$x4" HBox.hgrow="NEVER" />
+            <Pane prefHeight="15.0" prefWidth="500.0" HBox.hgrow="ALWAYS"/>
+            <Label fx:id="Version" font="$x3" maxWidth="-1.0" prefHeight="15.0" prefWidth="206.0"
+                   text="Sparrow Alpha-0.4.0" textFill="$x4" HBox.hgrow="NEVER"/>
         </HBox>
     </children>
 </VBox>

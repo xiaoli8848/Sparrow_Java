@@ -8,11 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 
 public class launcherUI_JavaFX_userCreatorTab_Controller {
@@ -53,7 +49,7 @@ public class launcherUI_JavaFX_userCreatorTab_Controller {
     @FXML
     private JFXButton addUserButton;
 
-    public void install(){
+    public void install() {
         onlineUserCreator.setVisible(false);
         userTypeChooser.selectedToggleProperty().addListener((observableValue, toggle, t1) -> {
             if (userTypeChooser.getSelectedToggle() == onlineUserType) {

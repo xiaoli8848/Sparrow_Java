@@ -3,7 +3,6 @@ package com.Sparrow.Utils;
 import com.Sparrow.Utils.user.libUser;
 import com.Sparrow.Utils.user.offlineUser;
 import com.Sparrow.Utils.user.onlineUser;
-import com.Sparrow.launcher;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.io.FileUtils;

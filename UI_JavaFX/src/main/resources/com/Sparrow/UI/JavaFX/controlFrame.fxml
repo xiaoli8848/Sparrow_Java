@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-
 <!--
   ~ Copyright (c) 2021 Sparrow All Rights Reserved.
   ~ FileName: controlFrame.fxml
@@ -17,37 +8,52 @@
   ~ @version: 1.0
   -->
 
-<AnchorPane prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_controlFrame_Controller">
-   <children>
-      <Separator layoutX="10.0" layoutY="128.0" prefWidth="200.0" />
-      <Pane layoutX="10.0" layoutY="157.0" prefHeight="170.0" prefWidth="200.0" style="-fx-background-color: rgb(233,233,233); -fx-background-radius: 10px;">
-         <children>
-            <Label fx:id="gameVersion" alignment="CENTER" layoutX="35.0" layoutY="119.0" prefHeight="23.0" prefWidth="130.0" text="待选择" textAlignment="CENTER">
-               <font>
-                  <Font name="Microsoft YaHei Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="gameCotitle" alignment="CENTER" layoutX="58.0" layoutY="142.0" prefHeight="18.0" prefWidth="85.0" text="待选择" textFill="#7c7b7b">
-               <font>
-                  <Font name="Calibri" size="12.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="gameIcon" fitHeight="70.0" fitWidth="70.0" layoutX="65.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imgs/mc_icon.png" />
-               </image>
-            </ImageView>
-            <ComboBox fx:id="versionList" layoutX="25.0" layoutY="90.0" prefWidth="150.0" />
-         </children>
-      </Pane>
-      <Pane layoutX="10.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgb(233,233,233); -fx-background-radius: 10px;">
-         <children>
-            <ImageView fx:id="headTexture" fitHeight="50.0" fitWidth="50.0" layoutX="75.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../../../Launcher/src/main/resources/com/Sparrow/imgs/Steve_Head.png" />
-               </image></ImageView>
-            <ComboBox fx:id="characterChooser" layoutX="10.0" layoutY="65.0" onAction="#flushImage" prefHeight="30.0" prefWidth="181.0" />
-         </children>
-      </Pane>
-   </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="555.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/16"
+            fx:controller="com.Sparrow.UI.JavaFX.controller.launcherUI_JavaFX_controlFrame_Controller">
+    <children>
+        <Separator layoutX="10.0" layoutY="128.0" prefWidth="200.0"/>
+        <Pane layoutX="10.0" layoutY="157.0" prefHeight="170.0" prefWidth="200.0"
+              style="-fx-background-color: rgb(233,233,233); -fx-background-radius: 10px;">
+            <children>
+                <Label fx:id="gameVersion" alignment="CENTER" layoutX="35.0" layoutY="119.0" prefHeight="23.0"
+                       prefWidth="130.0" text="待选择" textAlignment="CENTER">
+                    <font>
+                        <Font name="Microsoft YaHei Bold" size="17.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="gameCotitle" alignment="CENTER" layoutX="58.0" layoutY="142.0" prefHeight="18.0"
+                       prefWidth="85.0" text="待选择" textFill="#7c7b7b">
+                    <font>
+                        <Font name="Calibri" size="12.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="gameIcon" fitHeight="70.0" fitWidth="70.0" layoutX="65.0" layoutY="11.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@imgs/mc_icon.png"/>
+                    </image>
+                </ImageView>
+                <ComboBox fx:id="versionList" layoutX="25.0" layoutY="90.0" prefWidth="150.0"/>
+            </children>
+        </Pane>
+        <Pane layoutX="10.0" layoutY="14.0" prefHeight="100.0" prefWidth="200.0"
+              style="-fx-background-color: rgb(233,233,233); -fx-background-radius: 10px;">
+            <children>
+                <ImageView fx:id="headTexture" fitHeight="50.0" fitWidth="50.0" layoutX="75.0" layoutY="6.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../../../../../../Launcher/src/main/resources/com/Sparrow/imgs/Steve_Head.png"/>
+                    </image>
+                </ImageView>
+                <ComboBox fx:id="characterChooser" layoutX="10.0" layoutY="65.0" onAction="#flushImage"
+                          prefHeight="30.0" prefWidth="181.0"/>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

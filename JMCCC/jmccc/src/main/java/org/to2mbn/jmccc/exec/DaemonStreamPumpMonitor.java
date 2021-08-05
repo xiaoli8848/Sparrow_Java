@@ -8,45 +8,45 @@ import java.util.concurrent.ThreadFactory;
 
 public class DaemonStreamPumpMonitor extends ProcessMonitor {
 
-	private static class StreamPump implements Runnable {
+    public DaemonStreamPumpMonitor(Process process) {
+        super(process, new ThreadFactory() {
 
-		private InputStream in;
+            @Override
+            public Thread newThread(Runnable r) {
+                Thread t = new Thread(r, "process-daemon-monitor-" + r);
+                t.setDaemon(true);
+                return t;
+            }
+        });
+    }
 
-		public StreamPump(InputStream in) {
-			this.in = in;
-		}
+    @Override
+    protected Collection<? extends Runnable> createMonitors() {
+        return Arrays.asList(new StreamPump(process.getErrorStream()), new StreamPump(process.getInputStream()));
+    }
 
-		@Override
-		public void run() {
-			while (!Thread.interrupted()) {
-				try {
-					if (in.read() == -1) {
-						break;
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					break;
-				}
-			}
-		}
+    private static class StreamPump implements Runnable {
 
-	}
+        private InputStream in;
 
-	public DaemonStreamPumpMonitor(Process process) {
-		super(process, new ThreadFactory() {
+        public StreamPump(InputStream in) {
+            this.in = in;
+        }
 
-			@Override
-			public Thread newThread(Runnable r) {
-				Thread t = new Thread(r, "process-daemon-monitor-" + r);
-				t.setDaemon(true);
-				return t;
-			}
-		});
-	}
+        @Override
+        public void run() {
+            while (!Thread.interrupted()) {
+                try {
+                    if (in.read() == -1) {
+                        break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    break;
+                }
+            }
+        }
 
-	@Override
-	protected Collection<? extends Runnable> createMonitors() {
-		return Arrays.asList(new StreamPump(process.getErrorStream()), new StreamPump(process.getInputStream()));
-	}
+    }
 
 }

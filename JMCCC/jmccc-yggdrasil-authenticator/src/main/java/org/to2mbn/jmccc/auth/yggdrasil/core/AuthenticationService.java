@@ -1,22 +1,23 @@
 package org.to2mbn.jmccc.auth.yggdrasil.core;
 
-import java.util.UUID;
 import org.to2mbn.jmccc.auth.AuthenticationException;
+
+import java.util.UUID;
 
 public interface AuthenticationService {
 
-	Session login(String username, String password, String clientToken) throws AuthenticationException;
+    Session login(String username, String password, String clientToken) throws AuthenticationException;
 
-	Session refresh(String clientToken, String accessToken) throws AuthenticationException;
+    Session refresh(String clientToken, String accessToken) throws AuthenticationException;
 
-	Session selectProfile(String clientToken, String accessToken, UUID profile) throws AuthenticationException;
+    Session selectProfile(String clientToken, String accessToken, UUID profile) throws AuthenticationException;
 
-	boolean validate(String accessToken) throws AuthenticationException;
+    boolean validate(String accessToken) throws AuthenticationException;
 
-	boolean validate(String clientToken, String accessToken) throws AuthenticationException;
+    boolean validate(String clientToken, String accessToken) throws AuthenticationException;
 
-	void invalidate(String clientToken, String accessToken) throws AuthenticationException;
+    void invalidate(String clientToken, String accessToken) throws AuthenticationException;
 
-	void signout(String username, String password) throws AuthenticationException;
+    void signout(String username, String password) throws AuthenticationException;
 
 }

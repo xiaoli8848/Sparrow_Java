@@ -12,7 +12,10 @@ public abstract class user {
         setUserName(userName);
     }
 
-    user(){};
+    user() {
+    }
+
+    ;
 
     public String getUserName() {
         return userName;

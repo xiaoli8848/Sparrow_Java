@@ -109,7 +109,7 @@ public class launcher {
     public static void main(String[] args) {
         switch (Integer.parseInt(args[0])) {
             case 0: //离线登录
-                if(args.length == 11)
+                if (args.length == 11)
                     launch_offline(
                             args[1],    //游戏路径
                             args[2],

@@ -21,19 +21,19 @@ public class mod extends File {
         return modName;
     }
 
-    public void setDisabled(boolean disabled) {
-        if(disabled){
-            if(this.getName().substring(this.getName().lastIndexOf(".") + 1) == "jar"){
-                this.disabled = this.renameTo(new File(this.toString().substring(0,this.toString().lastIndexOf("."))+".DISABLED"));
-            }
-        }else{
-            if(this.getName().substring(this.getName().lastIndexOf(".") + 1) != "jar"){
-                this.disabled = this.renameTo(new File(this.toString().substring(0,this.toString().lastIndexOf("."))+".JAR"));
-            }
-        }
-    }
-
     public boolean isDisabled() {
         return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        if (disabled) {
+            if (this.getName().substring(this.getName().lastIndexOf(".") + 1) == "jar") {
+                this.disabled = this.renameTo(new File(this.toString().substring(0, this.toString().lastIndexOf(".")) + ".DISABLED"));
+            }
+        } else {
+            if (this.getName().substring(this.getName().lastIndexOf(".") + 1) != "jar") {
+                this.disabled = this.renameTo(new File(this.toString().substring(0, this.toString().lastIndexOf(".")) + ".JAR"));
+            }
+        }
     }
 }
